@@ -1,0 +1,28 @@
+os: linux
+dist: bionic
+language: java
+jdk: openjdk11
+jobs:
+  include:
+  - stage: Tests
+    script: "./gradlew clean check"
+  - stage: Build
+    script: "./gradlew clean build"
+  - stage: GitHub Release
+    script: "./gradlew clean jar"
+    deploy:
+      provider: releases
+      api_key: $GITHUB_TOKEN
+      file: build/libs/pizzeria-0.0.1-SNAPSHOT.jar
+      skip_cleanup: true
+      on:
+        branch: master
+  - stage: Deploy Heroku
+    deploy:
+      provider: heroku
+      api_key:
+        secure: Fop2JCGPyWzbqO3Osy2HwWttTmkw/fNar409DbYqQxmFk/SoSX95pDn/+J1sjV5dmWGynykIKKrMmihDkscRR/uk9t+3Y25ZbmtYAkAlc55IhUzozjSlASzSC0URG22+5pkmheIaTRbXPQU8KspS9aHhWonpsNN16WBXmFI1KzmtUiOGLz3aFrB8r1JxQOL8EhSBJCTe9QbngR4X8G8R/5+aHB34lTvfJdpAfFP2A4GaZk+Z0jz79tQ7QlYBG9AypZTM4lENq3ZSaGrJkHiSKJ+pRxpFwV1CoTq9vFtEb1RJJBHK7bwJLx+HzAy18BUgF1uzAmxtC7Tq6UZ5kCYTOeO68d2X1JO/Dh6P/HNopplui6OnIsqMCM2JTckbMKs/a24PGj+VwRF5VxHcA8fnwnStBqGP+7x9S/r3nqdzfxEmDsAqDq5lKZsPVJhBwUJzGg4NpMyniREYEoXUZKugWCETxrsNkMZPyxF1Lt/XfoXqZsZSNlLg6A1+oVW6a4J7bwnrCtxXdc/hWrjsiMHnAIbJI75WpQsMdjlwjcQfj/rXxhij8+mA35DVwMgCAmCEmcDySrMAER3WYxs2kFeMNwMRcJzPhI5Z8IPhKAGYVpUzhPzrjXUOknKJbHbO011aGKESkqvsCjkfkmwFM5McDF8TZOKV8Ui+he2zwScToP8=
+      app: Pizzeria-Backend
+      on:
+        branch: master
+        repo: Burdzi0/Pizzeria-Backend

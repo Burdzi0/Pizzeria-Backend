@@ -2,6 +2,15 @@ os: linux
 dist: bionic
 language: java
 jdk: openjdk11
+
+stages:
+  - Tests
+  - Build
+  - name: GitHub Release
+    if: branch = master
+  - name: Deploy Heroku
+    if: branch = master
+
 jobs:
   include:
   - stage: Tests

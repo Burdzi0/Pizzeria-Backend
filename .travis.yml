@@ -9,7 +9,7 @@ stages:
   - name: GitHub Release
     if: branch = master
   - name: Deploy Heroku
-    if: branch = master
+    if: branch = development
 
 jobs:
   include:

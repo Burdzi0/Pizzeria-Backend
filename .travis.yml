@@ -33,5 +33,5 @@ jobs:
         secure: QDejbr0HtKssTOKoLwOrX/CJsA/A62+8im9WpBrGnVj/L7fpULCv7gsIOFRSiDXvEZ+ybk55Ps6kJk3Bi+qZKxSBuQXxTC58QgneCB2lKPRQ9VtNLHfUBr2AXT/TFfyVSJvny1+5ject3RkKs1kQJQvhZ1ZOf5ZQmnRYbSbiUhyS86axuv/29PwtxbojeGGFWaxNCktN4hiJJYjtrEbJeTXlmVPC71g1EUnM0qNcu4ihunWUiW5x//RY6NDxIaPYtzIJLmVRmxncQF5+NfveU4+N7uSSb4CL3N2qloJjbg/+sbexiOR0ZzVGSuU+oTMiZlh9jNys9EBuQceesbS5r1miXSQ4x0LUFxgoKulRRj1TaV0x+t3QSvsusRXdwwel7S/Y+bcnaMMlAJ057TxZlmZZqW8p9B0ZTlN7YbTT/NEQEwD2x5ufRUzWqfEeKWB3sc2DrDWNjeBmvX7/7O5XHz/vluZociEZU78EJ4zSnmd3UZpDI3kUf7DQqUOfjtT93yax3phhQ0aPBUim93iUdDRrEiXG+XutpwhokaosL7n6/HSG9zEd59wMfADBizGfY5S3nKEqn+fJ7uU7l4faoVxYFW6Ur+lhl8GuINj5Vpuri+yB2Z0Z9i4JQ8OORXjxwpd/cvQ0YCaIJfGtcNRuNLs8DCGQgQf23+sFjzMv2HY=
       app: pizzeria-backend-zpi
       on:
-        branch: master
+        branch: development
         repo: Burdzi0/Pizzeria-Backend

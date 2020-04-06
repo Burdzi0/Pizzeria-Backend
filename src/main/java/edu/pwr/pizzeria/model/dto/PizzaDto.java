@@ -10,16 +10,20 @@ import java.util.List;
 
 public class PizzaDto {
 
+    private final int id;
     private final String typeName;
     private final List<Ingredient> ingredients;
     private final int diameter;
     private final PizzaCrust crust;
 
     @JsonCreator
-    public PizzaDto(@JsonProperty("typeName") String typeName,
+    public PizzaDto(@JsonProperty("id") int id,
+                    @JsonProperty("typeName") String typeName,
                     @JsonProperty("ingredients") List<Ingredient> ingredients,
                     @JsonProperty("diameter") int diameter,
                     @JsonProperty("crust") PizzaCrust crust) {
+
+        this.id = id;
         this.typeName = typeName;
         this.ingredients = ingredients;
         this.diameter = diameter;
@@ -27,10 +31,15 @@ public class PizzaDto {
     }
 
     public static PizzaDto toDto(Pizza pizza) {
-        return new PizzaDto(pizza.getTypeName(),
+        return new PizzaDto(pizza.getId(),
+                pizza.getTypeName(),
                 pizza.getIngredients(),
                 pizza.getDiameter(),
                 pizza.getCrust());
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getTypeName() {

@@ -1,4 +1,4 @@
-package model;
+package edu.pwr.pizzeria.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,6 +25,14 @@ public class Ingredient {
         this.quantity = quantity;
         this.price = price;
         this.ifAllergen = ifAllergen;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

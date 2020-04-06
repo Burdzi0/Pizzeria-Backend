@@ -2,7 +2,6 @@ package edu.pwr.pizzeria.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import edu.pwr.pizzeria.model.Ingredient;
 import edu.pwr.pizzeria.model.Pizza;
 import edu.pwr.pizzeria.model.PizzaCrust;
 

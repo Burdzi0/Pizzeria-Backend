@@ -20,6 +20,22 @@ public class Ingredient {
     public Ingredient() {
     }
 
+
+    public Ingredient(String name, int quantity, BigDecimal price, boolean ifAllergen) {
+        this.name = name;
+        this.quantity = quantity;
+        this.price = price;
+        this.ifAllergen = ifAllergen;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }

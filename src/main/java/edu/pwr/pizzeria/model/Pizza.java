@@ -10,12 +10,23 @@ public class Pizza {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String typeName;
+
     @OneToMany
     private List<Ingredient> ingredients;
     private int diameter;
+
+    @Enumerated(EnumType.STRING)
     private PizzaCrust crust;
 
     public Pizza() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTypeName() {

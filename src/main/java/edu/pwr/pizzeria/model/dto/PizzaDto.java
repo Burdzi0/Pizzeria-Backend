@@ -6,13 +6,11 @@ import edu.pwr.pizzeria.model.Ingredient;
 import edu.pwr.pizzeria.model.Pizza;
 import edu.pwr.pizzeria.model.PizzaCrust;
 
-import javax.persistence.OneToMany;
 import java.util.List;
 
 public class PizzaDto {
 
     private final String typeName;
-    @OneToMany
     private final List<Ingredient> ingredients;
     private final int diameter;
     private final PizzaCrust crust;

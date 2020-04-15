@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import edu.pwr.pizzeria.model.Ingredient;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class IngredientDto {
 
@@ -52,5 +53,33 @@ public class IngredientDto {
 
     public boolean isIfAllergen() {
         return ifAllergen;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        IngredientDto that = (IngredientDto) o;
+        return id == that.id &&
+                quantity == that.quantity &&
+                ifAllergen == that.ifAllergen &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(price, that.price);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, quantity, price, ifAllergen);
+    }
+
+    @Override
+    public String toString() {
+        return "IngredientDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", quantity=" + quantity +
+                ", price=" + price +
+                ", ifAllergen=" + ifAllergen +
+                '}';
     }
 }

@@ -1,18 +1,16 @@
 package edu.pwr.pizzeria.exception;
 
-import edu.pwr.pizzeria.service.IngredientNotFoundException;
-import edu.pwr.pizzeria.service.PizzaNotFoundException;
+import edu.pwr.pizzeria.service.ingredient.IngredientNotFoundException;
+import edu.pwr.pizzeria.service.pizza.PizzaNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
 
 @ControllerAdvice
 public class ModelExceptions {

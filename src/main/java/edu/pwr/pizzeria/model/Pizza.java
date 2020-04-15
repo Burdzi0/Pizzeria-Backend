@@ -1,4 +1,4 @@
-package model;
+package edu.pwr.pizzeria.model;
 
 import javax.persistence.*;
 import java.util.List;

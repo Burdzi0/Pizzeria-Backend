@@ -1,4 +1,4 @@
-package model;
+package edu.pwr.pizzeria.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,13 +18,6 @@ public class Ingredient {
     private boolean ifAllergen;
 
     public Ingredient() {
-    }
-
-    public Ingredient(String name, int quantity, BigDecimal price, boolean ifAllergen) {
-        this.name = name;
-        this.quantity = quantity;
-        this.price = price;
-        this.ifAllergen = ifAllergen;
     }
 
     public String getName() {

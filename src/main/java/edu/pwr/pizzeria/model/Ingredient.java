@@ -10,7 +10,8 @@ import java.util.Objects;
 @Entity
 public class Ingredient {
 
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String name;
     private int quantity;

@@ -7,11 +7,13 @@ import java.util.Objects;
 @Entity
 public class Pizza {
 
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String typeName;
 
-    @OneToMany
+
+    @OneToMany(cascade = CascadeType.PERSIST)
     private List<Ingredient> ingredients;
     private int diameter;
 

@@ -21,7 +21,6 @@ public class Ingredient {
     public Ingredient() {
     }
 
-
     public Ingredient(String name, int quantity, BigDecimal price, boolean ifAllergen) {
         this.name = name;
         this.quantity = quantity;

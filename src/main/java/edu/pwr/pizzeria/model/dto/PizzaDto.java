@@ -10,7 +10,6 @@ import java.util.List;
 
 public class PizzaDto {
 
-
     private final int id;
     private final String typeName;
     private final List<Ingredient> ingredients;
@@ -18,7 +17,6 @@ public class PizzaDto {
     private final PizzaCrust crust;
 
     @JsonCreator
-
     public PizzaDto(@JsonProperty("id") int id,
                     @JsonProperty("typeName") String typeName,
                     @JsonProperty("ingredients") List<Ingredient> ingredients,
@@ -40,7 +38,6 @@ public class PizzaDto {
                 pizza.getDiameter(),
                 pizza.getCrust());
     }
-
 
     public int getId() {
         return id;

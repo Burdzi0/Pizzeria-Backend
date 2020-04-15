@@ -12,7 +12,6 @@ public class Pizza {
     private int id;
     private String typeName;
 
-
     @OneToMany(cascade = CascadeType.PERSIST)
     private List<Ingredient> ingredients;
     private int diameter;

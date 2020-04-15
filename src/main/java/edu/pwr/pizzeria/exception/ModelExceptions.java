@@ -1,5 +1,6 @@
 package edu.pwr.pizzeria.exception;
 
+import edu.pwr.pizzeria.service.IngredientNotFoundException;
 import edu.pwr.pizzeria.service.PizzaNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,12 @@ public class ModelExceptions {
     @ResponseBody
     @ExceptionHandler(value = PizzaNotFoundException.class)
     public ResponseEntity<StandardException> pizzaNotFoundException(HttpServletRequest req, PizzaNotFoundException ex) {
+        return exception(req, ex, HttpStatus.NOT_FOUND);
+    }
+
+    @ResponseBody
+    @ExceptionHandler(value = IngredientNotFoundException.class)
+    public ResponseEntity<StandardException> ingredientNotFoundException(HttpServletRequest req, IngredientNotFoundException ex) {
         return exception(req, ex, HttpStatus.NOT_FOUND);
     }
 

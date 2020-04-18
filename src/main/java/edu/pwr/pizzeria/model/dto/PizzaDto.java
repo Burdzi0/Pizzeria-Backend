@@ -2,9 +2,9 @@ package edu.pwr.pizzeria.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import edu.pwr.pizzeria.model.Ingredient;
 import edu.pwr.pizzeria.model.Pizza;
 import edu.pwr.pizzeria.model.PizzaCrust;
+import edu.pwr.pizzeria.model.PizzaIngredient;
 
 import java.util.List;
 
@@ -12,14 +12,14 @@ public class PizzaDto {
 
     private final int id;
     private final String typeName;
-    private final List<Ingredient> ingredients;
+    private final List<PizzaIngredient> ingredients;
     private final int diameter;
     private final PizzaCrust crust;
 
     @JsonCreator
     public PizzaDto(@JsonProperty("id") int id,
                     @JsonProperty("typeName") String typeName,
-                    @JsonProperty("ingredients") List<Ingredient> ingredients,
+                    @JsonProperty("ingredients") List<PizzaIngredient> ingredients,
                     @JsonProperty("diameter") int diameter,
                     @JsonProperty("crust") PizzaCrust crust) {
 
@@ -34,7 +34,7 @@ public class PizzaDto {
 
         return new PizzaDto(pizza.getId(),
                 pizza.getTypeName(),
-                pizza.getIngredients(),
+                pizza.getPizzaIngredients(),
                 pizza.getDiameter(),
                 pizza.getCrust());
     }
@@ -47,7 +47,7 @@ public class PizzaDto {
         return typeName;
     }
 
-    public List<Ingredient> getIngredients() {
+    public List<PizzaIngredient> getPizzaIngredients() {
         return ingredients;
     }
 

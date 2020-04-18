@@ -13,6 +13,14 @@ public class PizzaIngredient {
     private Ingredient ingredient;
     private int quantity;
 
+    public PizzaIngredient() {
+    }
+
+    public PizzaIngredient(Ingredient ingredient, int quantity){
+        this.ingredient = ingredient;
+        this.quantity = quantity;
+    }
+
     public int getId() {
         return id;
     }

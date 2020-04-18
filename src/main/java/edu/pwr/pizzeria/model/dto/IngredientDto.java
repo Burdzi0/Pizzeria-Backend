@@ -9,19 +9,16 @@ public class IngredientDto {
 
     private final int id;
     private final String name;
-    private final int quantity;
     private final BigDecimal price;
     private final boolean ifAllergen;
 
     @JsonCreator
     public IngredientDto(@JsonProperty("id") int id,
                          @JsonProperty("name") String name,
-                         @JsonProperty("qunatity") int quantity,
                          @JsonProperty("price") BigDecimal price,
                          @JsonProperty("ifAllergen") boolean ifAllergen) {
         this.id = id;
         this.name = name;
-        this.quantity = quantity;
         this.price = price;
         this.ifAllergen = ifAllergen;
     }
@@ -29,7 +26,6 @@ public class IngredientDto {
     public static IngredientDto toDto(Ingredient ingredient) {
         return new IngredientDto(ingredient.getId(),
                 ingredient.getName(),
-                ingredient.getQuantity(),
                 ingredient.getPrice(),
                 ingredient.isIfAllergen());
     }
@@ -40,10 +36,6 @@ public class IngredientDto {
 
     public String getName() {
         return name;
-    }
-
-    public int getQuantity() {
-        return quantity;
     }
 
     public BigDecimal getPrice() {

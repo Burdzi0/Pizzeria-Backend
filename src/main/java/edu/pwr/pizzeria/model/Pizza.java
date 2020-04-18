@@ -13,7 +13,7 @@ public class Pizza {
     private String typeName;
 
     @OneToMany(cascade = CascadeType.PERSIST)
-    private List<Ingredient> ingredients;
+    private List<PizzaIngredient> ingredients;
     private int diameter;
 
     @Enumerated(EnumType.STRING)
@@ -38,11 +38,11 @@ public class Pizza {
         this.typeName = typeName;
     }
 
-    public List<Ingredient> getIngredients() {
+    public List<PizzaIngredient> getPizzaIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<Ingredient> ingredients) {
+    public void setPizzaIngredients(List<PizzaIngredient> ingredients) {
         this.ingredients = ingredients;
     }
 

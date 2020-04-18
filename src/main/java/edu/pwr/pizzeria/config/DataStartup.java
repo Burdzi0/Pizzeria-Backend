@@ -3,6 +3,7 @@ package edu.pwr.pizzeria.config;
 import edu.pwr.pizzeria.model.Ingredient;
 import edu.pwr.pizzeria.model.Pizza;
 import edu.pwr.pizzeria.model.PizzaCrust;
+import edu.pwr.pizzeria.model.PizzaIngredient;
 import edu.pwr.pizzeria.repository.PizzaRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -24,14 +25,14 @@ public class DataStartup implements CommandLineRunner {
         Pizza pizza = new Pizza();
         pizza.setCrust(PizzaCrust.THICK);
         pizza.setDiameter(30);
-        pizza.setPizzaIngredients(List.of(new Ingredient("Cheese", 1, BigDecimal.valueOf(4.5d), true)));
+        pizza.setPizzaIngredients(List.of(new PizzaIngredient(new Ingredient("Cheese", BigDecimal.valueOf(4.5d), true), 1)));
         pizza.setTypeName("Test");
         pizzaRepository.save(pizza);
 
         Pizza pizza1 = new Pizza();
         pizza1.setCrust(PizzaCrust.THICK);
         pizza1.setDiameter(45);
-        pizza1.setPizzaIngredients(List.of(new Ingredient("Ham", 1, BigDecimal.valueOf(4.5d), false)));
+        pizza1.setPizzaIngredients(List.of(new PizzaIngredient(new Ingredient("Ham", BigDecimal.valueOf(4.5d), false), 1)));
         pizza1.setTypeName("Test1");
         pizzaRepository.save(pizza1);
     }

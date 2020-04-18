@@ -14,16 +14,14 @@ public class Ingredient {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String name;
-    private int quantity;
     private BigDecimal price;
     private boolean ifAllergen;
 
     public Ingredient() {
     }
 
-    public Ingredient(String name, int quantity, BigDecimal price, boolean ifAllergen) {
+    public Ingredient(String name, BigDecimal price, boolean ifAllergen) {
         this.name = name;
-        this.quantity = quantity;
         this.price = price;
         this.ifAllergen = ifAllergen;
     }
@@ -42,14 +40,6 @@ public class Ingredient {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
     }
 
     public BigDecimal getPrice() {
@@ -73,7 +63,6 @@ public class Ingredient {
         return "Ingredient{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", quantity=" + quantity +
                 ", price=" + price +
                 ", ifAllergen=" + ifAllergen +
                 '}';
@@ -85,7 +74,6 @@ public class Ingredient {
         if (o == null || getClass() != o.getClass()) return false;
         Ingredient that = (Ingredient) o;
         return id == that.id &&
-                quantity == that.quantity &&
                 ifAllergen == that.ifAllergen &&
                 name.equals(that.name) &&
                 price.equals(that.price);
@@ -93,6 +81,6 @@ public class Ingredient {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, quantity, price, ifAllergen);
+        return Objects.hash(id, name, price, ifAllergen);
     }
 }

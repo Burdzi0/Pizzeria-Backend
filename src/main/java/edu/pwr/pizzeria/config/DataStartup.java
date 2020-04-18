@@ -24,14 +24,14 @@ public class DataStartup implements CommandLineRunner {
         Pizza pizza = new Pizza();
         pizza.setCrust(PizzaCrust.THICK);
         pizza.setDiameter(30);
-        pizza.setIngredients(List.of(new Ingredient("Cheese", 1, BigDecimal.valueOf(4.5d), true)));
+        pizza.setPizzaIngredients(List.of(new Ingredient("Cheese", 1, BigDecimal.valueOf(4.5d), true)));
         pizza.setTypeName("Test");
         pizzaRepository.save(pizza);
 
         Pizza pizza1 = new Pizza();
         pizza1.setCrust(PizzaCrust.THICK);
         pizza1.setDiameter(45);
-        pizza1.setIngredients(List.of(new Ingredient("Ham", 1, BigDecimal.valueOf(4.5d), false)));
+        pizza1.setPizzaIngredients(List.of(new Ingredient("Ham", 1, BigDecimal.valueOf(4.5d), false)));
         pizza1.setTypeName("Test1");
         pizzaRepository.save(pizza1);
     }

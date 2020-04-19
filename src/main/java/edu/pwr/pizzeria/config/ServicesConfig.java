@@ -21,7 +21,7 @@ public class ServicesConfig {
 
     @Bean
     public SendGrid sendGrid(@Value("${sendgrid.apikey}") String apiKey) {
-        return new SendGrid(apiKey, true);
+        return new SendGrid(apiKey, false);
     }
 
     @Bean

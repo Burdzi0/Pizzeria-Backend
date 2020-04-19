@@ -35,7 +35,7 @@ public class SendGridMailService implements MailService {
         try {
             request.setBody(mail.build());
             Response response = this.sendGrid.api(request);
-            return response.getStatusCode() == 200;
+            return response.getStatusCode() == 202;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

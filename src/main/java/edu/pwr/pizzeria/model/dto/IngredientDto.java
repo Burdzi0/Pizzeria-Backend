@@ -53,7 +53,6 @@ public class IngredientDto {
         if (o == null || getClass() != o.getClass()) return false;
         IngredientDto that = (IngredientDto) o;
         return id == that.id &&
-                quantity == that.quantity &&
                 ifAllergen == that.ifAllergen &&
                 Objects.equals(name, that.name) &&
                 Objects.equals(price, that.price);
@@ -61,7 +60,7 @@ public class IngredientDto {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, quantity, price, ifAllergen);
+        return Objects.hash(id, name, price, ifAllergen);
     }
 
     @Override
@@ -69,7 +68,6 @@ public class IngredientDto {
         return "IngredientDto{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", quantity=" + quantity +
                 ", price=" + price +
                 ", ifAllergen=" + ifAllergen +
                 '}';

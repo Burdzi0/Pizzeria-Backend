@@ -7,19 +7,20 @@ import edu.pwr.pizzeria.model.PizzaCrust;
 import edu.pwr.pizzeria.model.PizzaIngredient;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PizzaDto {
 
     private final int id;
     private final String typeName;
-    private final List<PizzaIngredient> ingredients;
+    private final List<PizzaIngredientDto> ingredients;
     private final int diameter;
     private final PizzaCrust crust;
 
     @JsonCreator
     public PizzaDto(@JsonProperty("id") int id,
                     @JsonProperty("typeName") String typeName,
-                    @JsonProperty("ingredients") List<PizzaIngredient> ingredients,
+                    @JsonProperty("ingredients") List<PizzaIngredientDto> ingredients,
                     @JsonProperty("diameter") int diameter,
                     @JsonProperty("crust") PizzaCrust crust) {
 
@@ -33,7 +34,7 @@ public class PizzaDto {
     public static PizzaDto toDto(Pizza pizza) {
         return new PizzaDto(pizza.getId(),
                 pizza.getTypeName(),
-                pizza.getPizzaIngredients(),
+                pizzaIngredientsToDto(pizza.getPizzaIngredients()),
                 pizza.getDiameter(),
                 pizza.getCrust());
     }
@@ -46,7 +47,7 @@ public class PizzaDto {
         return typeName;
     }
 
-    public List<PizzaIngredient> getPizzaIngredients() {
+    public List<PizzaIngredientDto> getPizzaIngredients() {
         return ingredients;
     }
 
@@ -56,5 +57,12 @@ public class PizzaDto {
 
     public PizzaCrust getCrust() {
         return crust;
+    }
+
+    private static List<PizzaIngredientDto> pizzaIngredientsToDto(List<PizzaIngredient> pizzaIngredients){
+        return pizzaIngredients
+                .stream()
+                .map(PizzaIngredientDto::toDto)
+                .collect(Collectors.toList());
     }
 }

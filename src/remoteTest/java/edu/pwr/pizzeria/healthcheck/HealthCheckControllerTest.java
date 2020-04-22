@@ -1,17 +1,12 @@
 package edu.pwr.pizzeria.healthcheck;
 
+import edu.pwr.pizzeria.ClientBasedTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.cloud.openfeign.EnableFeignClients;
-
-import java.time.ZoneId;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
-@EnableFeignClients
-class HealthCheckControllerTest {
+class HealthCheckControllerTest extends ClientBasedTest {
 
     @Autowired
     private HealthCheckClient healthCheckClient;
@@ -21,6 +16,5 @@ class HealthCheckControllerTest {
         final var healthCheck = healthCheckClient.healthCheck();
         assertThat(healthCheck).isNotNull();
         assertThat(healthCheck.getStatus()).isEqualTo(HealthStatus.HEALTHY);
-        assertThat(healthCheck.getTime().getZone()).isEqualTo(ZoneId.of("Europe/Warsaw"));
     }
 }

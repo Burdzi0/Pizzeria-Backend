@@ -1,4 +1,4 @@
-package edu.pwr.pizzeria.service;
+package edu.pwr.pizzeria.service.pizza;
 
 public class PizzaNotFoundException extends RuntimeException {
 

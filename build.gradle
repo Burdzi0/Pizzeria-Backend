@@ -44,6 +44,9 @@ dependencies {
     compile 'io.springfox:springfox-swagger2:2.9.2'
     compile 'io.springfox:springfox-swagger-ui:2.9.2'
 
+    compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.6.0'
+    compile 'com.sendgrid:sendgrid-java:4.4.8'
+
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'org.postgresql:postgresql'

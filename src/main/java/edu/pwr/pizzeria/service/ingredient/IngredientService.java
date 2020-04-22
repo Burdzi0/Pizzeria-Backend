@@ -1,4 +1,4 @@
-package edu.pwr.pizzeria.service;
+package edu.pwr.pizzeria.service.ingredient;
 
 import edu.pwr.pizzeria.model.dto.IngredientDto;
 import edu.pwr.pizzeria.repository.IngredientRepository;

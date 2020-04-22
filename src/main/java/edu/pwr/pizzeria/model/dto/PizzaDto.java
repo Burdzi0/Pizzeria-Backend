@@ -12,14 +12,14 @@ public class PizzaDto {
 
     private final int id;
     private final String typeName;
-    private final List<PizzaIngredientDto> ingredients;
+    private final List<PizzaIngredient> ingredients;
     private final int diameter;
     private final PizzaCrust crust;
 
     @JsonCreator
     public PizzaDto(@JsonProperty("id") int id,
                     @JsonProperty("typeName") String typeName,
-                    @JsonProperty("ingredients") List<PizzaIngredientDto> ingredients,
+                    @JsonProperty("ingredients") List<PizzaIngredient> ingredients,
                     @JsonProperty("diameter") int diameter,
                     @JsonProperty("crust") PizzaCrust crust) {
 
@@ -46,7 +46,7 @@ public class PizzaDto {
         return typeName;
     }
 
-    public List<PizzaIngredientDto> getPizzaIngredientDtos() {
+    public List<PizzaIngredient> getPizzaIngredients() {
         return ingredients;
     }
 

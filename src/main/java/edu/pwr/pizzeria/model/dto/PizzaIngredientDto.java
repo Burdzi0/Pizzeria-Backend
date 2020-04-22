@@ -2,10 +2,6 @@ package edu.pwr.pizzeria.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-<<<<<<< HEAD
-import edu.pwr.pizzeria.model.Ingredient;
-=======
->>>>>>> b34fd8a178299ea81edd665113315b01e0b68b6e
 import edu.pwr.pizzeria.model.PizzaIngredient;
 
 public class PizzaIngredientDto {

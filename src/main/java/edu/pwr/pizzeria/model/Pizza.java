@@ -1,6 +1,7 @@
 package edu.pwr.pizzeria.model;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,6 +15,7 @@ public class Pizza {
 
     @OneToMany(cascade = CascadeType.PERSIST)
     private List<PizzaIngredient> ingredients;
+    private BigDecimal price;
     private int diameter;
 
     @Enumerated(EnumType.STRING)
@@ -46,6 +48,22 @@ public class Pizza {
         this.ingredients = ingredients;
     }
 
+    public List<PizzaIngredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(List<PizzaIngredient> ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
     public int getDiameter() {
         return diameter;
     }
@@ -71,12 +89,13 @@ public class Pizza {
                 diameter == pizza.diameter &&
                 typeName.equals(pizza.typeName) &&
                 ingredients.equals(pizza.ingredients) &&
-                Objects.equals(crust, pizza.crust);
+                Objects.equals(price, pizza.price) &&
+                crust == pizza.crust;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, typeName, ingredients, diameter, crust);
+        return Objects.hash(id, typeName, ingredients, price, diameter, crust);
     }
 
     @Override
@@ -85,8 +104,9 @@ public class Pizza {
                 "id=" + id +
                 ", typeName='" + typeName + '\'' +
                 ", ingredients=" + ingredients +
+                ", price=" + price +
                 ", diameter=" + diameter +
-                ", crust='" + crust + '\'' +
+                ", crust=" + crust +
                 '}';
     }
 }

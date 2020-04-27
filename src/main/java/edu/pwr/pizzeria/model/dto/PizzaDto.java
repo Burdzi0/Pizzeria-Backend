@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import edu.pwr.pizzeria.model.Pizza;
 import edu.pwr.pizzeria.model.PizzaCrust;
 import edu.pwr.pizzeria.model.PizzaIngredient;
-
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,6 +14,7 @@ public class PizzaDto {
     private final int id;
     private final String typeName;
     private final List<PizzaIngredientDto> ingredients;
+    private final BigDecimal price;
     private final int diameter;
     private final PizzaCrust crust;
 
@@ -21,12 +22,14 @@ public class PizzaDto {
     public PizzaDto(@JsonProperty("id") int id,
                     @JsonProperty("typeName") String typeName,
                     @JsonProperty("ingredients") List<PizzaIngredientDto> ingredients,
+                    @JsonProperty("price") BigDecimal price,
                     @JsonProperty("diameter") int diameter,
                     @JsonProperty("crust") PizzaCrust crust) {
 
         this.id = id;
         this.typeName = typeName;
         this.ingredients = ingredients;
+        this.price = price;
         this.diameter = diameter;
         this.crust = crust;
     }
@@ -35,6 +38,7 @@ public class PizzaDto {
         return new PizzaDto(pizza.getId(),
                 pizza.getTypeName(),
                 pizzaIngredientsToDto(pizza.getPizzaIngredients()),
+                pizza.getPrice(),
                 pizza.getDiameter(),
                 pizza.getCrust());
     }
@@ -49,6 +53,10 @@ public class PizzaDto {
 
     public List<PizzaIngredientDto> getPizzaIngredients() {
         return ingredients;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
     }
 
     public int getDiameter() {

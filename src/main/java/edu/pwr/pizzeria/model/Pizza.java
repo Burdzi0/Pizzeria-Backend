@@ -24,6 +24,13 @@ public class Pizza {
     public Pizza() {
     }
 
+    public Pizza(String typeName, List<PizzaIngredient> ingredients, int diameter) {
+        this.typeName = typeName;
+        this.ingredients = ingredients;
+        this.diameter = diameter;
+        crust = PizzaCrust.THIN;
+    }
+
     public int getId() {
         return id;
     }

@@ -1,12 +1,12 @@
 package edu.pwr.pizzeria.mock;
 
+
 import com.github.javafaker.Faker;
 import edu.pwr.pizzeria.model.pizza.Ingredient;
 import edu.pwr.pizzeria.model.pizza.Pizza;
 import edu.pwr.pizzeria.model.pizza.PizzaIngredient;
 import edu.pwr.pizzeria.repository.IngredientRepository;
 import org.springframework.stereotype.Service;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -87,5 +87,6 @@ public class RandomPizzaBuilder {
 
     private int generateRandomDiameter() {
         return testDiameters[generateRandomInt(1)];
+
     }
 }

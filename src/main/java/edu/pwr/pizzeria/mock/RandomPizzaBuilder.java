@@ -4,6 +4,7 @@ import edu.pwr.pizzeria.model.Ingredient;
 import edu.pwr.pizzeria.model.Pizza;
 import edu.pwr.pizzeria.model.PizzaIngredient;
 import edu.pwr.pizzeria.model.dto.PizzaDto;
+
 import java.math.BigDecimal;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -22,38 +23,36 @@ public class RandomPizzaBuilder {
         testIngredients = new ArrayList<>();
     }
 
-    public void initializeTestIngredients(){
+    public void initializeTestIngredients() {
 
-        testIngredients.add(new Ingredient("ham", new BigDecimal(4), false));
-        testIngredients.add(new Ingredient("gouda cheese", new BigDecimal(3), true));
-        testIngredients.add(new Ingredient("mushrooms", new BigDecimal(2), true));
-        testIngredients.add(new Ingredient("mozzarella", new BigDecimal(3), true));
-        testIngredients.add(new Ingredient("pepperoni", new BigDecimal(4), false));
-        testIngredients.add(new Ingredient("pepper", new BigDecimal(2), false));
-        testIngredients.add(new Ingredient("corn", new BigDecimal(2), true));
-        testIngredients.add(new Ingredient("eggplant", new BigDecimal(2), false));
-        testIngredients.add(new Ingredient("tofu", new BigDecimal(4), false));
-        testIngredients.add(new Ingredient("spinach", new BigDecimal(2), false));
-        testIngredients.add(new Ingredient("shrimps", new BigDecimal(4), false));
-        testIngredients.add(new Ingredient("chicken", new BigDecimal(4), false));
-        testIngredients.add(new Ingredient("olives", new BigDecimal(2), false));
-        testIngredients.add(new Ingredient("pineapple", new BigDecimal(3), false));
+        testIngredients.add(new Ingredient("ham", BigDecimal.valueOf(4.0d), false));
+        testIngredients.add(new Ingredient("gouda cheese", BigDecimal.valueOf(3.0d), true));
+        testIngredients.add(new Ingredient("mushrooms", BigDecimal.valueOf(2.0d), true));
+        testIngredients.add(new Ingredient("mozzarella", BigDecimal.valueOf(3.0d), true));
+        testIngredients.add(new Ingredient("pepperoni", BigDecimal.valueOf(4.0d), false));
+        testIngredients.add(new Ingredient("pepper", BigDecimal.valueOf(2.0d), false));
+        testIngredients.add(new Ingredient("corn", BigDecimal.valueOf(2.0d), true));
+        testIngredients.add(new Ingredient("eggplant", BigDecimal.valueOf(2.0d), false));
+        testIngredients.add(new Ingredient("tofu", BigDecimal.valueOf(4.0d), false));
+        testIngredients.add(new Ingredient("spinach", BigDecimal.valueOf(2.0d), false));
+        testIngredients.add(new Ingredient("shrimps", BigDecimal.valueOf(4.0d), false));
+        testIngredients.add(new Ingredient("chicken", BigDecimal.valueOf(4.0d), false));
+        testIngredients.add(new Ingredient("olives", BigDecimal.valueOf(2.0d), false));
+        testIngredients.add(new Ingredient("pineapple", BigDecimal.valueOf(3.0d), false));
     }
 
-    private static int generateRandomInt(int upperRange){
+    private static int generateRandomInt(int upperRange) {
 
         return random.nextInt(upperRange);
     }
 
-    public PizzaDto generateRandomPizza(){
+    public Pizza generateRandomPizza() {
 
         String typeName = generateRandomTypeName();
         List<PizzaIngredient> ingredients = generateRandomIngredients();
         int diameter = generateRandomDiameter();
 
-        Pizza randomPizza = new Pizza(typeName, ingredients, diameter);
-
-        return PizzaDto.toDto(randomPizza);
+        return new Pizza(typeName, ingredients, diameter);
     }
 
     private String generateRandomTypeName() {
@@ -73,7 +72,7 @@ public class RandomPizzaBuilder {
         List<PizzaIngredient> randomIngredients = new ArrayList<>();
         PizzaIngredient randomIngredient;
 
-        for(int i = 0; i < ingredientsNum; i++){
+        for (int i = 0; i < ingredientsNum; i++) {
             ingredientIndex = generateRandomInt(testIngredientsCopy.size() - 1);
             ingredientQty = generateRandomInt(MAX_INGREDIENT_QTY);
 

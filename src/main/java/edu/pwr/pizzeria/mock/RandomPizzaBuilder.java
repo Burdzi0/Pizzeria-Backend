@@ -1,5 +1,6 @@
 package edu.pwr.pizzeria.mock;
 
+import com.github.javafaker.Faker;
 import edu.pwr.pizzeria.model.Ingredient;
 import edu.pwr.pizzeria.model.Pizza;
 import edu.pwr.pizzeria.model.PizzaIngredient;
@@ -14,6 +15,7 @@ import java.util.Random;
 public class RandomPizzaBuilder {
 
     private static final Random random = new Random();
+    private final Faker faker = new Faker();
     private final int TYPE_NAME_LENGTH = 25;
     private final int MAX_INGREDIENT_QTY = 4;
     private List<Ingredient> testIngredients;
@@ -57,9 +59,10 @@ public class RandomPizzaBuilder {
 
     private String generateRandomTypeName() {
 
-        byte[] array = new byte[TYPE_NAME_LENGTH];
-        random.nextBytes(array);
-        return new String(array, Charset.forName("UTF-8"));
+//        byte[] array = new byte[TYPE_NAME_LENGTH];
+//        random.nextBytes(array);
+//        return new String(array, Charset.forName("UTF-8"));
+        return faker.address().cityName();
     }
 
     private List<PizzaIngredient> generateRandomIngredients() {

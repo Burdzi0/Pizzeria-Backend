@@ -47,6 +47,8 @@ dependencies {
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.6.0'
     compile 'com.sendgrid:sendgrid-java:4.4.8'
 
+    implementation 'com.github.javafaker:javafaker:1.0.2'
+
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'org.postgresql:postgresql'

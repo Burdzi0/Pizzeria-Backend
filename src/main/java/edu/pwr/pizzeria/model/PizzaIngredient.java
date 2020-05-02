@@ -9,7 +9,7 @@ public class PizzaIngredient {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne
     private Ingredient ingredient;
     private int quantity;
 

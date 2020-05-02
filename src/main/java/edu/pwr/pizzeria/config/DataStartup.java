@@ -16,31 +16,21 @@ import java.util.List;
 public class DataStartup implements CommandLineRunner {
 
     private PizzaRepository pizzaRepository;
+    private RandomPizzaBuilder randomPizzaBuilder;
 
-    public DataStartup(PizzaRepository pizzaRepository) {
+    public DataStartup(PizzaRepository pizzaRepository, RandomPizzaBuilder randomPizzaBuilder) {
         this.pizzaRepository = pizzaRepository;
+        this.randomPizzaBuilder = randomPizzaBuilder;
     }
 
     @Override
     public void run(String... args) {
-        Pizza pizza = new Pizza();
-        pizza.setCrust(PizzaCrust.THICK);
-        pizza.setDiameter(30);
-        pizza.setPizzaIngredients(List.of(new PizzaIngredient(new Ingredient("Cheese", BigDecimal.valueOf(4.5d), true), 1)));
-        pizza.setTypeName("Test");
-        pizzaRepository.save(pizza);
 
-        Pizza pizza1 = new Pizza();
-        pizza1.setCrust(PizzaCrust.THICK);
-        pizza1.setDiameter(45);
-        pizza1.setPizzaIngredients(List.of(new PizzaIngredient(new Ingredient("Ham", BigDecimal.valueOf(4.5d), false), 1)));
-        pizza1.setTypeName("Test1");
-        pizzaRepository.save(pizza1);
-
-        RandomPizzaBuilder randomPizzaBuilder = new RandomPizzaBuilder();
         randomPizzaBuilder.initializeTestIngredients();
 
-        Pizza pizza2 = randomPizzaBuilder.generateRandomPizza();
-        pizzaRepository.save(pizza2);
+        for(int i = 0; i < 10; i++){
+            Pizza randomPizza = randomPizzaBuilder.generateRandomPizza();
+            pizzaRepository.save(randomPizza);
+        }
     }
 }

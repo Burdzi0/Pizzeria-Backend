@@ -5,6 +5,8 @@ import edu.pwr.pizzeria.model.Ingredient;
 import edu.pwr.pizzeria.model.Pizza;
 import edu.pwr.pizzeria.model.PizzaIngredient;
 import edu.pwr.pizzeria.model.dto.PizzaDto;
+import edu.pwr.pizzeria.repository.IngredientRepository;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.nio.charset.Charset;
@@ -12,20 +14,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+@Service
 public class RandomPizzaBuilder {
 
     private static final Random random = new Random();
     private final Faker faker = new Faker();
-    private final int TYPE_NAME_LENGTH = 25;
     private final int MAX_INGREDIENT_QTY = 4;
-    private List<Ingredient> testIngredients;
     private int[] testDiameters = new int[]{30, 45};
+    private IngredientRepository ingredientRepository;
 
-    public RandomPizzaBuilder() {
-        testIngredients = new ArrayList<>();
+    public RandomPizzaBuilder(IngredientRepository ingredientRepository) {
+        this.ingredientRepository = ingredientRepository;
     }
 
     public void initializeTestIngredients() {
+
+        List<Ingredient> testIngredients = new ArrayList<>();
 
         testIngredients.add(new Ingredient("ham", BigDecimal.valueOf(4.0d), false));
         testIngredients.add(new Ingredient("gouda cheese", BigDecimal.valueOf(3.0d), true));
@@ -41,6 +45,8 @@ public class RandomPizzaBuilder {
         testIngredients.add(new Ingredient("chicken", BigDecimal.valueOf(4.0d), false));
         testIngredients.add(new Ingredient("olives", BigDecimal.valueOf(2.0d), false));
         testIngredients.add(new Ingredient("pineapple", BigDecimal.valueOf(3.0d), false));
+
+        ingredientRepository.saveAll(testIngredients);
     }
 
     private static int generateRandomInt(int upperRange) {
@@ -59,15 +65,12 @@ public class RandomPizzaBuilder {
 
     private String generateRandomTypeName() {
 
-//        byte[] array = new byte[TYPE_NAME_LENGTH];
-//        random.nextBytes(array);
-//        return new String(array, Charset.forName("UTF-8"));
         return faker.address().cityName();
     }
 
     private List<PizzaIngredient> generateRandomIngredients() {
 
-        List<Ingredient> testIngredientsCopy = new ArrayList<>(testIngredients);
+        List<Ingredient> testIngredientsCopy = ingredientRepository.findAll();
         int ingredientsNum = generateRandomInt(testIngredientsCopy.size());
         int ingredientIndex;
         int ingredientQty;

@@ -33,6 +33,12 @@ public class ModelExceptions {
         return exception(req, ex, HttpStatus.NOT_FOUND);
     }
 
+    @ResponseBody
+    @ExceptionHandler(value = InvalidLoginCredentialsException.class)
+    public ResponseEntity<StandardException> invalidCredentials(HttpServletRequest req, InvalidLoginCredentialsException ex) {
+        return exception(req, ex, HttpStatus.UNAUTHORIZED);
+    }
+
     private ResponseEntity<StandardException> exception(HttpServletRequest req, RuntimeException ex, HttpStatus status) {
         return new ResponseEntity<>(standardException(ex.getMessage(), req.getServletPath(), status), headers(), status);
     }

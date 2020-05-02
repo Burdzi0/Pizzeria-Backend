@@ -4,6 +4,7 @@ import edu.pwr.pizzeria.ClientBasedTest;
 import edu.pwr.pizzeria.model.PizzaCrust;
 import edu.pwr.pizzeria.model.dto.IngredientDto;
 import edu.pwr.pizzeria.model.dto.PizzaDto;
+import edu.pwr.pizzeria.model.dto.PizzaIngredientDto;
 import feign.FeignException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,7 +28,7 @@ public class PizzaControllerTest extends ClientBasedTest {
         pizzaDto = new PizzaDto(1,
                 "Test",
                 new ArrayList<>() {{
-                    add(new IngredientDto(2, "Cheese", 1, BigDecimal.valueOf(450, 2), true));
+                    add(new PizzaIngredientDto(2, new IngredientDto(2, "Cheese", BigDecimal.valueOf(450, 2), true), 1));
                 }},
                 30,
                 PizzaCrust.THICK

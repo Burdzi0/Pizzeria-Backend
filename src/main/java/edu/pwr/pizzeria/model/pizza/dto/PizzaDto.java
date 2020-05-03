@@ -1,10 +1,11 @@
-package edu.pwr.pizzeria.model.dto;
+package edu.pwr.pizzeria.model.pizza.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import edu.pwr.pizzeria.model.Pizza;
-import edu.pwr.pizzeria.model.PizzaCrust;
-import edu.pwr.pizzeria.model.PizzaIngredient;
+import edu.pwr.pizzeria.model.pizza.Pizza;
+import edu.pwr.pizzeria.model.pizza.PizzaCrust;
+import edu.pwr.pizzeria.model.pizza.PizzaIngredient;
+
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -43,6 +44,13 @@ public class PizzaDto {
                 pizza.getCrust());
     }
 
+    private static List<PizzaIngredientDto> pizzaIngredientsToDto(List<PizzaIngredient> pizzaIngredients) {
+        return pizzaIngredients
+                .stream()
+                .map(PizzaIngredientDto::toDto)
+                .collect(Collectors.toList());
+    }
+
     public int getId() {
         return id;
     }
@@ -65,12 +73,5 @@ public class PizzaDto {
 
     public PizzaCrust getCrust() {
         return crust;
-    }
-
-    private static List<PizzaIngredientDto> pizzaIngredientsToDto(List<PizzaIngredient> pizzaIngredients){
-        return pizzaIngredients
-                .stream()
-                .map(PizzaIngredientDto::toDto)
-                .collect(Collectors.toList());
     }
 }

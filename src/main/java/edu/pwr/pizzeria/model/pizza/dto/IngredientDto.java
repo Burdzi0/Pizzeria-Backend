@@ -1,8 +1,8 @@
-package edu.pwr.pizzeria.model.dto;
+package edu.pwr.pizzeria.model.pizza.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import edu.pwr.pizzeria.model.Ingredient;
+import edu.pwr.pizzeria.model.pizza.Ingredient;
 import java.math.BigDecimal;
 import java.util.Objects;
 

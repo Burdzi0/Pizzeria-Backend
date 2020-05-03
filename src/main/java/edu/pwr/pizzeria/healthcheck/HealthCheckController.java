@@ -1,8 +1,12 @@
 package edu.pwr.pizzeria.healthcheck;
 
 import edu.pwr.pizzeria.common.TimeProvider;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.security.PermitAll;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -15,6 +19,7 @@ public class HealthCheckController {
         this.timeProvider = timeProvider;
     }
 
+    @PermitAll
     @GetMapping(value = "/v1/health-check", produces = APPLICATION_JSON_VALUE)
     public HealthCheck getStatus() {
         // TODO add database connection to check

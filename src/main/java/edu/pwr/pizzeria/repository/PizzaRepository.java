@@ -1,6 +1,6 @@
 package edu.pwr.pizzeria.repository;
 
-import edu.pwr.pizzeria.model.Pizza;
+import edu.pwr.pizzeria.model.pizza.Pizza;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

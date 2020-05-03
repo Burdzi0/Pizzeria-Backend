@@ -1,8 +1,8 @@
-package edu.pwr.pizzeria.model.dto;
+package edu.pwr.pizzeria.model.pizza.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import edu.pwr.pizzeria.model.PizzaIngredient;
+import edu.pwr.pizzeria.model.pizza.PizzaIngredient;
 
 public class PizzaIngredientDto {
 

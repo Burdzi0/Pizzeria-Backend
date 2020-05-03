@@ -1,16 +1,11 @@
 package edu.pwr.pizzeria.config;
 
 import edu.pwr.pizzeria.mock.RandomPizzaBuilder;
-import edu.pwr.pizzeria.model.Ingredient;
-import edu.pwr.pizzeria.model.Pizza;
-import edu.pwr.pizzeria.model.PizzaCrust;
-import edu.pwr.pizzeria.model.PizzaIngredient;
+import edu.pwr.pizzeria.model.pizza.Pizza;
 import edu.pwr.pizzeria.repository.PizzaRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
-import java.util.List;
 
 @Component
 public class DataStartup implements CommandLineRunner {

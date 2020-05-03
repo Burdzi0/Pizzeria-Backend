@@ -1,6 +1,6 @@
 package edu.pwr.pizzeria.pizza;
 
-import edu.pwr.pizzeria.model.dto.PizzaDto;
+import edu.pwr.pizzeria.model.pizza.dto.PizzaDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

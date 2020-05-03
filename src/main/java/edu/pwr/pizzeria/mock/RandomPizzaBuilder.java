@@ -1,15 +1,13 @@
 package edu.pwr.pizzeria.mock;
 
 import com.github.javafaker.Faker;
-import edu.pwr.pizzeria.model.Ingredient;
-import edu.pwr.pizzeria.model.Pizza;
-import edu.pwr.pizzeria.model.PizzaIngredient;
-import edu.pwr.pizzeria.model.dto.PizzaDto;
+import edu.pwr.pizzeria.model.pizza.Ingredient;
+import edu.pwr.pizzeria.model.pizza.Pizza;
+import edu.pwr.pizzeria.model.pizza.PizzaIngredient;
 import edu.pwr.pizzeria.repository.IngredientRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -27,9 +25,12 @@ public class RandomPizzaBuilder {
         this.ingredientRepository = ingredientRepository;
     }
 
-    public void initializeTestIngredients() {
+    private static int generateRandomInt(int upperRange) {
+        return random.nextInt(upperRange);
+    }
 
-        List<Ingredient> testIngredients = new ArrayList<>();
+    public void initializeTestIngredients() {
+        final List<Ingredient> testIngredients = new ArrayList<>();
 
         testIngredients.add(new Ingredient("ham", BigDecimal.valueOf(4.0d), false));
         testIngredients.add(new Ingredient("gouda cheese", BigDecimal.valueOf(3.0d), true));
@@ -49,33 +50,26 @@ public class RandomPizzaBuilder {
         ingredientRepository.saveAll(testIngredients);
     }
 
-    private static int generateRandomInt(int upperRange) {
-
-        return random.nextInt(upperRange);
-    }
-
     public Pizza generateRandomPizza() {
-
-        String typeName = generateRandomTypeName();
-        List<PizzaIngredient> ingredients = generateRandomIngredients();
-        int diameter = generateRandomDiameter();
+        final String typeName = generateRandomTypeName();
+        final List<PizzaIngredient> ingredients = generateRandomIngredients();
+        final int diameter = generateRandomDiameter();
 
         return new Pizza(typeName, ingredients, diameter);
     }
 
     private String generateRandomTypeName() {
-
         return faker.address().cityName();
     }
 
     private List<PizzaIngredient> generateRandomIngredients() {
+        final List<Ingredient> testIngredientsCopy = ingredientRepository.findAll();
+        final int ingredientsNum = generateRandomInt(testIngredientsCopy.size());
 
-        List<Ingredient> testIngredientsCopy = ingredientRepository.findAll();
-        int ingredientsNum = generateRandomInt(testIngredientsCopy.size());
         int ingredientIndex;
         int ingredientQty;
 
-        List<PizzaIngredient> randomIngredients = new ArrayList<>();
+        final List<PizzaIngredient> randomIngredients = new ArrayList<>();
         PizzaIngredient randomIngredient;
 
         for (int i = 0; i < ingredientsNum; i++) {

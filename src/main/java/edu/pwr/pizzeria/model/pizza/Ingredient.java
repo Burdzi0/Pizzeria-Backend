@@ -1,4 +1,4 @@
-package edu.pwr.pizzeria.model;
+package edu.pwr.pizzeria.model.pizza;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

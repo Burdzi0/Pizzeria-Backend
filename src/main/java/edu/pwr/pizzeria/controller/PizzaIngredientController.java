@@ -1,6 +1,6 @@
 package edu.pwr.pizzeria.controller;
 
-import edu.pwr.pizzeria.model.dto.PizzaIngredientDto;
+import edu.pwr.pizzeria.model.pizza.dto.PizzaIngredientDto;
 import edu.pwr.pizzeria.service.pizzaingredient.PizzaIngredientService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

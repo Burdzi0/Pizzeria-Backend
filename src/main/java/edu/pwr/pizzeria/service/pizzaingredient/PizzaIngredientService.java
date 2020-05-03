@@ -1,6 +1,6 @@
 package edu.pwr.pizzeria.service.pizzaingredient;
 
-import edu.pwr.pizzeria.model.dto.PizzaIngredientDto;
+import edu.pwr.pizzeria.model.pizza.dto.PizzaIngredientDto;
 import edu.pwr.pizzeria.repository.PizzaIngredientRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

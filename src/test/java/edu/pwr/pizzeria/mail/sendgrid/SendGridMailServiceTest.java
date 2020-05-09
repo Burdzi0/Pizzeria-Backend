@@ -1,12 +1,10 @@
-package edu.pwr.pizzeria.service.mail.sendgrid;
+package edu.pwr.pizzeria.mail.sendgrid;
 
 import edu.pwr.pizzeria.StandardTest;
-import edu.pwr.pizzeria.service.mail.BasicMail;
-import edu.pwr.pizzeria.service.mail.MailService;
+import edu.pwr.pizzeria.mail.BasicMail;
+import edu.pwr.pizzeria.mail.MailService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class SendGridMailServiceTest extends StandardTest {
 

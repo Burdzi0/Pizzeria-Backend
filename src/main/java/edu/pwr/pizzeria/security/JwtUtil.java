@@ -15,7 +15,7 @@ import java.util.function.Function;
 @Component
 public class JwtUtil {
 
-    @Value("${jwt.secret}")
+    @Value("${app.security.secret}")
     private String SECRET_KEY = "LUKASZ";
 
 

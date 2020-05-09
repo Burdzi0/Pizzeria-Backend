@@ -1,4 +1,4 @@
-package edu.pwr.pizzeria.service.mail;
+package edu.pwr.pizzeria.mail;
 
 public class BasicMail {
 

@@ -23,7 +23,7 @@ public class DataStartup implements CommandLineRunner {
 
         randomPizzaBuilder.initializeTestIngredients();
 
-        for(int i = 0; i < 10; i++){
+        for (int i = 0; i < 10; i++) {
             Pizza randomPizza = randomPizzaBuilder.generateRandomPizza();
             pizzaRepository.save(randomPizza);
         }

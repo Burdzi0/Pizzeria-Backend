@@ -3,6 +3,7 @@ package edu.pwr.pizzeria.service;
 import edu.pwr.pizzeria.exception.EmailAlreadyRegisteredException;
 import edu.pwr.pizzeria.exception.InvalidLoginCredentialsException;
 import edu.pwr.pizzeria.model.authentication.CredentialsDto;
+import edu.pwr.pizzeria.model.authentication.EmailDto;
 import edu.pwr.pizzeria.model.authentication.TokenDto;
 import edu.pwr.pizzeria.model.user.CustomerUser;
 import edu.pwr.pizzeria.repository.CustomerUserRepository;
@@ -26,17 +27,15 @@ public class AuthenticationService {
     private JwtUtil jwtUtil;
     private CustomerUserRepository customerUserRepository;
     private PasswordEncoder passwordEncoder;
+    private MailApplicationService mailApplicationService;
 
-    public AuthenticationService(AuthenticationManager authenticationManager,
-                                 UserDetailsService userDetailsService,
-                                 JwtUtil jwtUtil,
-                                 CustomerUserRepository customerUserRepository,
-                                 PasswordEncoder passwordEncoder) {
+    public AuthenticationService(AuthenticationManager authenticationManager, UserDetailsService userDetailsService, JwtUtil jwtUtil, CustomerUserRepository customerUserRepository, PasswordEncoder passwordEncoder, MailApplicationService mailApplicationService) {
         this.authenticationManager = authenticationManager;
         this.userDetailsService = userDetailsService;
         this.jwtUtil = jwtUtil;
         this.customerUserRepository = customerUserRepository;
         this.passwordEncoder = passwordEncoder;
+        this.mailApplicationService = mailApplicationService;
     }
 
     public TokenDto login(CredentialsDto credentialsDto) {
@@ -73,5 +72,9 @@ public class AuthenticationService {
     private CustomerUser newCustomerUser(CredentialsDto credentialsDto) {
         final String hashedPassword = passwordEncoder.encode(credentialsDto.getPassword());
         return new CustomerUser(credentialsDto.getMail(), hashedPassword, ROLE_USER);
+    }
+
+    public void sendMailResettingPassword(EmailDto emailDto) {
+        mailApplicationService.sendPasswordResettingMail(emailDto.getMail());
     }
 }

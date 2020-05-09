@@ -2,12 +2,12 @@ package edu.pwr.pizzeria.controller;
 
 import edu.pwr.pizzeria.exception.NotMailException;
 import edu.pwr.pizzeria.model.authentication.CredentialsDto;
+import edu.pwr.pizzeria.model.authentication.EmailDto;
 import edu.pwr.pizzeria.model.authentication.TokenDto;
 import edu.pwr.pizzeria.service.AuthenticationService;
 import io.swagger.annotations.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,6 +50,17 @@ public class AuthenticationController {
                                           @Valid @RequestBody CredentialsDto credentialsDto, Errors errors) {
         validateIncomingDto(errors);
         authenticationService.register(credentialsDto);
+    }
+
+    @ApiResponses({
+            @ApiResponse(code = 202, message = "Sending mail"),
+            @ApiResponse(code = 404, message = "Email not found")
+    })
+    @ApiOperation(value = "Register user", notes = "Create user with given credentials")
+    @PostMapping("/reset")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void resetMail(@Valid @RequestBody EmailDto emailDto) {
+        authenticationService.sendMailResettingPassword(emailDto);
     }
 
     private void validateIncomingDto(Errors errors) {

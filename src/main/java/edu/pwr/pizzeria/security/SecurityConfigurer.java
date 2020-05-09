@@ -14,17 +14,21 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import javax.servlet.Filter;
 
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true, jsr250Enabled = true, securedEnabled = true)
 public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
+
+    private static final String[] WHITELIST = {
+            "/v1/login",
+            "/v1/register",
+            "/h2-console/**",
+            "/v1/ingredient",
+            "/v1/mail/**",
+            "/v1/reset"
+    };
 
     private UserDetailsService customerUserDetailsService;
     private Filter jwtRequestFilter;
@@ -44,8 +48,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
         httpSecurity.csrf().disable()
                 .cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
                 .and()
-                .authorizeRequests().antMatchers("/v1/login", "/v1/register", "/h2-console/**", "/v1/health-check").permitAll()
-                .anyRequest().authenticated()
+                .authorizeRequests().anyRequest().authenticated()
                 .and()
                 .exceptionHandling().and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);

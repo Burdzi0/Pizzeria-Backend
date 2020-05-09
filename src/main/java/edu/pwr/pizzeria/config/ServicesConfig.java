@@ -22,8 +22,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class ServicesConfig {
 
     @Bean
-    public SendGrid sendGrid(@Value("${sendgrid.apikey}") String apiKey) {
-        return new SendGrid(apiKey, true);
+    public SendGrid sendGrid(@Value("${app.mail.apikey}") String apiKey) {
+        return new SendGrid(apiKey);
     }
 
     @Bean
@@ -47,4 +47,5 @@ public class ServicesConfig {
         objectMapper.enable(DeserializationFeature.USE_BIG_DECIMAL_FOR_FLOATS);
         return objectMapper;
     }
+
 }

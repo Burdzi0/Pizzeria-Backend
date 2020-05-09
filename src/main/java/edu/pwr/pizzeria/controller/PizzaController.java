@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.security.PermitAll;
 import java.util.List;
 
 @RestController
@@ -20,11 +21,13 @@ public class PizzaController {
         this.pizzaService = pizzaService;
     }
 
+    @PermitAll
     @GetMapping(value = "/{id}")
     public PizzaDto getPizza(@PathVariable int id) {
         return pizzaService.getPizza(id);
     }
 
+    @PermitAll
     @GetMapping
     public List<PizzaDto> getAll() {
         return pizzaService.getAll();

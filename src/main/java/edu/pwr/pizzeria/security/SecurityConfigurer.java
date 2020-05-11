@@ -14,8 +14,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.servlet.Filter;
+import java.util.List;
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, jsr250Enabled = true, securedEnabled = true)
@@ -24,8 +27,8 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     private static final String[] WHITELIST = {
             "/v1/login",
             "/v1/register",
-            "/h2-console/**",
             "/v1/ingredient",
+            "/v1/pizza",
             "/v1/mail/**",
             "/v1/reset"
     };
@@ -48,12 +51,24 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
         httpSecurity.csrf().disable()
                 .cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
                 .and()
+                .authorizeRequests().antMatchers(WHITELIST).permitAll()
+                .and()
                 .authorizeRequests().anyRequest().authenticated()
                 .and()
                 .exceptionHandling().and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        final CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(List.of("*"));
+        configuration.setAllowedMethods(List.of("*"));
+        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 
     @Override
@@ -70,6 +85,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 
     @Bean
     @Override

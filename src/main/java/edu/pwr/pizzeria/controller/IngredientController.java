@@ -2,7 +2,6 @@ package edu.pwr.pizzeria.controller;
 
 import edu.pwr.pizzeria.model.pizza.dto.IngredientDto;
 import edu.pwr.pizzeria.service.ingredient.IngredientService;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

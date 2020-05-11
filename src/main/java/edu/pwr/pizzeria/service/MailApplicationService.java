@@ -35,7 +35,7 @@ public class MailApplicationService {
         final BasicMail basicMail = new BasicMail(from,
                 mail,
                 "Pizzeria ZPI - Rejestracja",
-                mailContentFactory.registrationMail());
+                mailContentFactory.registrationMail("https://www.youtube.com/watch?v=rEq1Z0bjdwc"));
 
         mailService.sendMail(basicMail);
     }

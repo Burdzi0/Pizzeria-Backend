@@ -5,21 +5,23 @@ import edu.pwr.pizzeria.model.authentication.CredentialsDto;
 import edu.pwr.pizzeria.model.authentication.EmailDto;
 import edu.pwr.pizzeria.model.authentication.TokenDto;
 import edu.pwr.pizzeria.service.authentication.AuthenticationApplicationService;
-import edu.pwr.pizzeria.service.authentication.AuthenticationService;
-import io.swagger.annotations.*;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.UUID;
-
-import static org.springframework.http.ResponseEntity.status;
 
 @RestController
 @RequestMapping(value = "/v1")
@@ -42,7 +44,7 @@ public class AuthenticationController {
     })
     @PostMapping("/login")
     public TokenDto login(@ApiParam(value = "Obligatory credentials", required = true)
-                              @Valid @RequestBody CredentialsDto credentialsDto, Errors errors) {
+                          @Valid @RequestBody CredentialsDto credentialsDto, Errors errors) {
         validateIncomingDto(errors);
         return authenticationService.login(credentialsDto);
     }
@@ -56,7 +58,7 @@ public class AuthenticationController {
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     public void register(@ApiParam(value = "Obligatory credentials", required = true)
-                                          @Valid @RequestBody CredentialsDto credentialsDto, Errors errors, HttpServletRequest request) {
+                         @Valid @RequestBody CredentialsDto credentialsDto, Errors errors, HttpServletRequest request) {
         validateIncomingDto(errors);
         authenticationService.register(credentialsDto, request);
     }
@@ -68,10 +70,23 @@ public class AuthenticationController {
     @ApiOperation(value = "Confirm registration", notes = "Confirm registration and enables user")
     @GetMapping("/register/{unique-number}")
     @ResponseStatus(HttpStatus.CREATED)
-    public void confirmRegister(@PathVariable("unique-number") UUID uuid, HttpServletResponse response) {
+    public ResponseEntity<?> confirmRegister(@PathVariable("unique-number") UUID uuid) {
         authenticationService.confirmRegistration(uuid);
-        response.setHeader("Location", loginHref);
-        response.setStatus(302);
+        final HttpHeaders httpHeaders = redirectUri();
+        return new ResponseEntity<>(httpHeaders, HttpStatus.SEE_OTHER);
+    }
+
+    private HttpHeaders redirectUri() {
+        final URI redirectUri;
+        try {
+            redirectUri = new URI(loginHref);
+            final HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.setLocation(redirectUri);
+            return httpHeaders;
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Wrong Uri!");
+        }
     }
 
     @ApiResponses({

@@ -27,10 +27,12 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     private static final String[] WHITELIST = {
             "/v1/login",
             "/v1/register",
+            "/v1/register/*",
+            "/v1/reset",
             "/v1/ingredient",
+            "/v1/ingredient/*",
             "/v1/pizza",
-            "/v1/mail/**",
-            "/v1/reset"
+            "/v1/pizza/*"
     };
 
     private UserDetailsService customerUserDetailsService;
@@ -75,6 +77,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) {
         web.ignoring().antMatchers("/v2/api-docs",
                 "/configuration/ui",
+                "/h2-console/**",
                 "/swagger-resources/**",
                 "/configuration/security",
                 "/swagger-ui.html",

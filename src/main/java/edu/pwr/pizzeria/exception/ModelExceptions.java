@@ -65,6 +65,12 @@ public class ModelExceptions {
         return exception(req, ex, HttpStatus.BAD_REQUEST);
     }
 
+    @ResponseBody
+    @ExceptionHandler(value = VerificationTokenNotFound.class)
+    public ResponseEntity<StandardException> verificationTokenNotFound(HttpServletRequest req, VerificationTokenNotFound ex) {
+        return exception(req, ex, HttpStatus.NOT_FOUND);
+    }
+
     private ResponseEntity<StandardException> exception(HttpServletRequest req, RuntimeException ex, HttpStatus status) {
         return new ResponseEntity<>(standardException(ex.getMessage(), req.getServletPath(), status), headers(), status);
     }

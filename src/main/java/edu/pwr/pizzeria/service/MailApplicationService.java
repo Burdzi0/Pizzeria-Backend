@@ -27,15 +27,13 @@ public class MailApplicationService {
                 mailContentFactory.resetPasswordMail("http://burdzi0.best"));
 
         mailService.sendMail(basicMail);
-        sendConfirmOrderMail(mail);
-        sendConfirmRegisterMail(mail);
     }
 
-    public void sendConfirmRegisterMail(String mail) {
+    public void sendConfirmRegisterMail(String mail, String registerLink) {
         final BasicMail basicMail = new BasicMail(from,
                 mail,
                 "Pizzeria ZPI - Rejestracja",
-                mailContentFactory.registrationMail("https://www.youtube.com/watch?v=rEq1Z0bjdwc"));
+                mailContentFactory.registrationMail(registerLink));
 
         mailService.sendMail(basicMail);
     }

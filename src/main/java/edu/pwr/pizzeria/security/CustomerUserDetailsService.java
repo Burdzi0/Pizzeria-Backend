@@ -30,7 +30,7 @@ public class CustomerUserDetailsService implements UserDetailsService {
                 .accountExpired(false)
                 .accountLocked(false)
                 .credentialsExpired(false)
-                .disabled(false)
+                .disabled(!user.isActive())
                 .build();
     }
 

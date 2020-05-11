@@ -8,6 +8,8 @@ import edu.pwr.pizzeria.model.authentication.TokenDto;
 import edu.pwr.pizzeria.model.user.CustomerUser;
 import edu.pwr.pizzeria.repository.CustomerUserRepository;
 import edu.pwr.pizzeria.security.JwtUtil;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -29,7 +31,14 @@ public class AuthenticationService {
     private PasswordEncoder passwordEncoder;
     private MailApplicationService mailApplicationService;
 
-    public AuthenticationService(AuthenticationManager authenticationManager, UserDetailsService userDetailsService, JwtUtil jwtUtil, CustomerUserRepository customerUserRepository, PasswordEncoder passwordEncoder, MailApplicationService mailApplicationService) {
+    private final Logger logger = LogManager.getLogger(this.getClass());
+
+    public AuthenticationService(AuthenticationManager authenticationManager,
+                                 UserDetailsService userDetailsService,
+                                 JwtUtil jwtUtil,
+                                 CustomerUserRepository customerUserRepository,
+                                 PasswordEncoder passwordEncoder,
+                                 MailApplicationService mailApplicationService) {
         this.authenticationManager = authenticationManager;
         this.userDetailsService = userDetailsService;
         this.jwtUtil = jwtUtil;
@@ -38,6 +47,7 @@ public class AuthenticationService {
         this.mailApplicationService = mailApplicationService;
     }
 
+    @Transactional
     public TokenDto login(CredentialsDto credentialsDto) {
         authenticate(credentialsDto);
 
@@ -51,6 +61,7 @@ public class AuthenticationService {
         try {
             authenticationManager.authenticate(usernamePasswordAuthenticationToken(credentialsDto));
         } catch (BadCredentialsException e) {
+            logger.info("Bad credentials");
             throw new InvalidLoginCredentialsException("Invalid credentials");
         }
     }
@@ -63,10 +74,13 @@ public class AuthenticationService {
     public void register(CredentialsDto credentialsDto) {
         customerUserRepository.getCustomerUserByMail(credentialsDto.getMail())
                 .ifPresent(customer -> {
+                    logger.info("Not registering because account with given mail exists");
                     throw new EmailAlreadyRegisteredException();
                 });
 
         customerUserRepository.save(newCustomerUser(credentialsDto));
+        logger.info("Created new user");
+        mailApplicationService.sendConfirmRegisterMail(credentialsDto.getMail());
     }
 
     private CustomerUser newCustomerUser(CredentialsDto credentialsDto) {

@@ -4,7 +4,17 @@ app:
   security:
     secret: LUKASZHEHEHEHE
   mail:
-    apikey: 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
+    apikey:
     from: wroclavbestpizza@gmail.com
+    images:
+      pizzaLeft: https://burdzi0.github.io/images/pizza_left.jpg
+      pizzaRight: https://burdzi0.github.io/images/pizza_right.jpg
+      title: https://burdzi0.github.io/images/title.png
   heroku:
     url: https://pizzeria-backend-zpi.herokuapp.com
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG

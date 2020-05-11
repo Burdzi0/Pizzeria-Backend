@@ -1,5 +1,6 @@
 package edu.pwr.pizzeria.mail;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
@@ -7,18 +8,24 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 @Service
 public class MailContentFactory {
 
-    private SpringTemplateEngine templateEngine;
-    private ImageConverter imageConverter;
+    @Value("${app.mail.images.title}")
+    private String titleImage;
 
-    public MailContentFactory(SpringTemplateEngine templateEngine, ImageConverter imageConverter) {
+    @Value("${app.mail.images.pizzaRight}")
+    private String pizzaLeft;
+
+    @Value("${app.mail.images.pizzaLeft}")
+    private String pizzaRight;
+
+    private SpringTemplateEngine templateEngine;
+
+    public MailContentFactory(SpringTemplateEngine templateEngine) {
         this.templateEngine = templateEngine;
-        this.imageConverter = imageConverter;
     }
 
-    public String registrationMail() {
-        final String message = "https://test-link.com";
+    public String registrationMail(String registerLink) {
         final Context context = new Context();
-        context.setVariable("link", message);
+        context.setVariable("link", registerLink);
         addImages(context);
         return templateEngine.process("confirm_register", context);
     }
@@ -37,8 +44,8 @@ public class MailContentFactory {
     }
 
     private void addImages(Context context) {
-        context.setVariable("titleImg", imageConverter.processImage("title.png"));
-        context.setVariable("pizza_right", imageConverter.processImage("pizza_right.jpg"));
-        context.setVariable("pizza_left", imageConverter.processImage("pizza_left.jpg"));
+        context.setVariable("titleImg", titleImage);
+        context.setVariable("pizza_right", pizzaRight);
+        context.setVariable("pizza_left", pizzaLeft);
     }
 }

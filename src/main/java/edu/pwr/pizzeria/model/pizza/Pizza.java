@@ -28,7 +28,7 @@ public class Pizza {
         this.typeName = typeName;
         this.ingredients = ingredients;
         this.diameter = diameter;
-        crust = PizzaCrust.THIN;
+        crust = PizzaCrust.CIENKIE;
     }
 
     public int getId() {

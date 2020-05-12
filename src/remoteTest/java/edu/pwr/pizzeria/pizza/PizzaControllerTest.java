@@ -1,10 +1,10 @@
 package edu.pwr.pizzeria.pizza;
 
 import edu.pwr.pizzeria.ClientBasedTest;
-import edu.pwr.pizzeria.model.PizzaCrust;
-import edu.pwr.pizzeria.model.dto.IngredientDto;
-import edu.pwr.pizzeria.model.dto.PizzaDto;
-import edu.pwr.pizzeria.model.dto.PizzaIngredientDto;
+import edu.pwr.pizzeria.model.pizza.PizzaCrust;
+import edu.pwr.pizzeria.model.pizza.dto.IngredientDto;
+import edu.pwr.pizzeria.model.pizza.dto.PizzaDto;
+import edu.pwr.pizzeria.model.pizza.dto.PizzaIngredientDto;
 import feign.FeignException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,8 +30,8 @@ public class PizzaControllerTest extends ClientBasedTest {
                 new ArrayList<>() {{
                     add(new PizzaIngredientDto(2, new IngredientDto(2, "Cheese", BigDecimal.valueOf(450, 2), true), 1));
                 }},
-                30,
-                PizzaCrust.THICK
+                BigDecimal.valueOf(40, 2), 30,
+                PizzaCrust.GRUBE
         );
     }
 

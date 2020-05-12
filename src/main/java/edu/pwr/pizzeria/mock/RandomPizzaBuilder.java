@@ -32,20 +32,20 @@ public class RandomPizzaBuilder {
     public void initializeTestIngredients() {
         final List<Ingredient> testIngredients = new ArrayList<>();
 
-        testIngredients.add(new Ingredient("ham", BigDecimal.valueOf(4.0d), false));
-        testIngredients.add(new Ingredient("gouda cheese", BigDecimal.valueOf(3.0d), true));
-        testIngredients.add(new Ingredient("mushrooms", BigDecimal.valueOf(2.0d), true));
+        testIngredients.add(new Ingredient("szynka", BigDecimal.valueOf(4.0d), false));
+        testIngredients.add(new Ingredient("ser żółty", BigDecimal.valueOf(3.0d), true));
+        testIngredients.add(new Ingredient("pieczarki", BigDecimal.valueOf(2.0d), true));
         testIngredients.add(new Ingredient("mozzarella", BigDecimal.valueOf(3.0d), true));
         testIngredients.add(new Ingredient("pepperoni", BigDecimal.valueOf(4.0d), false));
-        testIngredients.add(new Ingredient("pepper", BigDecimal.valueOf(2.0d), false));
-        testIngredients.add(new Ingredient("corn", BigDecimal.valueOf(2.0d), true));
-        testIngredients.add(new Ingredient("eggplant", BigDecimal.valueOf(2.0d), false));
+        testIngredients.add(new Ingredient("papryka", BigDecimal.valueOf(2.0d), false));
+        testIngredients.add(new Ingredient("kukurydza", BigDecimal.valueOf(2.0d), true));
+        testIngredients.add(new Ingredient("bakłażan", BigDecimal.valueOf(2.0d), false));
         testIngredients.add(new Ingredient("tofu", BigDecimal.valueOf(4.0d), false));
-        testIngredients.add(new Ingredient("spinach", BigDecimal.valueOf(2.0d), false));
-        testIngredients.add(new Ingredient("shrimps", BigDecimal.valueOf(4.0d), false));
-        testIngredients.add(new Ingredient("chicken", BigDecimal.valueOf(4.0d), false));
-        testIngredients.add(new Ingredient("olives", BigDecimal.valueOf(2.0d), false));
-        testIngredients.add(new Ingredient("pineapple", BigDecimal.valueOf(3.0d), false));
+        testIngredients.add(new Ingredient("szpinak", BigDecimal.valueOf(2.0d), false));
+        testIngredients.add(new Ingredient("krewetki", BigDecimal.valueOf(4.0d), false));
+        testIngredients.add(new Ingredient("kurczak", BigDecimal.valueOf(4.0d), false));
+        testIngredients.add(new Ingredient("oliwki", BigDecimal.valueOf(2.0d), false));
+        testIngredients.add(new Ingredient("ananas", BigDecimal.valueOf(3.0d), false));
 
         ingredientRepository.saveAll(testIngredients);
     }

@@ -1,12 +1,13 @@
-package edu.pwr.pizzeria.model.order;
+package edu.pwr.pizzeria.model.order.cook;
 
+import edu.pwr.pizzeria.model.order.CustomerOrder;
 import edu.pwr.pizzeria.model.pizza.Pizza;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class CookViewOrder extends CustomerOrder{
+public class CookViewOrder extends CustomerOrder {
 
     @OneToMany
     private List<Pizza> pizzas;

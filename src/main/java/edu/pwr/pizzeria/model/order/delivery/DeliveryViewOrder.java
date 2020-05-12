@@ -1,9 +1,12 @@
 package edu.pwr.pizzeria.model.order.delivery;
 
 import edu.pwr.pizzeria.model.order.CustomerOrder;
+
+import javax.persistence.Entity;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+@Entity
 public class DeliveryViewOrder extends CustomerOrder {
 
     private BigDecimal total;

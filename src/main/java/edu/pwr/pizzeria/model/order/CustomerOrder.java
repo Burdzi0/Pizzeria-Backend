@@ -11,7 +11,7 @@ public abstract class CustomerOrder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    protected Long id;
+    protected int id;
 
     @ManyToOne
     protected CustomerUser customerUser;
@@ -22,11 +22,11 @@ public abstract class CustomerOrder {
     public CustomerOrder() {
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -67,7 +67,7 @@ public abstract class CustomerOrder {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CustomerOrder that = (CustomerOrder) o;
-        return id.equals(that.id) &&
+        return id == that.id &&
                 customerUser.equals(that.customerUser) &&
                 Objects.equals(date, that.date) &&
                 Objects.equals(timePassed, that.timePassed) &&

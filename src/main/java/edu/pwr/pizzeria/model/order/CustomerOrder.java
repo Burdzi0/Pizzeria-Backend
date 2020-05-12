@@ -67,6 +67,7 @@ public abstract class CustomerOrder {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CustomerOrder that = (CustomerOrder) o;
+
         return id == that.id &&
                 customerUser.equals(that.customerUser) &&
                 Objects.equals(date, that.date) &&

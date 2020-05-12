@@ -1,4 +1,4 @@
-package edu.pwr.pizzeria.model.order;
+package edu.pwr.pizzeria.model.order.delivery;
 
 public enum DeliveryOrderStatus {
 

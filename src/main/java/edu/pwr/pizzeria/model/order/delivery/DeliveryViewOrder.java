@@ -1,9 +1,10 @@
-package edu.pwr.pizzeria.model.order;
+package edu.pwr.pizzeria.model.order.delivery;
 
+import edu.pwr.pizzeria.model.order.CustomerOrder;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-public class DeliveryViewOrder extends CustomerOrder{
+public class DeliveryViewOrder extends CustomerOrder {
 
     private BigDecimal total;
     private DeliveryOrderStatus deliveryOrderStatus;

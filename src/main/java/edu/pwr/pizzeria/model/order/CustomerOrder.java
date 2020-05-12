@@ -1,31 +1,23 @@
 package edu.pwr.pizzeria.model.order;
 
-import edu.pwr.pizzeria.model.pizza.Pizza;
 import edu.pwr.pizzeria.model.user.CustomerUser;
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.sql.Time;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class CustomerOrder {
+public abstract class CustomerOrder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    protected Long id;
 
     @ManyToOne
-    private CustomerUser customerUser;
-
-    @OneToMany
-    private List<Pizza> pizzas;
-    private BigDecimal total;
-    private Date date;
-    private Time timePassed;
-    private CustomerOrderStatus status;
-    private String notes;
+    protected CustomerUser customerUser;
+    protected Date date;
+    protected Time timePassed;
+    protected String notes;
 
     public CustomerOrder() {
     }
@@ -46,22 +38,6 @@ public class CustomerOrder {
         this.customerUser = customerUser;
     }
 
-    public List<Pizza> getPizzas() {
-        return pizzas;
-    }
-
-    public void setPizzas(List<Pizza> pizzas) {
-        this.pizzas = pizzas;
-    }
-
-    public BigDecimal getTotal() {
-        return total;
-    }
-
-    public void setTotal(BigDecimal total) {
-        this.total = total;
-    }
-
     public Date getDate() {
         return date;
     }
@@ -78,31 +54,12 @@ public class CustomerOrder {
         this.timePassed = timePassed;
     }
 
-    public CustomerOrderStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(CustomerOrderStatus status) {
-        this.status = status;
-    }
-
     public String getNotes() {
         return notes;
     }
 
     public void setNotes(String notes) {
         this.notes = notes;
-    }
-
-    public void computeTotal(){
-
-        double sum = 0.0;
-
-        for (Pizza pizza : pizzas) {
-            sum += pizza.getPrice().doubleValue();
-        }
-
-        total = BigDecimal.valueOf(sum);
     }
 
     @Override
@@ -112,17 +69,14 @@ public class CustomerOrder {
         CustomerOrder that = (CustomerOrder) o;
         return id.equals(that.id) &&
                 customerUser.equals(that.customerUser) &&
-                pizzas.equals(that.pizzas) &&
-                Objects.equals(total, that.total) &&
                 Objects.equals(date, that.date) &&
                 Objects.equals(timePassed, that.timePassed) &&
-                status == that.status &&
                 Objects.equals(notes, that.notes);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, customerUser, pizzas, total, date, timePassed, status, notes);
+        return Objects.hash(id, customerUser, date, timePassed, notes);
     }
 
     @Override
@@ -130,12 +84,10 @@ public class CustomerOrder {
         return "CustomerOrder{" +
                 "id=" + id +
                 ", customerUser=" + customerUser +
-                ", pizzas=" + pizzas +
-                ", total=" + total +
                 ", date=" + date +
                 ", timePassed=" + timePassed +
-                ", status=" + status +
                 ", notes='" + notes + '\'' +
                 '}';
     }
 }
+

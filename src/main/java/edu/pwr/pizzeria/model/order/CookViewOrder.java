@@ -10,7 +10,7 @@ public class CookViewOrder extends CustomerOrder{
 
     @OneToMany
     private List<Pizza> pizzas;
-    private OrderStatus status;
+    private CookingOrderStatus status;
 
     public CookViewOrder() {
         super();
@@ -24,11 +24,11 @@ public class CookViewOrder extends CustomerOrder{
         this.pizzas = pizzas;
     }
 
-    public OrderStatus getStatus() {
+    public CookingOrderStatus getStatus() {
         return status;
     }
 
-    public void setStatus(OrderStatus status) {
+    public void setStatus(CookingOrderStatus status) {
         this.status = status;
     }
 

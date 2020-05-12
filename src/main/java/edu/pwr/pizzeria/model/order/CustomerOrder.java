@@ -1,32 +1,34 @@
 package edu.pwr.pizzeria.model.order;
 
+import edu.pwr.pizzeria.model.pizza.Pizza;
 import edu.pwr.pizzeria.model.user.CustomerUser;
 import javax.persistence.*;
-import java.sql.Time;
+import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
-public abstract class CustomerOrder {
+public class CustomerOrder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    protected int id;
+    private Long id;
 
     @ManyToOne
-    protected CustomerUser customerUser;
-    protected Date date;
-    protected Time timePassed;
-    protected String notes;
+    private CustomerUser customerUser;
 
-    public CustomerOrder() {
-    }
+    @OneToMany
+    private List<Pizza> pizzas;
+    private BigDecimal total;
+    private Date date;
+    private OrderStatus status;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -38,6 +40,22 @@ public abstract class CustomerOrder {
         this.customerUser = customerUser;
     }
 
+    public List<Pizza> getPizzas() {
+        return pizzas;
+    }
+
+    public void setPizzas(List<Pizza> pizzas) {
+        this.pizzas = pizzas;
+    }
+
+    public BigDecimal getTotal() {
+        return total;
+    }
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
+    }
+
     public Date getDate() {
         return date;
     }
@@ -46,20 +64,12 @@ public abstract class CustomerOrder {
         this.date = date;
     }
 
-    public Time getTimePassed() {
-        return timePassed;
+    public OrderStatus getStatus() {
+        return status;
     }
 
-    public void setTimePassed(Time timePassed) {
-        this.timePassed = timePassed;
-    }
-
-    public String getNotes() {
-        return notes;
-    }
-
-    public void setNotes(String notes) {
-        this.notes = notes;
+    public void setStatus(OrderStatus status) {
+        this.status = status;
     }
 
     @Override
@@ -67,16 +77,17 @@ public abstract class CustomerOrder {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CustomerOrder that = (CustomerOrder) o;
-        return id == that.id &&
+        return id.equals(that.id) &&
                 customerUser.equals(that.customerUser) &&
-                Objects.equals(date, that.date) &&
-                Objects.equals(timePassed, that.timePassed) &&
-                Objects.equals(notes, that.notes);
+                pizzas.equals(that.pizzas) &&
+                Objects.equals(total, that.total) &&
+                date.equals(that.date) &&
+                status == that.status;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, customerUser, date, timePassed, notes);
+        return Objects.hash(id, customerUser, pizzas, total, date, status);
     }
 
     @Override
@@ -84,10 +95,10 @@ public abstract class CustomerOrder {
         return "CustomerOrder{" +
                 "id=" + id +
                 ", customerUser=" + customerUser +
+                ", pizzas=" + pizzas +
+                ", total=" + total +
                 ", date=" + date +
-                ", timePassed=" + timePassed +
-                ", notes='" + notes + '\'' +
+                ", status=" + status +
                 '}';
     }
 }
-

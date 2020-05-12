@@ -99,7 +99,7 @@ public class AuthenticationService {
     }
 
     private String newVerificationLink(String serverName, int serverPort, UUID verificationId) {
-        return serverName + ":" + serverPort + "/v1/register/" + verificationId;
+        return "https://" + serverName + ":" + serverPort + "/v1/register/" + verificationId;
     }
 
 }

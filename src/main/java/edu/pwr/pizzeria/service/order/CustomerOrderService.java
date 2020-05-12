@@ -1,5 +1,6 @@
 package edu.pwr.pizzeria.service.order;
 
+import edu.pwr.pizzeria.model.order.dto.CookViewOrderDto;
 import edu.pwr.pizzeria.model.order.dto.DeliveryViewOrderDto;
 import edu.pwr.pizzeria.model.pizza.Pizza;
 import edu.pwr.pizzeria.repository.CustomerOrderRepository;
@@ -22,11 +23,11 @@ public class CustomerOrderService {
     }
 
     @Transactional
-    public void createOrder(DeliveryViewOrderDto deliveryViewOrderDto) {
-        final List<Pizza> pizzaList = deliveryViewOrderDto.getPizzas()
-                .stream()
-                .filter(Objects::nonNull)
-                .map(pizzaId -> pizzaRepository.getOne(pizzaId))
-                .collect(Collectors.toList());
+    public void createOrder(CookViewOrderDto cookViewOrderDto) {
+//        final List<Pizza> pizzaList = cookViewOrderDto.getPizzas()
+//                .stream()
+//                .filter(Objects::nonNull)
+//                .map(pizzaId -> pizzaRepository.getOne(pizzaId))
+//                .collect(Collectors.toList());
     }
 }

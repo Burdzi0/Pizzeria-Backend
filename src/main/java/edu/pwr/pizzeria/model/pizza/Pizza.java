@@ -12,6 +12,8 @@ public class Pizza {
 
     private static final double THICK_CRUST_PRICE = 10.0;
     private static final double THIN_CRUST_PRICE = 7.0;
+    public static final int SMALL_DIAMETER = 20;
+    public static final int BIG_DIAMETER = 30;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -105,6 +107,13 @@ public class Pizza {
 
         for (PizzaIngredient ingredient : ingredients) {
             sum += ingredient.getIngredient().getPrice().doubleValue() * ingredient.getQuantity();
+        }
+
+        switch(diameter){
+            case SMALL_DIAMETER:
+                sum *= 1.0;
+            case BIG_DIAMETER:
+                sum *= 1.5;
         }
 
         price = BigDecimal.valueOf(sum);

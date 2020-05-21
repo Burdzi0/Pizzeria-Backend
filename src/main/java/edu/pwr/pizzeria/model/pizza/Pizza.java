@@ -2,11 +2,16 @@ package edu.pwr.pizzeria.model.pizza;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Entity
 public class Pizza {
+
+    private static final double THICK_CRUST_PRICE = 10.0;
+    private static final double THIN_CRUST_PRICE = 7.0;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -85,6 +90,24 @@ public class Pizza {
 
     public void setCrust(PizzaCrust crust) {
         this.crust = crust;
+    }
+
+    public void computePrice() {
+
+        double sum = 0.0;
+
+        switch(crust){
+            case GRUBE:
+                sum += THICK_CRUST_PRICE;
+            case CIENKIE:
+                sum += THIN_CRUST_PRICE;
+        }
+
+        for (PizzaIngredient ingredient : ingredients) {
+            sum += ingredient.getIngredient().getPrice().doubleValue() * ingredient.getQuantity();
+        }
+
+        price = BigDecimal.valueOf(sum);
     }
 
     @Override

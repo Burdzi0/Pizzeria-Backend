@@ -1,6 +1,5 @@
 package edu.pwr.pizzeria.mock;
 
-
 import com.github.javafaker.Faker;
 import edu.pwr.pizzeria.model.pizza.Ingredient;
 import edu.pwr.pizzeria.model.pizza.Pizza;
@@ -18,6 +17,7 @@ public class RandomPizzaBuilder {
     private static final Random random = new Random();
     private final Faker faker = new Faker();
     private final int MAX_INGREDIENT_QTY = 4;
+    private final double MAX_PRICE = 60.0;
     private int[] testDiameters = new int[]{30, 45};
     private IngredientRepository ingredientRepository;
 
@@ -55,7 +55,15 @@ public class RandomPizzaBuilder {
         final List<PizzaIngredient> ingredients = generateRandomIngredients();
         final int diameter = generateRandomDiameter();
 
-        return new Pizza(typeName, ingredients, diameter);
+        Pizza randomPizza = new Pizza(typeName, ingredients, diameter);
+        randomPizza.computePrice();
+
+        return randomPizza;
+    }
+
+    private BigDecimal generateRandomPrice() {
+
+            return BigDecimal.valueOf(random.nextDouble());
     }
 
     private String generateRandomTypeName() {

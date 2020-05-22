@@ -12,13 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static java.lang.Integer.max;
+
 @Service
 public class RandomPizzaBuilder {
 
     private static final Random random = new Random();
     private final Faker faker = new Faker();
     private final int MAX_INGREDIENT_QTY = 4;
-    private final double MAX_PRICE = 60.0;
     private int[] testDiameters = new int[]{30, 45};
     private IngredientRepository ingredientRepository;
 
@@ -27,7 +28,7 @@ public class RandomPizzaBuilder {
     }
 
     private static int generateRandomInt(int upperRange) {
-        return random.nextInt(upperRange - 2) + 2;
+        return random.nextInt(upperRange);
     }
 
     public void initializeTestIngredients() {
@@ -68,7 +69,8 @@ public class RandomPizzaBuilder {
 
     private List<PizzaIngredient> generateRandomIngredients() {
         final List<Ingredient> testIngredientsCopy = ingredientRepository.findAll();
-        final int ingredientsNum = generateRandomInt(testIngredientsCopy.size());
+        int ingredientsNum = generateRandomInt(testIngredientsCopy.size());
+        ingredientsNum = max(ingredientsNum, 2);
 
         int ingredientIndex;
         int ingredientQty;

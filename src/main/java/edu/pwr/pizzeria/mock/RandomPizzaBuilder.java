@@ -6,6 +6,7 @@ import edu.pwr.pizzeria.model.pizza.Pizza;
 import edu.pwr.pizzeria.model.pizza.PizzaIngredient;
 import edu.pwr.pizzeria.repository.IngredientRepository;
 import org.springframework.stereotype.Service;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,7 @@ public class RandomPizzaBuilder {
     }
 
     private static int generateRandomInt(int upperRange) {
-        return random.nextInt(upperRange);
+        return random.nextInt(upperRange - 2) + 2;
     }
 
     public void initializeTestIngredients() {
@@ -59,11 +60,6 @@ public class RandomPizzaBuilder {
         randomPizza.computePrice();
 
         return randomPizza;
-    }
-
-    private BigDecimal generateRandomPrice() {
-
-            return BigDecimal.valueOf(random.nextDouble());
     }
 
     private String generateRandomTypeName() {

@@ -4,6 +4,7 @@ import edu.pwr.pizzeria.model.pizza.Pizza;
 import edu.pwr.pizzeria.model.user.CustomerUser;
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -23,7 +24,7 @@ public class CustomerOrder {
     private BigDecimal total;
     private Date date;
     private Time timePassed;
-    private OrderStatus status;
+    private CustomerOrderStatus status;
     private String notes;
 
     public CustomerOrder() {
@@ -77,11 +78,11 @@ public class CustomerOrder {
         this.timePassed = timePassed;
     }
 
-    public OrderStatus getStatus() {
+    public CustomerOrderStatus getStatus() {
         return status;
     }
 
-    public void setStatus(OrderStatus status) {
+    public void setStatus(CustomerOrderStatus status) {
         this.status = status;
     }
 
@@ -93,6 +94,17 @@ public class CustomerOrder {
         this.notes = notes;
     }
 
+    public void computeTotal(){
+
+        double sum = 0.0;
+
+        for (Pizza pizza : pizzas) {
+            sum += pizza.getPrice().doubleValue();
+        }
+
+        total = BigDecimal.valueOf(sum);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -102,7 +114,7 @@ public class CustomerOrder {
                 customerUser.equals(that.customerUser) &&
                 pizzas.equals(that.pizzas) &&
                 Objects.equals(total, that.total) &&
-                date.equals(that.date) &&
+                Objects.equals(date, that.date) &&
                 Objects.equals(timePassed, that.timePassed) &&
                 status == that.status &&
                 Objects.equals(notes, that.notes);

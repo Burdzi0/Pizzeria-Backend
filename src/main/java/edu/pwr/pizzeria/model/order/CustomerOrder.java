@@ -10,14 +10,14 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class CustomerOrder {
+public abstract class CustomerOrder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    protected Long id;
 
     @ManyToOne
-    private CustomerUser customerUser;
+    protected CustomerUser customerUser;
 
     @OneToMany
     private List<Pizza> pizzas;
@@ -139,3 +139,4 @@ public class CustomerOrder {
                 '}';
     }
 }
+

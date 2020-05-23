@@ -4,9 +4,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import edu.pwr.pizzeria.model.pizza.Pizza;
 import edu.pwr.pizzeria.model.user.CustomerUser;
-
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import java.math.BigDecimal;
 import java.sql.Time;
 import java.util.Date;

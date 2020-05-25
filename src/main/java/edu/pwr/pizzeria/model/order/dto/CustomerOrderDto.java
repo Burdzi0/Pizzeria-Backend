@@ -5,10 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import edu.pwr.pizzeria.model.order.CustomerOrder;
 import edu.pwr.pizzeria.model.order.CustomerOrderStatus;
 import edu.pwr.pizzeria.model.pizza.Pizza;
-import edu.pwr.pizzeria.model.user.CustomerUser;
+import edu.pwr.pizzeria.model.user.Address;
 
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import java.math.BigDecimal;
 import java.sql.Time;
 import java.util.Date;
@@ -18,7 +16,7 @@ import java.util.Objects;
 public class CustomerOrderDto {
 
     private final Long id;
-    private final CustomerUser customerUser;
+    private final Address address;
     private final List<Pizza> pizzas;
     private final BigDecimal total;
     private final Date date;
@@ -28,15 +26,15 @@ public class CustomerOrderDto {
 
     @JsonCreator
     public CustomerOrderDto(@JsonProperty("id") Long id,
-                            @JsonProperty("customerUser")  CustomerUser customerUser,
+                            @JsonProperty("address") Address address,
                             @JsonProperty("pizzas") List<Pizza> pizzas,
                             @JsonProperty("total") BigDecimal total,
                             @JsonProperty("date") Date date,
                             @JsonProperty("time") Time timePassed,
                             @JsonProperty("customOrderStatus") CustomerOrderStatus customerOrderStatus,
-                            @JsonProperty("notes") String notes){
+                            @JsonProperty("notes") String notes) {
         this.id = id;
-        this.customerUser = customerUser;
+        this.address = address;
         this.pizzas = pizzas;
         this.total = total;
         this.date = date;
@@ -45,9 +43,9 @@ public class CustomerOrderDto {
         this.notes = notes;
     }
 
-    public static CustomerOrderDto toDto(CustomerOrder customerOrder){
+    public static CustomerOrderDto toDto(CustomerOrder customerOrder) {
         return new CustomerOrderDto(customerOrder.getId(),
-                customerOrder.getCustomerUser(),
+                customerOrder.getAddress(),
                 customerOrder.getPizzas(),
                 customerOrder.getTotal(),
                 customerOrder.getDate(),
@@ -60,8 +58,8 @@ public class CustomerOrderDto {
         return id;
     }
 
-    public CustomerUser getCustomerUser() {
-        return customerUser;
+    public Address getAddress() {
+        return address;
     }
 
     public List<Pizza> getPizzas() {
@@ -94,7 +92,7 @@ public class CustomerOrderDto {
         if (o == null || getClass() != o.getClass()) return false;
         CustomerOrderDto that = (CustomerOrderDto) o;
         return id.equals(that.id) &&
-                customerUser.equals(that.customerUser) &&
+                address.equals(that.address) &&
                 pizzas.equals(that.pizzas) &&
                 Objects.equals(total, that.total) &&
                 Objects.equals(date, that.date) &&
@@ -105,14 +103,14 @@ public class CustomerOrderDto {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, customerUser, pizzas, total, date, timePassed, customerOrderStatus, notes);
+        return Objects.hash(id, address, pizzas, total, date, timePassed, customerOrderStatus, notes);
     }
 
     @Override
     public String toString() {
         return "CustomerOrderDto{" +
                 "id=" + id +
-                ", customerUser=" + customerUser +
+                ", address=" + address +
                 ", pizzas=" + pizzas +
                 ", total=" + total +
                 ", date=" + date +

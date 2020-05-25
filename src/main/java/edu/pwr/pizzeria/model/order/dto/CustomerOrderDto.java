@@ -1,7 +1,9 @@
-package edu.pwr.pizzeria.model.order;
+package edu.pwr.pizzeria.model.order.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import edu.pwr.pizzeria.model.order.CustomerOrder;
+import edu.pwr.pizzeria.model.order.CustomerOrderStatus;
 import edu.pwr.pizzeria.model.pizza.Pizza;
 import edu.pwr.pizzeria.model.user.CustomerUser;
 

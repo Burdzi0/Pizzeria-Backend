@@ -1,7 +1,7 @@
 package edu.pwr.pizzeria.model.order;
 
 import edu.pwr.pizzeria.model.pizza.Pizza;
-import edu.pwr.pizzeria.model.user.CustomerUser;
+import edu.pwr.pizzeria.model.user.Address;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Time;
@@ -10,21 +10,21 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class CustomerOrder {
+public abstract class CustomerOrder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    protected Long id;
 
-    @ManyToOne
-    private CustomerUser customerUser;
+    //???
+    protected Address address;
 
     @OneToMany
     private List<Pizza> pizzas;
     private BigDecimal total;
     private Date date;
     private Time timePassed;
-    private OrderStatus status;
+    private CustomerOrderStatus status;
     private String notes;
 
     public CustomerOrder() {
@@ -38,12 +38,12 @@ public class CustomerOrder {
         this.id = id;
     }
 
-    public CustomerUser getCustomerUser() {
-        return customerUser;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setCustomerUser(CustomerUser customerUser) {
-        this.customerUser = customerUser;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     public List<Pizza> getPizzas() {
@@ -78,11 +78,11 @@ public class CustomerOrder {
         this.timePassed = timePassed;
     }
 
-    public OrderStatus getStatus() {
+    public CustomerOrderStatus getStatus() {
         return status;
     }
 
-    public void setStatus(OrderStatus status) {
+    public void setStatus(CustomerOrderStatus status) {
         this.status = status;
     }
 
@@ -94,16 +94,27 @@ public class CustomerOrder {
         this.notes = notes;
     }
 
+    public void computeTotal(){
+
+        double sum = 0.0;
+
+        for (Pizza pizza : pizzas) {
+            sum += pizza.getPrice().doubleValue();
+        }
+
+        total = BigDecimal.valueOf(sum);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CustomerOrder that = (CustomerOrder) o;
         return id.equals(that.id) &&
-                customerUser.equals(that.customerUser) &&
-                pizzas.equals(that.pizzas) &&
+                address.equals(that.address) &&
+                Objects.equals(pizzas, that.pizzas) &&
                 Objects.equals(total, that.total) &&
-                date.equals(that.date) &&
+                Objects.equals(date, that.date) &&
                 Objects.equals(timePassed, that.timePassed) &&
                 status == that.status &&
                 Objects.equals(notes, that.notes);
@@ -111,14 +122,14 @@ public class CustomerOrder {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, customerUser, pizzas, total, date, timePassed, status, notes);
+        return Objects.hash(id, address, pizzas, total, date, timePassed, status, notes);
     }
 
     @Override
     public String toString() {
         return "CustomerOrder{" +
                 "id=" + id +
-                ", customerUser=" + customerUser +
+                ", address=" + address +
                 ", pizzas=" + pizzas +
                 ", total=" + total +
                 ", date=" + date +
@@ -128,3 +139,4 @@ public class CustomerOrder {
                 '}';
     }
 }
+

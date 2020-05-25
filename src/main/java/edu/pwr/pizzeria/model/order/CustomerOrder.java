@@ -1,7 +1,7 @@
 package edu.pwr.pizzeria.model.order;
 
 import edu.pwr.pizzeria.model.pizza.Pizza;
-import edu.pwr.pizzeria.model.user.CustomerUser;
+import edu.pwr.pizzeria.model.user.Address;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Time;
@@ -16,8 +16,8 @@ public abstract class CustomerOrder {
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;
 
-    @ManyToOne
-    protected CustomerUser customerUser;
+    //???
+    protected Address address;
 
     @OneToMany
     private List<Pizza> pizzas;
@@ -38,12 +38,12 @@ public abstract class CustomerOrder {
         this.id = id;
     }
 
-    public CustomerUser getCustomerUser() {
-        return customerUser;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setCustomerUser(CustomerUser customerUser) {
-        this.customerUser = customerUser;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     public List<Pizza> getPizzas() {
@@ -111,8 +111,8 @@ public abstract class CustomerOrder {
         if (o == null || getClass() != o.getClass()) return false;
         CustomerOrder that = (CustomerOrder) o;
         return id.equals(that.id) &&
-                customerUser.equals(that.customerUser) &&
-                pizzas.equals(that.pizzas) &&
+                address.equals(that.address) &&
+                Objects.equals(pizzas, that.pizzas) &&
                 Objects.equals(total, that.total) &&
                 Objects.equals(date, that.date) &&
                 Objects.equals(timePassed, that.timePassed) &&
@@ -122,14 +122,14 @@ public abstract class CustomerOrder {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, customerUser, pizzas, total, date, timePassed, status, notes);
+        return Objects.hash(id, address, pizzas, total, date, timePassed, status, notes);
     }
 
     @Override
     public String toString() {
         return "CustomerOrder{" +
                 "id=" + id +
-                ", customerUser=" + customerUser +
+                ", address=" + address +
                 ", pizzas=" + pizzas +
                 ", total=" + total +
                 ", date=" + date +

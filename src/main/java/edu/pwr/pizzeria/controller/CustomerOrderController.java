@@ -1,6 +1,6 @@
 package edu.pwr.pizzeria.controller;
 
-import edu.pwr.pizzeria.model.order.CustomerOrderDto;
+import edu.pwr.pizzeria.model.order.dto.CustomerOrderDto;
 import edu.pwr.pizzeria.service.order.CustomerOrderService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

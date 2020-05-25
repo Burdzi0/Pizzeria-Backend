@@ -2,16 +2,27 @@ package edu.pwr.pizzeria.model.order;
 
 public enum CustomerOrderStatus {
 
-    COOK_AWAITING("OCZEKUJĄCE"), COOK_IN_PROGRESS("W TRAKCIE REALIZACJI"), COOK_READY("GOTOWE"),
-    DELIVERY_AWAITNING("OCZEKUJĄCE"), DELIVERY_IN_PROGRESS("W DRODZE"), DELIVERY_READY("DOSTARCZONE");
-    private String state;
+    COOK_AWAITING("OCZEKUJĄCE", 1), COOK_IN_PROGRESS("W TRAKCIE REALIZACJI", 2),
+    COOK_READY("GOTOWE", 3), DELIVERY_AWAITNING("OCZEKUJĄCE", 4),
+    DELIVERY_IN_PROGRESS("W DRODZE", 5), DELIVERY_READY("DOSTARCZONE", 6);
 
-    CustomerOrderStatus(String state) {
+    private String state;
+    private int ordinalNumber;
+
+    CustomerOrderStatus(String state, int ordinalNumber) {
         this.state = state;
+        this.ordinalNumber = ordinalNumber;
+    }
+
+    public int getOrdinalNumber() {
+        return ordinalNumber;
     }
 
     @Override
     public String toString() {
-        return state;
+        return "CustomerOrderStatus{" +
+                "state='" + state + '\'' +
+                ", ordinalNumber=" + ordinalNumber +
+                '}';
     }
 }

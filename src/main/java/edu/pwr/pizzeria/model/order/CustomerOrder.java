@@ -1,29 +1,24 @@
 package edu.pwr.pizzeria.model.order;
 
 import edu.pwr.pizzeria.model.pizza.Pizza;
-import edu.pwr.pizzeria.model.user.Address;
+import edu.pwr.pizzeria.model.user.AddressDto;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.sql.Time;
-import java.util.Date;
+import java.time.Instant;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
-public abstract class CustomerOrder {
+public class CustomerOrder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    protected Long id;
-
-    //???
-    protected Address address;
+    private Long id;
 
     @OneToMany
     private List<Pizza> pizzas;
     private BigDecimal total;
-    private Date date;
-    private Time timePassed;
+    private Instant date;
     private CustomerOrderStatus status;
     private String notes;
 
@@ -36,14 +31,6 @@ public abstract class CustomerOrder {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
     }
 
     public List<Pizza> getPizzas() {
@@ -62,20 +49,12 @@ public abstract class CustomerOrder {
         this.total = total;
     }
 
-    public Date getDate() {
+    public Instant getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Instant date) {
         this.date = date;
-    }
-
-    public Time getTimePassed() {
-        return timePassed;
-    }
-
-    public void setTimePassed(Time timePassed) {
-        this.timePassed = timePassed;
     }
 
     public CustomerOrderStatus getStatus() {
@@ -94,49 +73,5 @@ public abstract class CustomerOrder {
         this.notes = notes;
     }
 
-    public void computeTotal(){
-
-        double sum = 0.0;
-
-        for (Pizza pizza : pizzas) {
-            sum += pizza.getPrice().doubleValue();
-        }
-
-        total = BigDecimal.valueOf(sum);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CustomerOrder that = (CustomerOrder) o;
-        return id.equals(that.id) &&
-                address.equals(that.address) &&
-                Objects.equals(pizzas, that.pizzas) &&
-                Objects.equals(total, that.total) &&
-                Objects.equals(date, that.date) &&
-                Objects.equals(timePassed, that.timePassed) &&
-                status == that.status &&
-                Objects.equals(notes, that.notes);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, address, pizzas, total, date, timePassed, status, notes);
-    }
-
-    @Override
-    public String toString() {
-        return "CustomerOrder{" +
-                "id=" + id +
-                ", address=" + address +
-                ", pizzas=" + pizzas +
-                ", total=" + total +
-                ", date=" + date +
-                ", timePassed=" + timePassed +
-                ", status=" + status +
-                ", notes='" + notes + '\'' +
-                '}';
-    }
 }
 

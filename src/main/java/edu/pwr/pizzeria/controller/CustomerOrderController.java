@@ -26,7 +26,6 @@ public class CustomerOrderController {
     @ApiOperation(value = "Advance status", notes = "Advance the given status accordingly to the set order")
     @PostMapping("/advance_order")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    @Transactional
     public void requestOrderStatusChange(@RequestParam ChangeStatusRequestDto changeStatusRequestDto){
         customerOrderService.advanceStatus(changeStatusRequestDto.getId(), changeStatusRequestDto.getNewOrderStatus());
     }

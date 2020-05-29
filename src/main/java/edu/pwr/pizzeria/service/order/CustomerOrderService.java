@@ -4,6 +4,7 @@ import edu.pwr.pizzeria.model.order.CustomerOrder;
 import edu.pwr.pizzeria.model.order.CustomerOrderStatus;
 import edu.pwr.pizzeria.repository.CustomerOrderRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CustomerOrderService {
@@ -14,6 +15,7 @@ public class CustomerOrderService {
         this.customerOrderRepository = customerOrderRepository;
     }
 
+    @Transactional
     public void advanceStatus(Long id, CustomerOrderStatus newStatus) {
 
         final CustomerOrder customerOrder = customerOrderRepository.findById(id)

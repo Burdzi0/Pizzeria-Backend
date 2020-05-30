@@ -1,7 +1,7 @@
 package edu.pwr.pizzeria.model.order;
 
 import edu.pwr.pizzeria.model.pizza.Pizza;
-import edu.pwr.pizzeria.model.user.AddressDto;
+import edu.pwr.pizzeria.model.user.Address;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -17,12 +17,20 @@ public class CustomerOrder {
 
     @OneToMany
     private List<Pizza> pizzas;
+
+    @OneToMany
+    private List<CustomPizza> customs;
+
+    @OneToOne
+    private Address address;
+
     private BigDecimal total;
     private Instant date;
     private CustomerOrderStatus status;
-    private String notes;
+
 
     public CustomerOrder() {
+        status = CustomerOrderStatus.COOK_AWAITING;
     }
 
     public Long getId() {
@@ -39,6 +47,14 @@ public class CustomerOrder {
 
     public void setPizzas(List<Pizza> pizzas) {
         this.pizzas = pizzas;
+    }
+
+    public List<CustomPizza> getCustoms() {
+        return customs;
+    }
+
+    public void setCustoms(List<CustomPizza> customs) {
+        this.customs = customs;
     }
 
     public BigDecimal getTotal() {
@@ -65,13 +81,12 @@ public class CustomerOrder {
         this.status = status;
     }
 
-    public String getNotes() {
-        return notes;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setNotes(String notes) {
-        this.notes = notes;
+    public void setAddress(Address address) {
+        this.address = address;
     }
-
 }
 

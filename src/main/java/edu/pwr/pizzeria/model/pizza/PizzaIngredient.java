@@ -9,6 +9,7 @@ public class PizzaIngredient {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
     @OneToOne
     private Ingredient ingredient;
     private int quantity;

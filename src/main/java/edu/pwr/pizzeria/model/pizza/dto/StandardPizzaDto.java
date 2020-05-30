@@ -22,4 +22,12 @@ public class StandardPizzaDto {
     public int getDiameter() {
         return diameter;
     }
+
+    @Override
+    public String toString() {
+        return "StandardPizzaDto{" +
+                "id=" + id +
+                ", diameter=" + diameter +
+                '}';
+    }
 }

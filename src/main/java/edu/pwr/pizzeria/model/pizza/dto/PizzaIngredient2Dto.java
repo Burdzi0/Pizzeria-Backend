@@ -9,7 +9,7 @@ public class PizzaIngredient2Dto {
     private final int quantity;
 
     @JsonCreator
-    public PizzaIngredient2Dto(@JsonProperty("id")int id,
+    public PizzaIngredient2Dto(@JsonProperty("id") int id,
                                @JsonProperty("quantity") int quantity) {
         this.id = id;
         this.quantity = quantity;
@@ -21,5 +21,13 @@ public class PizzaIngredient2Dto {
 
     public int getQuantity() {
         return quantity;
+    }
+
+    @Override
+    public String toString() {
+        return "PizzaIngredient2Dto{" +
+                "id=" + id +
+                ", quantity=" + quantity +
+                '}';
     }
 }

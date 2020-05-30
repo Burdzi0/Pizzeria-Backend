@@ -13,7 +13,7 @@ public class AddressDto {
     @JsonCreator
     public AddressDto(@JsonProperty("street") String street,
                       @JsonProperty("number") int number,
-                      @JsonProperty("phoneNumber") String phoneNumber,
+                      @JsonProperty("phone") String phoneNumber,
                       @JsonProperty("email") String email) {
         this.street = street;
         this.number = number;
@@ -51,5 +51,15 @@ public class AddressDto {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "AddressDto{" +
+                "street='" + street + '\'' +
+                ", number=" + number +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }

@@ -10,15 +10,15 @@ public class CustomPizzaDto {
 
     private final int diameter;
     private final PizzaCrust crust;
-    private final List<PizzaIngredient2Dto> pizzaIngredientDtos;
+    private final List<PizzaIngredient2Dto> pizzaIngredients;
 
     @JsonCreator
     public CustomPizzaDto(@JsonProperty("diameter") int diameter,
                           @JsonProperty("crust") PizzaCrust crust,
-                          @JsonProperty("pizzaIngredients") List<PizzaIngredient2Dto> pizzaIngredientDtos) {
+                          @JsonProperty("pizzaIngredients") List<PizzaIngredient2Dto> pizzaIngredients) {
         this.diameter = diameter;
         this.crust = crust;
-        this.pizzaIngredientDtos = pizzaIngredientDtos;
+        this.pizzaIngredients = pizzaIngredients;
     }
 
     public int getDiameter() {
@@ -29,7 +29,17 @@ public class CustomPizzaDto {
         return crust;
     }
 
-    public List<PizzaIngredient2Dto> getPizzaIngredientDtos() {
-        return pizzaIngredientDtos;
+
+    public List<PizzaIngredient2Dto> getPizzaIngredients() {
+        return pizzaIngredients;
+    }
+
+    @Override
+    public String toString() {
+        return "CustomPizzaDto{" +
+                "diameter=" + diameter +
+                ", crust=" + crust +
+                ", pizzaIngredients=" + pizzaIngredients +
+                '}';
     }
 }

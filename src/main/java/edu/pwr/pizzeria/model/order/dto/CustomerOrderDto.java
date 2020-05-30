@@ -2,8 +2,6 @@ package edu.pwr.pizzeria.model.order.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import edu.pwr.pizzeria.model.pizza.dto.CustomPizzaDto;
-import edu.pwr.pizzeria.model.pizza.dto.StandardPizzaDto;
 import edu.pwr.pizzeria.model.user.AddressDto;
 
 import java.util.List;
@@ -11,15 +9,15 @@ import java.util.List;
 public class CustomerOrderDto {
 
     private final List<StandardPizzaDto> pizzas;
-    private final List<CustomPizzaDto> customPizzaDtos;
+    private final List<CustomPizzaDto> customs;
     private final AddressDto addressDto;
 
     @JsonCreator
     public CustomerOrderDto(@JsonProperty("standard") List<StandardPizzaDto> pizzas,
-                            @JsonProperty("customs") List<CustomPizzaDto> customPizzaDtos,
+                            @JsonProperty("customs") List<CustomPizzaDto> customs,
                             @JsonProperty("address") AddressDto addressDto) {
         this.pizzas = pizzas;
-        this.customPizzaDtos = customPizzaDtos;
+        this.customs = customs;
         this.addressDto = addressDto;
     }
 
@@ -27,8 +25,8 @@ public class CustomerOrderDto {
         return pizzas;
     }
 
-    public List<CustomPizzaDto> getCustomPizzaDtos() {
-        return customPizzaDtos;
+    public List<CustomPizzaDto> getCustoms() {
+        return customs;
     }
 
     public AddressDto getAddressDto() {
@@ -39,7 +37,7 @@ public class CustomerOrderDto {
     public String toString() {
         return "CustomerOrderDto{" +
                 "pizzas=" + pizzas +
-                ", customPizzaDtos=" + customPizzaDtos +
+                ", customs=" + customs +
                 ", addressDto=" + addressDto +
                 '}';
     }

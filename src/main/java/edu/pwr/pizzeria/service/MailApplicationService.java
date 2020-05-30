@@ -41,7 +41,7 @@ public class MailApplicationService {
     public void sendConfirmOrderMail(String mail) {
         final BasicMail basicMail = new BasicMail(from,
                 mail,
-                "Pizzeria ZPI - Przywrócenie hasła",
+                "Pizzeria ZPI - Potwierdzenie zamówienia",
                 mailContentFactory.orderMail());
 
         mailService.sendMail(basicMail);

@@ -20,7 +20,7 @@ public class Pizza {
     private int id;
     private String typeName;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<PizzaIngredient> ingredients;
     private BigDecimal price;
     private int diameter;
@@ -37,6 +37,14 @@ public class Pizza {
         this.diameter = diameter;
         crust = PizzaCrust.CIENKIE;
     }
+
+    public Pizza(Pizza pizza) {
+        this.typeName = pizza.typeName;
+        this.ingredients = pizza.ingredients;
+        this.diameter = pizza.diameter;
+        crust = PizzaCrust.CIENKIE;
+    }
+
 
     public int getId() {
         return id;

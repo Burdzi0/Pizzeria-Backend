@@ -26,7 +26,7 @@ public class CustomerOrderController {
 
     })
     @PostMapping("")
-    public void acceptOrder(CustomerOrderDto customerOrderDto){
+    public void acceptOrder(@RequestBody @Valid CustomerOrderDto customerOrderDto){
 
         System.out.println(customerOrderDto.toString());
     }

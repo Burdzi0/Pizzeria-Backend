@@ -1,8 +1,9 @@
-package edu.pwr.pizzeria.model.pizza.dto;
+package edu.pwr.pizzeria.model.order.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import edu.pwr.pizzeria.model.pizza.PizzaCrust;
+import edu.pwr.pizzeria.model.pizza.dto.CustomPizzaIngredient;
 
 import java.util.List;
 
@@ -10,12 +11,12 @@ public class CustomPizzaDto {
 
     private final int diameter;
     private final PizzaCrust crust;
-    private final List<PizzaIngredient2Dto> pizzaIngredients;
+    private final List<CustomPizzaIngredient> pizzaIngredients;
 
     @JsonCreator
     public CustomPizzaDto(@JsonProperty("diameter") int diameter,
                           @JsonProperty("crust") PizzaCrust crust,
-                          @JsonProperty("pizzaIngredients") List<PizzaIngredient2Dto> pizzaIngredients) {
+                          @JsonProperty("pizzaIngredients") List<CustomPizzaIngredient> pizzaIngredients) {
         this.diameter = diameter;
         this.crust = crust;
         this.pizzaIngredients = pizzaIngredients;
@@ -30,7 +31,7 @@ public class CustomPizzaDto {
     }
 
 
-    public List<PizzaIngredient2Dto> getPizzaIngredients() {
+    public List<CustomPizzaIngredient> getPizzaIngredients() {
         return pizzaIngredients;
     }
 

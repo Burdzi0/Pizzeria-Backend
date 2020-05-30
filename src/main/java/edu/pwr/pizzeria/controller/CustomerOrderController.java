@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @RestController
 @RequestMapping(value = "/v1/order")
@@ -27,8 +28,7 @@ public class CustomerOrderController {
     })
     @PostMapping("")
     public void acceptOrder(@RequestBody @Valid CustomerOrderDto customerOrderDto){
-
-        System.out.println(customerOrderDto.toString());
+        customerOrderService.createOrder(customerOrderDto);
     }
 
     @ApiResponses({

@@ -1,4 +1,4 @@
-package edu.pwr.pizzeria.model.pizza.dto;
+package edu.pwr.pizzeria.model.order.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

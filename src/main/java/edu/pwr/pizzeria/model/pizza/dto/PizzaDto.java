@@ -2,7 +2,7 @@ package edu.pwr.pizzeria.model.pizza.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import edu.pwr.pizzeria.model.pizza.Pizza;
+import edu.pwr.pizzeria.model.pizza.StandardPizza;
 import edu.pwr.pizzeria.model.pizza.PizzaCrust;
 import edu.pwr.pizzeria.model.pizza.PizzaIngredient;
 
@@ -35,13 +35,13 @@ public class PizzaDto {
         this.crust = crust;
     }
 
-    public static PizzaDto toDto(Pizza pizza) {
-        return new PizzaDto(pizza.getId(),
-                pizza.getTypeName(),
-                pizzaIngredientsToDto(pizza.getPizzaIngredients()),
-                pizza.getPrice(),
-                pizza.getDiameter(),
-                pizza.getCrust());
+    public static PizzaDto toDto(StandardPizza standardPizza) {
+        return new PizzaDto(standardPizza.getId(),
+                standardPizza.getTypeName(),
+                pizzaIngredientsToDto(standardPizza.getIngredients()),
+                standardPizza.getPrice(),
+                standardPizza.getDiameter(),
+                standardPizza.getCrust());
     }
 
     private static List<PizzaIngredientDto> pizzaIngredientsToDto(List<PizzaIngredient> pizzaIngredients) {

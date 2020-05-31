@@ -4,7 +4,7 @@ import edu.pwr.pizzeria.model.order.CustomPizza;
 import edu.pwr.pizzeria.model.order.CustomerOrder;
 import edu.pwr.pizzeria.model.order.CustomerOrderStatus;
 import edu.pwr.pizzeria.model.order.dto.CustomerOrderDto;
-import edu.pwr.pizzeria.model.pizza.Pizza;
+import edu.pwr.pizzeria.model.pizza.StandardPizza;
 import edu.pwr.pizzeria.model.pizza.PizzaIngredient;
 import edu.pwr.pizzeria.model.order.dto.CustomPizzaDto;
 import edu.pwr.pizzeria.model.order.dto.StandardPizzaDto;
@@ -12,7 +12,7 @@ import edu.pwr.pizzeria.model.user.Address;
 import edu.pwr.pizzeria.model.user.AddressDto;
 import edu.pwr.pizzeria.repository.CustomerOrderRepository;
 import edu.pwr.pizzeria.repository.IngredientRepository;
-import edu.pwr.pizzeria.repository.PizzaRepository;
+import edu.pwr.pizzeria.repository.StandardPizzaRepository;
 import edu.pwr.pizzeria.service.MailApplicationService;
 import edu.pwr.pizzeria.service.ingredient.IngredientNotFoundException;
 import edu.pwr.pizzeria.service.order.calculator.PriceCalculator;
@@ -29,18 +29,18 @@ import static java.time.Instant.now;
 public class CustomerOrderService {
 
     private CustomerOrderRepository customerOrderRepository;
-    private PizzaRepository pizzaRepository;
+    private StandardPizzaRepository standardPizzaRepository;
     private IngredientRepository ingredientRepository;
     private PriceCalculator priceCalculator;
     private MailApplicationService mailApplicationService;
 
     public CustomerOrderService(CustomerOrderRepository customerOrderRepository,
-                                PizzaRepository pizzaRepository,
+                                StandardPizzaRepository standardPizzaRepository,
                                 IngredientRepository ingredientRepository,
                                 PriceCalculator priceCalculator,
                                 MailApplicationService mailApplicationService) {
         this.customerOrderRepository = customerOrderRepository;
-        this.pizzaRepository = pizzaRepository;
+        this.standardPizzaRepository = standardPizzaRepository;
         this.ingredientRepository = ingredientRepository;
         this.priceCalculator = priceCalculator;
         this.mailApplicationService = mailApplicationService;
@@ -66,29 +66,30 @@ public class CustomerOrderService {
     public void createOrder(CustomerOrderDto customerOrderDto) {
         final var newCustomerOrder = new CustomerOrder();
         newCustomerOrder.setCustoms(createCustoms(customerOrderDto.getCustoms()));
-        newCustomerOrder.setPizzas(getStandards(customerOrderDto.getPizzas()));
+        newCustomerOrder.setStandardPizzas(getStandards(customerOrderDto.getPizzas()));
         newCustomerOrder.setDate(now());
         newCustomerOrder.setAddress(createAddress(customerOrderDto.getAddressDto()));
         priceCalculator.calculate(newCustomerOrder);
 
+        System.out.println(newCustomerOrder);
         customerOrderRepository.save(newCustomerOrder);
 
         final AddressDto addressDto = customerOrderDto.getAddressDto();
-        mailApplicationService.sendConfirmOrderMail(addressDto.getEmail());
+//        mailApplicationService.sendConfirmOrderMail(addressDto.getEmail());
     }
 
     private Address createAddress(AddressDto addressDto) {
         return new Address(addressDto.getStreet(), addressDto.getNumber(), addressDto.getPhoneNumber(), addressDto.getEmail());
     }
 
-    private List<Pizza> getStandards(List<StandardPizzaDto> standardPizzas) {
+    private List<StandardPizza> getStandards(List<StandardPizzaDto> standardPizzas) {
         return standardPizzas.stream()
                 .map(standardPizzaDto -> {
-                    final Pizza pizza = new Pizza(pizzaRepository.findById(standardPizzaDto.getId())
+                    final StandardPizza standardPizza = new StandardPizza(standardPizzaRepository.findById(standardPizzaDto.getId())
                             .orElseThrow(() -> new PizzaNotFoundException("Pizza with id: " + standardPizzaDto.getId() + " not found")));
 
-                    pizza.setDiameter(standardPizzaDto.getDiameter());
-                    return pizza;
+                    standardPizza.setDiameter(standardPizzaDto.getDiameter());
+                    return standardPizza;
                 }).collect(Collectors.toUnmodifiableList());
     }
 
@@ -99,14 +100,22 @@ public class CustomerOrderService {
     }
 
     private CustomPizza newCustomPizza(CustomPizzaDto customPizzaDto) {
+        final var custom = new CustomPizza();
+
         final var pizzaIngredients = customPizzaDto.getPizzaIngredients()
                 .stream()
                 .map(pizzaIngredientDto -> {
                     final var ingredient = ingredientRepository.findById(pizzaIngredientDto.getId())
                             .orElseThrow(() -> new IngredientNotFoundException("Ingredient with id: " + pizzaIngredientDto.getId() + " not found"));
-                    return new PizzaIngredient(ingredient, pizzaIngredientDto.getQuantity());
+
+                    return new PizzaIngredient(custom, ingredient, pizzaIngredientDto.getQuantity());
                 }).collect(Collectors.toUnmodifiableList());
 
-        return new CustomPizza(customPizzaDto.getDiameter(), customPizzaDto.getCrust(), pizzaIngredients);
+        custom.setCrust(customPizzaDto.getCrust());
+        custom.setDiameter(customPizzaDto.getDiameter());
+        custom.setIngredients(pizzaIngredients);
+        priceCalculator.calculatePizza(custom);
+
+        return custom;
     }
 }

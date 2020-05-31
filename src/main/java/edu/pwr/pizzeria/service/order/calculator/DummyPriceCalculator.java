@@ -1,5 +1,6 @@
 package edu.pwr.pizzeria.service.order.calculator;
 
+import edu.pwr.pizzeria.model.order.CustomPizza;
 import edu.pwr.pizzeria.model.order.CustomerOrder;
 import org.springframework.stereotype.Service;
 
@@ -9,5 +10,10 @@ public class DummyPriceCalculator implements PriceCalculator {
     @Override
     public void calculate(CustomerOrder customerOrder) {
         // TODO customerOrder.setTotal(X);
+    }
+
+    @Override
+    public void calculatePizza(CustomPizza custom) {
+
     }
 }

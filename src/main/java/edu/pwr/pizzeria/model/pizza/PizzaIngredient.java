@@ -1,32 +1,42 @@
 package edu.pwr.pizzeria.model.pizza;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
+@Table(name = "pizza_ingredient_with_quantity")
 public class PizzaIngredient {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    @EmbeddedId
+    private PizzaIngredientId id = new PizzaIngredientId();
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.EAGER)
+    @MapsId("PIZZA_ID")
+    @JoinColumn(name = "PIZZA_ID")
+    private AbstractPizza pizza;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @MapsId("INGREDIENT_ID")
+    @JoinColumn(name = "INGREDIENT_ID")
     private Ingredient ingredient;
+
     private int quantity;
 
     public PizzaIngredient() {
     }
 
-    public PizzaIngredient(Ingredient ingredient, int quantity){
+    public PizzaIngredient(AbstractPizza pizza, Ingredient ingredient, int quantity) {
+        this.pizza = pizza;
         this.ingredient = ingredient;
         this.quantity = quantity;
+        id.setPizzaId(pizza.getId());
+        id.setIngredientId(ingredient.getId());
     }
 
-    public int getId() {
+    public PizzaIngredientId getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(PizzaIngredientId id) {
         this.id = id;
     }
 
@@ -38,35 +48,19 @@ public class PizzaIngredient {
         this.ingredient = ingredient;
     }
 
+    public AbstractPizza getPizza() {
+        return pizza;
+    }
+
+    public void setPizza(AbstractPizza pizza) {
+        this.pizza = pizza;
+    }
+
     public int getQuantity() {
         return quantity;
     }
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        PizzaIngredient that = (PizzaIngredient) o;
-        return id == that.id &&
-                quantity == that.quantity &&
-                ingredient.equals(that.ingredient);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, ingredient, quantity);
-    }
-
-    @Override
-    public String toString() {
-        return "PizzaIngredient{" +
-                "id=" + id +
-                ", ingredient=" + ingredient +
-                ", quantity=" + quantity +
-                '}';
     }
 }

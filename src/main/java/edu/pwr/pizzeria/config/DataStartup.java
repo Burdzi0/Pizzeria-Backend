@@ -1,8 +1,8 @@
 package edu.pwr.pizzeria.config;
 
 import edu.pwr.pizzeria.mock.RandomPizzaBuilder;
-import edu.pwr.pizzeria.model.pizza.Pizza;
-import edu.pwr.pizzeria.repository.PizzaRepository;
+import edu.pwr.pizzeria.model.pizza.StandardPizza;
+import edu.pwr.pizzeria.repository.StandardPizzaRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -10,22 +10,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class DataStartup implements CommandLineRunner {
 
-    private PizzaRepository pizzaRepository;
+    private StandardPizzaRepository standardPizzaRepository;
     private RandomPizzaBuilder randomPizzaBuilder;
 
-    public DataStartup(PizzaRepository pizzaRepository, RandomPizzaBuilder randomPizzaBuilder) {
-        this.pizzaRepository = pizzaRepository;
+    public DataStartup(StandardPizzaRepository standardPizzaRepository, RandomPizzaBuilder randomPizzaBuilder) {
+        this.standardPizzaRepository = standardPizzaRepository;
         this.randomPizzaBuilder = randomPizzaBuilder;
     }
 
     @Override
     public void run(String... args) {
 
-        randomPizzaBuilder.initializeTestIngredients();
-
         for (int i = 0; i < 10; i++) {
-            Pizza randomPizza = randomPizzaBuilder.generateRandomPizza();
-            pizzaRepository.save(randomPizza);
+            StandardPizza randomPizza = randomPizzaBuilder.generateRandomPizza();
+            standardPizzaRepository.save(randomPizza);
         }
     }
 }

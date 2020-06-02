@@ -7,7 +7,7 @@ import java.util.Objects;
 public class PizzaIngredient {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @OneToOne

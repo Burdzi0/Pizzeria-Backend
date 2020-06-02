@@ -1,10 +1,10 @@
 package edu.pwr.pizzeria.model.order;
 
 import edu.pwr.pizzeria.model.pizza.PizzaCrust;
-import edu.pwr.pizzeria.model.pizza.PizzaIngredient;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class CustomPizza {
@@ -16,12 +16,12 @@ public class CustomPizza {
     private PizzaCrust crust;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private List<PizzaIngredient> pizzaIngredients;
+    private List<OrderedIngredient> pizzaIngredients;
 
     public CustomPizza() {
     }
 
-    public CustomPizza(int diameter, PizzaCrust crust, List<PizzaIngredient> pizzaIngredients) {
+    public CustomPizza(int diameter, PizzaCrust crust, List<OrderedIngredient> pizzaIngredients) {
         this.diameter = diameter;
         this.crust = crust;
         this.pizzaIngredients = pizzaIngredients;
@@ -51,11 +51,37 @@ public class CustomPizza {
         this.crust = crust;
     }
 
-    public List<PizzaIngredient> getPizzaIngredients() {
+    public List<OrderedIngredient> getPizzaIngredients() {
         return pizzaIngredients;
     }
 
-    public void setPizzaIngredients(List<PizzaIngredient> pizzaIngredients) {
+    public void setPizzaIngredients(List<OrderedIngredient> pizzaIngredients) {
         this.pizzaIngredients = pizzaIngredients;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CustomPizza that = (CustomPizza) o;
+        return diameter == that.diameter &&
+                Objects.equals(id, that.id) &&
+                crust == that.crust &&
+                Objects.equals(pizzaIngredients, that.pizzaIngredients);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, diameter, crust, pizzaIngredients);
+    }
+
+    @Override
+    public String toString() {
+        return "CustomPizza{" +
+                "id=" + id +
+                ", diameter=" + diameter +
+                ", crust=" + crust +
+                ", pizzaIngredients=" + pizzaIngredients +
+                '}';
     }
 }

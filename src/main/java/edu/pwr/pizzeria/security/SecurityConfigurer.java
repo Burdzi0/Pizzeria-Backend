@@ -33,7 +33,9 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
             "/v1/ingredient/*",
             "/v1/pizza",
             "/v1/pizza/*",
-            "/v1/order"
+            "/v1/order",
+            "/v1/view/cook",
+            "/v1/view/delivery"
     };
 
     private UserDetailsService customerUserDetailsService;

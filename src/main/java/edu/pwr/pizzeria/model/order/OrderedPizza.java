@@ -1,19 +1,18 @@
-package edu.pwr.pizzeria.model.pizza;
+package edu.pwr.pizzeria.model.order;
+
+import edu.pwr.pizzeria.model.pizza.Ingredient;
+import edu.pwr.pizzeria.model.pizza.Pizza;
+import edu.pwr.pizzeria.model.pizza.PizzaCrust;
+import edu.pwr.pizzeria.model.pizza.PizzaIngredient;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Entity
-public class Pizza {
-
-    private static final double THICK_CRUST_PRICE = 10.0;
-    private static final double THIN_CRUST_PRICE = 7.0;
-    public static final int SMALL_DIAMETER = 20;
-    public static final int BIG_DIAMETER = 30;
+public class OrderedPizza {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,28 +20,36 @@ public class Pizza {
     private String typeName;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private List<PizzaIngredient> ingredients;
+    private List<OrderedIngredient> ingredients;
     private BigDecimal price;
     private int diameter;
 
     @Enumerated(EnumType.STRING)
     private PizzaCrust crust;
 
-    public Pizza() {
+    public OrderedPizza() {
     }
 
-    public Pizza(String typeName, List<PizzaIngredient> ingredients, int diameter) {
+    public OrderedPizza(String typeName, List<OrderedIngredient> ingredients, int diameter) {
         this.typeName = typeName;
         this.ingredients = ingredients;
         this.diameter = diameter;
         crust = PizzaCrust.CIENKIE;
     }
 
-    public Pizza(Pizza pizza) {
-        this.typeName = pizza.typeName;
-        this.ingredients = pizza.ingredients;
-        this.diameter = pizza.diameter;
+    public OrderedPizza(Pizza pizza) {
+        this.typeName = pizza.getTypeName();
+        this.ingredients = orderedIngredients(pizza.getIngredients());
+        this.diameter = pizza.getDiameter();
         crust = PizzaCrust.CIENKIE;
+    }
+
+    private List<OrderedIngredient> orderedIngredients(List<PizzaIngredient> ingredients) {
+        return ingredients.stream()
+                .map(pizzaIngredient -> {
+                    final Ingredient ingredient = pizzaIngredient.getIngredient();
+                    return new OrderedIngredient(ingredient.getName(), ingredient.getPrice(), ingredient.isIfAllergen(), pizzaIngredient.getQuantity());
+                }).collect(Collectors.toList());
     }
 
 
@@ -62,21 +69,6 @@ public class Pizza {
         this.typeName = typeName;
     }
 
-    public List<PizzaIngredient> getPizzaIngredients() {
-        return ingredients;
-    }
-
-    public void setPizzaIngredients(List<PizzaIngredient> ingredients) {
-        this.ingredients = ingredients;
-    }
-
-    public List<PizzaIngredient> getIngredients() {
-        return ingredients;
-    }
-
-    public void setIngredients(List<PizzaIngredient> ingredients) {
-        this.ingredients = ingredients;
-    }
 
     public BigDecimal getPrice() {
         return price;
@@ -102,42 +94,25 @@ public class Pizza {
         this.crust = crust;
     }
 
-    public void computePrice() {
+    public List<OrderedIngredient> getIngredients() {
+        return ingredients;
+    }
 
-        double sum = 0.0;
-
-        switch(crust){
-            case GRUBE:
-                sum += THICK_CRUST_PRICE;
-            case CIENKIE:
-                sum += THIN_CRUST_PRICE;
-        }
-
-        for (PizzaIngredient ingredient : ingredients) {
-            sum += ingredient.getIngredient().getPrice().doubleValue() * ingredient.getQuantity();
-        }
-
-        switch(diameter){
-            case SMALL_DIAMETER:
-                sum *= 1.0;
-            case BIG_DIAMETER:
-                sum *= 1.5;
-        }
-
-        price = BigDecimal.valueOf(sum);
+    public void setIngredients(List<OrderedIngredient> ingredients) {
+        this.ingredients = ingredients;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Pizza pizza = (Pizza) o;
-        return id == pizza.id &&
-                diameter == pizza.diameter &&
-                typeName.equals(pizza.typeName) &&
-                ingredients.equals(pizza.ingredients) &&
-                Objects.equals(price, pizza.price) &&
-                crust == pizza.crust;
+        OrderedPizza that = (OrderedPizza) o;
+        return id == that.id &&
+                diameter == that.diameter &&
+                Objects.equals(typeName, that.typeName) &&
+                Objects.equals(ingredients, that.ingredients) &&
+                Objects.equals(price, that.price) &&
+                crust == that.crust;
     }
 
     @Override
@@ -147,7 +122,7 @@ public class Pizza {
 
     @Override
     public String toString() {
-        return "Pizza{" +
+        return "OrderedPizza{" +
                 "id=" + id +
                 ", typeName='" + typeName + '\'' +
                 ", ingredients=" + ingredients +

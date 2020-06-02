@@ -6,7 +6,7 @@ import javax.persistence.Embeddable;
 
 public enum Role implements GrantedAuthority {
 
-    ROLE_ADMIN, ROLE_CUSTOMER, ROLE_USER;
+    ROLE_ADMIN, ROLE_USER, ROLE_COOK, ROLE_DELIVERY;
 
     public String getAuthority() {
         return name();

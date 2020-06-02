@@ -1,12 +1,8 @@
 package edu.pwr.pizzeria.service.authentication;
 
-import edu.pwr.pizzeria.mail.MailService;
 import edu.pwr.pizzeria.model.authentication.CredentialsDto;
 import edu.pwr.pizzeria.model.authentication.EmailDto;
 import edu.pwr.pizzeria.model.authentication.TokenDto;
-import edu.pwr.pizzeria.service.MailApplicationService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

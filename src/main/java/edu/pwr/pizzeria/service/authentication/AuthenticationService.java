@@ -102,4 +102,18 @@ public class AuthenticationService {
         return "https://" + serverName + ":" + serverPort + "/v1/register/" + verificationId;
     }
 
+    public void registerAdmin(CredentialsDto credentialsDto) {
+        customerUserRepository.getCustomerUserByMail(credentialsDto.getMail())
+                .ifPresent(customer -> {
+                    logger.info("Not registering because account with given mail exists");
+                    throw new EmailAlreadyRegisteredException();
+                });
+
+        customerUserRepository.save(newCustomerUser(credentialsDto));
+        logger.info("Created new user");
+
+        final var verificationId = verificationService.createNewVerification(credentialsDto.getMail());
+        verificationService.confirmRegistration(verificationId);
+    }
+
 }

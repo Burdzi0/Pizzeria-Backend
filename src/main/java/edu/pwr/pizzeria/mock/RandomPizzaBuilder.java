@@ -5,6 +5,7 @@ import edu.pwr.pizzeria.model.pizza.Ingredient;
 import edu.pwr.pizzeria.model.pizza.Pizza;
 import edu.pwr.pizzeria.model.pizza.PizzaIngredient;
 import edu.pwr.pizzeria.repository.IngredientRepository;
+import edu.pwr.pizzeria.repository.PizzaRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -17,17 +18,21 @@ import static java.lang.Integer.max;
 @Service
 public class RandomPizzaBuilder {
 
-    private static final Random random = new Random();
+    private final Random random = new Random();
     private final Faker faker = new Faker();
+
     private final int MAX_INGREDIENT_QTY = 4;
     private int[] testDiameters = new int[]{30, 45};
-    private IngredientRepository ingredientRepository;
 
-    public RandomPizzaBuilder(IngredientRepository ingredientRepository) {
+    private IngredientRepository ingredientRepository;
+    private PizzaRepository pizzaRepository;
+
+    public RandomPizzaBuilder(IngredientRepository ingredientRepository, PizzaRepository pizzaRepository) {
         this.ingredientRepository = ingredientRepository;
+        this.pizzaRepository = pizzaRepository;
     }
 
-    private static int generateRandomInt(int upperRange) {
+    private int generateRandomInt(int upperRange) {
         return random.nextInt(upperRange);
     }
 
@@ -94,5 +99,14 @@ public class RandomPizzaBuilder {
     private int generateRandomDiameter() {
         return testDiameters[generateRandomInt(1)];
 
+    }
+
+    public void generateRandomPizzas(int pizzas) {
+        initializeTestIngredients();
+
+        for (int i = 0; i < pizzas; i++) {
+            Pizza randomPizza = generateRandomPizza();
+            pizzaRepository.save(randomPizza);
+        }
     }
 }

@@ -1,4 +1,4 @@
-package edu.pwr.pizzeria.model.pizza;
+package edu.pwr.pizzeria.model.order;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
-public class Ingredient {
+public class OrderedIngredient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,14 +16,16 @@ public class Ingredient {
     private String name;
     private BigDecimal price;
     private boolean ifAllergen;
+    private int quantity;
 
-    public Ingredient() {
+    public OrderedIngredient() {
     }
 
-    public Ingredient(String name, BigDecimal price, boolean ifAllergen) {
+    public OrderedIngredient(String name, BigDecimal price, boolean ifAllergen, int quantity) {
         this.name = name;
         this.price = price;
         this.ifAllergen = ifAllergen;
+        this.quantity = quantity;
     }
 
     public int getId() {
@@ -58,29 +60,39 @@ public class Ingredient {
         this.ifAllergen = ifAllergen;
     }
 
-    @Override
-    public String toString() {
-        return "Ingredient{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                ", ifAllergen=" + ifAllergen +
-                '}';
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Ingredient that = (Ingredient) o;
+        OrderedIngredient that = (OrderedIngredient) o;
         return id == that.id &&
                 ifAllergen == that.ifAllergen &&
-                name.equals(that.name) &&
-                price.equals(that.price);
+                quantity == that.quantity &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(price, that.price);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, price, ifAllergen);
+        return Objects.hash(id, name, price, ifAllergen, quantity);
+    }
+
+    @Override
+    public String toString() {
+        return "OrderedIngredient{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", ifAllergen=" + ifAllergen +
+                ", quantity=" + quantity +
+                '}';
     }
 }

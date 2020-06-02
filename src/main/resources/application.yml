@@ -1,6 +1,9 @@
 server.port: ${PORT:8080}
 
 app:
+  admin:
+    email: mail@mail.com
+    password: pass
   link:
     login: https://ptrvsky.github.io/zpi-frontend/#/login
   security:
@@ -21,13 +24,13 @@ logging:
       springframework:
         security: DEBUG
 
-spring:
-  jpa:
-    database: postgresql
-    hibernate:
-      ddl-auto: update
-  datasource:
-    url: ${JDBC_DATABASE_URL}
-    username: ${JDBC_DATABASE_USERNAME}
-    password: ${JDBC_DATABASE_PASSWORD}
+#spring:
+#  jpa:
+#    database: postgresql
+#    hibernate:
+#      ddl-auto: update
+#  datasource:
+#    url: ${JDBC_DATABASE_URL}
+#    username: ${JDBC_DATABASE_USERNAME}
+#    password: ${JDBC_DATABASE_PASSWORD}
 

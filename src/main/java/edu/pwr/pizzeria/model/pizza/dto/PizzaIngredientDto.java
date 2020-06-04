@@ -34,7 +34,7 @@ public class PizzaIngredientDto {
 
     public static PizzaIngredientDto toDto(PizzaIngredient pizzaIngredient) {
         final Ingredient ingredient = pizzaIngredient.getIngredient();
-        return new PizzaIngredientDto(pizzaIngredient.getId(), ingredient.getName(), ingredient.getPrice(), ingredient.isIfAllergen(), pizzaIngredient.getQuantity());
+        return new PizzaIngredientDto(ingredient.getId(), ingredient.getName(), ingredient.getPrice(), ingredient.isIfAllergen(), pizzaIngredient.getQuantity());
     }
 
 

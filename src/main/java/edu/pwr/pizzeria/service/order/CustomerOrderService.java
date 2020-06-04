@@ -73,7 +73,7 @@ public class CustomerOrderService {
         customerOrderRepository.save(newCustomerOrder);
 
         final AddressDto addressDto = customerOrderDto.getAddressDto();
-        mailApplicationService.sendConfirmOrderMail(addressDto.getEmail());
+        mailApplicationService.sendConfirmOrderMail(addressDto.getEmail(), customerOrderDto);
     }
 
     private Address createAddress(AddressDto addressDto) {

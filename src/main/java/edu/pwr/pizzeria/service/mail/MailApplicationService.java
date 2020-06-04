@@ -3,6 +3,7 @@ package edu.pwr.pizzeria.service.mail;
 import edu.pwr.pizzeria.mail.BasicMail;
 import edu.pwr.pizzeria.mail.MailContentFactory;
 import edu.pwr.pizzeria.mail.MailService;
+import edu.pwr.pizzeria.model.order.dto.CustomerOrderDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -38,11 +39,16 @@ public class MailApplicationService {
         mailService.sendMail(basicMail);
     }
 
-    public void sendConfirmOrderMail(String mail) {
+    public void sendConfirmOrderMail(String mail, CustomerOrderDto customerOrderDto) {
         final BasicMail basicMail = new BasicMail(from,
                 mail,
                 "Pizzeria ZPI - Potwierdzenie zamówienia",
                 mailContentFactory.orderMail());
+
+        // TODO
+        // Uzupełnić maila opowiednimi danymi z dto
+        // Zobacz sobie na podstawie rejestracji jak w templatkach są tworzone zmienne
+        // i jak się je wypełnia
 
         mailService.sendMail(basicMail);
     }

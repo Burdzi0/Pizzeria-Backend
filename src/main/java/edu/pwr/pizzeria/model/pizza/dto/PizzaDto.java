@@ -15,7 +15,8 @@ public class PizzaDto {
     private final int id;
     private final String typeName;
     private final List<PizzaIngredientDto> ingredients;
-    private final BigDecimal price;
+    private final BigDecimal price20;
+    private final BigDecimal price30;
     private final int diameter;
     private final PizzaCrust crust;
 
@@ -23,14 +24,16 @@ public class PizzaDto {
     public PizzaDto(@JsonProperty("id") int id,
                     @JsonProperty("typeName") String typeName,
                     @JsonProperty("ingredients") List<PizzaIngredientDto> ingredients,
-                    @JsonProperty("price") BigDecimal price,
+                    @JsonProperty("price20") BigDecimal price20,
+                    @JsonProperty("price30") BigDecimal price30,
                     @JsonProperty("diameter") int diameter,
                     @JsonProperty("crust") PizzaCrust crust) {
 
         this.id = id;
         this.typeName = typeName;
         this.ingredients = ingredients;
-        this.price = price;
+        this.price20 = price20;
+        this.price30 = price30;
         this.diameter = diameter;
         this.crust = crust;
     }
@@ -39,7 +42,8 @@ public class PizzaDto {
         return new PizzaDto(pizza.getId(),
                 pizza.getTypeName(),
                 pizzaIngredientsToDto(pizza.getPizzaIngredients()),
-                pizza.getPrice(),
+                pizza.getPrice20(),
+                pizza.getPrice30(),
                 pizza.getDiameter(),
                 pizza.getCrust());
     }
@@ -63,9 +67,9 @@ public class PizzaDto {
         return ingredients;
     }
 
-    public BigDecimal getPrice() {
-        return price;
-    }
+    public BigDecimal getPrice20() { return price20; }
+
+    public BigDecimal getPrice30() { return price30; }
 
     public int getDiameter() {
         return diameter;

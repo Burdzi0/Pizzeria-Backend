@@ -22,7 +22,8 @@ public class Pizza {
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<PizzaIngredient> ingredients;
-    private BigDecimal price;
+    private BigDecimal price20;
+    private BigDecimal price30;
     private int diameter;
 
     @Enumerated(EnumType.STRING)
@@ -78,13 +79,13 @@ public class Pizza {
         this.ingredients = ingredients;
     }
 
-    public BigDecimal getPrice() {
-        return price;
-    }
+    public BigDecimal getPrice20() { return price20; }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
+    public void setPrice20(BigDecimal price) { this.price20 = price; }
+
+    public BigDecimal getPrice30() { return price30; }
+
+    public void setPrice30(BigDecimal price30) { this.price30 = price30; }
 
     public int getDiameter() {
         return diameter;
@@ -117,14 +118,8 @@ public class Pizza {
             sum += ingredient.getIngredient().getPrice().doubleValue() * ingredient.getQuantity();
         }
 
-        switch(diameter){
-            case SMALL_DIAMETER:
-                sum *= 1.0;
-            case BIG_DIAMETER:
-                sum *= 1.5;
-        }
-
-        price = BigDecimal.valueOf(sum);
+        price20 = BigDecimal.valueOf(sum);
+        price30 = BigDecimal.valueOf(sum *1.5);
     }
 
     @Override
@@ -136,13 +131,14 @@ public class Pizza {
                 diameter == pizza.diameter &&
                 typeName.equals(pizza.typeName) &&
                 ingredients.equals(pizza.ingredients) &&
-                Objects.equals(price, pizza.price) &&
+                Objects.equals(price20, pizza.price20) &&
+                Objects.equals(price30, pizza.price30) &&
                 crust == pizza.crust;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, typeName, ingredients, price, diameter, crust);
+        return Objects.hash(id, typeName, ingredients, price20, price30, diameter, crust);
     }
 
     @Override
@@ -151,7 +147,8 @@ public class Pizza {
                 "id=" + id +
                 ", typeName='" + typeName + '\'' +
                 ", ingredients=" + ingredients +
-                ", price=" + price +
+                ", price20=" + price20 +
+                ", price30=" + price30 +
                 ", diameter=" + diameter +
                 ", crust=" + crust +
                 '}';

@@ -10,13 +10,15 @@ import java.math.BigDecimal;
 
 public class PizzaIngredientDto {
 
+    private int id;
     private String name;
     private BigDecimal price;
     private boolean ifAllergen;
     private int quantity;
 
     @JsonCreator
-    public PizzaIngredientDto(@JsonProperty("name") String name,
+    public PizzaIngredientDto(@JsonProperty("id") int id,
+                              @JsonProperty("name") String name,
                               @JsonProperty("price") BigDecimal price,
                               @JsonProperty("allergen") boolean ifAllergen,
                               @JsonProperty("quantity") int quantity) {
@@ -27,12 +29,12 @@ public class PizzaIngredientDto {
     }
 
     public static PizzaIngredientDto toDto(OrderedIngredient pizzaIngredient) {
-        return new PizzaIngredientDto(pizzaIngredient.getName(), pizzaIngredient.getPrice(), pizzaIngredient.isIfAllergen(), pizzaIngredient.getQuantity());
+        return new PizzaIngredientDto(pizzaIngredient.getId(), pizzaIngredient.getName(), pizzaIngredient.getPrice(), pizzaIngredient.isIfAllergen(), pizzaIngredient.getQuantity());
     }
 
     public static PizzaIngredientDto toDto(PizzaIngredient pizzaIngredient) {
         final Ingredient ingredient = pizzaIngredient.getIngredient();
-        return new PizzaIngredientDto(ingredient.getName(), ingredient.getPrice(), ingredient.isIfAllergen(), pizzaIngredient.getQuantity());
+        return new PizzaIngredientDto(pizzaIngredient.getId(), ingredient.getName(), ingredient.getPrice(), ingredient.isIfAllergen(), pizzaIngredient.getQuantity());
     }
 
 

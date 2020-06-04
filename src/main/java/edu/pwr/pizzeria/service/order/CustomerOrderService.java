@@ -65,7 +65,7 @@ public class CustomerOrderService {
     public void createOrder(CustomerOrderDto customerOrderDto) {
         final var newCustomerOrder = new CustomerOrder();
         newCustomerOrder.setCustoms(createCustoms(customerOrderDto.getCustoms()));
-        newCustomerOrder.setPizzas(getStandards(customerOrderDto.getPizzas()));
+        newCustomerOrder.setPizzas(getStandards(customerOrderDto.getStandards()));
         newCustomerOrder.setDate(now());
         newCustomerOrder.setAddress(createAddress(customerOrderDto.getAddressDto()));
         priceCalculator.calculate(newCustomerOrder);

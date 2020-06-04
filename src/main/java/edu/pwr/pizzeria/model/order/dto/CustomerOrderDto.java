@@ -8,21 +8,21 @@ import java.util.List;
 
 public class CustomerOrderDto {
 
-    private final List<StandardPizzaDto> pizzas;
+    private final List<StandardPizzaDto> standards;
     private final List<CustomPizzaDto> customs;
-    private final AddressDto addressDto;
+    private final AddressDto address;
 
     @JsonCreator
-    public CustomerOrderDto(@JsonProperty("standard") List<StandardPizzaDto> pizzas,
+    public CustomerOrderDto(@JsonProperty("standard") List<StandardPizzaDto> standards,
                             @JsonProperty("customs") List<CustomPizzaDto> customs,
-                            @JsonProperty("address") AddressDto addressDto) {
-        this.pizzas = pizzas;
+                            @JsonProperty("address") AddressDto address) {
+        this.standards = standards;
         this.customs = customs;
-        this.addressDto = addressDto;
+        this.address = address;
     }
 
-    public List<StandardPizzaDto> getPizzas() {
-        return pizzas;
+    public List<StandardPizzaDto> getStandards() {
+        return standards;
     }
 
     public List<CustomPizzaDto> getCustoms() {
@@ -30,15 +30,15 @@ public class CustomerOrderDto {
     }
 
     public AddressDto getAddressDto() {
-        return addressDto;
+        return address;
     }
 
     @Override
     public String toString() {
         return "CustomerOrderDto{" +
-                "pizzas=" + pizzas +
+                "pizzas=" + standards +
                 ", customs=" + customs +
-                ", addressDto=" + addressDto +
+                ", addressDto=" + address +
                 '}';
     }
 }

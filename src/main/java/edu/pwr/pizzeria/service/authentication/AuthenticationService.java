@@ -8,7 +8,7 @@ import edu.pwr.pizzeria.model.authentication.TokenDto;
 import edu.pwr.pizzeria.model.user.CustomerUser;
 import edu.pwr.pizzeria.repository.CustomerUserRepository;
 import edu.pwr.pizzeria.security.JwtUtil;
-import edu.pwr.pizzeria.service.MailApplicationService;
+import edu.pwr.pizzeria.service.mail.MailApplicationService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.security.authentication.AuthenticationManager;

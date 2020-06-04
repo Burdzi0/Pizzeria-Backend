@@ -1,6 +1,7 @@
 package edu.pwr.pizzeria.model.order;
 
 import edu.pwr.pizzeria.model.user.Address;
+import edu.pwr.pizzeria.model.user.CustomerUser;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -23,6 +24,9 @@ public class CustomerOrder {
 
     @OneToOne(cascade = CascadeType.ALL)
     private Address address;
+
+    @ManyToOne
+    private CustomerUser customerUser;
 
     private BigDecimal total;
     private Instant date;
@@ -87,6 +91,14 @@ public class CustomerOrder {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public CustomerUser getCustomerUser() {
+        return customerUser;
+    }
+
+    public void setCustomerUser(CustomerUser customerUser) {
+        this.customerUser = customerUser;
     }
 
     @Override

@@ -11,7 +11,7 @@ import edu.pwr.pizzeria.repository.CustomerOrderRepository;
 import edu.pwr.pizzeria.repository.IngredientRepository;
 import edu.pwr.pizzeria.repository.OrderedPizzaRepository;
 import edu.pwr.pizzeria.repository.PizzaRepository;
-import edu.pwr.pizzeria.service.MailApplicationService;
+import edu.pwr.pizzeria.service.mail.MailApplicationService;
 import edu.pwr.pizzeria.service.ingredient.IngredientNotFoundException;
 import edu.pwr.pizzeria.service.order.calculator.PriceCalculator;
 import edu.pwr.pizzeria.service.order.dto.CustomerOrderViewDto;
@@ -68,7 +68,7 @@ public class CustomerOrderService {
         newCustomerOrder.setPizzas(getStandards(customerOrderDto.getStandards()));
         newCustomerOrder.setDate(now());
         newCustomerOrder.setAddress(createAddress(customerOrderDto.getAddressDto()));
-        priceCalculator.calculate(newCustomerOrder);
+        newCustomerOrder.setTotal(priceCalculator.calculate(newCustomerOrder));
 
         customerOrderRepository.save(newCustomerOrder);
 
@@ -106,7 +106,9 @@ public class CustomerOrderService {
                     return new OrderedIngredient(ingredient.getName(), ingredient.getPrice(), ingredient.isIfAllergen(), pizzaIngredientDto.getQuantity());
                 }).collect(Collectors.toList());
 
-        return new CustomPizza(customPizzaDto.getDiameter(), customPizzaDto.getCrust(), pizzaIngredients);
+        final CustomPizza customPizza = new CustomPizza(customPizzaDto.getDiameter(), customPizzaDto.getCrust(), pizzaIngredients);
+        customPizza.setPrice(priceCalculator.calculatePizza(customPizza));
+        return customPizza;
     }
 
     @Transactional(readOnly = true)

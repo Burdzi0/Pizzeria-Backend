@@ -1,5 +1,7 @@
 package edu.pwr.pizzeria.model.order;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum CustomerOrderStatus {
 
     COOK_AWAITING("OCZEKUJĄCE", 1),
@@ -18,6 +20,11 @@ public enum CustomerOrderStatus {
 
     public int getOrdinalNumber() {
         return ordinalNumber;
+    }
+
+    @JsonValue
+    public String getState() {
+        return state;
     }
 
     @Override

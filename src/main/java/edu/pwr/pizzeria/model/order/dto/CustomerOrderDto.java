@@ -2,9 +2,15 @@ package edu.pwr.pizzeria.model.order.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import edu.pwr.pizzeria.model.order.CustomPizza;
+import edu.pwr.pizzeria.model.order.CustomerOrder;
+import edu.pwr.pizzeria.model.order.OrderedPizza;
 import edu.pwr.pizzeria.model.user.AddressDto;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 public class CustomerOrderDto {
 

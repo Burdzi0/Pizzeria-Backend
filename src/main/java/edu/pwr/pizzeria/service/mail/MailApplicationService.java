@@ -1,4 +1,4 @@
-package edu.pwr.pizzeria.service;
+package edu.pwr.pizzeria.service.mail;
 
 import edu.pwr.pizzeria.mail.BasicMail;
 import edu.pwr.pizzeria.mail.MailContentFactory;

@@ -21,6 +21,10 @@ public class AddressDto {
         this.email = email;
     }
 
+    public static AddressDto toDto(Address address) {
+        return new AddressDto(address.getStreet(), address.getNumber(), address.getPhone(), address.getEmail());
+    }
+
     public String getStreet() {
         return street;
     }

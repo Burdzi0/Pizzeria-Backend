@@ -3,6 +3,7 @@ package edu.pwr.pizzeria.model.order;
 import edu.pwr.pizzeria.model.pizza.PizzaCrust;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,6 +15,7 @@ public class CustomPizza {
     private Long id;
     private int diameter;
     private PizzaCrust crust;
+    private BigDecimal price;
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<OrderedIngredient> pizzaIngredients;
@@ -59,6 +61,14 @@ public class CustomPizza {
         this.pizzaIngredients = pizzaIngredients;
     }
 
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -67,12 +77,13 @@ public class CustomPizza {
         return diameter == that.diameter &&
                 Objects.equals(id, that.id) &&
                 crust == that.crust &&
+                Objects.equals(price, that.price) &&
                 Objects.equals(pizzaIngredients, that.pizzaIngredients);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, diameter, crust, pizzaIngredients);
+        return Objects.hash(id, diameter, crust, price, pizzaIngredients);
     }
 
     @Override
@@ -81,6 +92,7 @@ public class CustomPizza {
                 "id=" + id +
                 ", diameter=" + diameter +
                 ", crust=" + crust +
+                ", price=" + price +
                 ", pizzaIngredients=" + pizzaIngredients +
                 '}';
     }

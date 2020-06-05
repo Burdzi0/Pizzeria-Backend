@@ -67,12 +67,12 @@ public class CustomerOrderService {
         newCustomerOrder.setCustoms(createCustoms(customerOrderDto.getCustoms()));
         newCustomerOrder.setPizzas(getStandards(customerOrderDto.getStandards()));
         newCustomerOrder.setDate(now());
-        newCustomerOrder.setAddress(createAddress(customerOrderDto.getAddressDto()));
+        newCustomerOrder.setAddress(createAddress(customerOrderDto.getAddress()));
         newCustomerOrder.setTotal(priceCalculator.calculate(newCustomerOrder));
 
         customerOrderRepository.save(newCustomerOrder);
 
-        final AddressDto addressDto = customerOrderDto.getAddressDto();
+        final AddressDto addressDto = customerOrderDto.getAddress();
         mailApplicationService.sendConfirmOrderMail(addressDto.getEmail(), customerOrderDto);
     }
 

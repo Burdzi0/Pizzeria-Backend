@@ -6,13 +6,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class AddressDto {
 
     private String street;
-    private int number;
+    private String number;
     private String phoneNumber;
     private String email;
 
     @JsonCreator
     public AddressDto(@JsonProperty("street") String street,
-                      @JsonProperty("number") int number,
+                      @JsonProperty("number") String number,
                       @JsonProperty("phone") String phoneNumber,
                       @JsonProperty("email") String email) {
         this.street = street;
@@ -33,11 +33,11 @@ public class AddressDto {
         this.street = street;
     }
 
-    public int getNumber() {
+    public String getNumber() {
         return number;
     }
 
-    public void setNumber(int number) {
+    public void setNumber(String number) {
         this.number = number;
     }
 

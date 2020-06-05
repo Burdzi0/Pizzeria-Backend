@@ -2,15 +2,9 @@ package edu.pwr.pizzeria.model.order.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import edu.pwr.pizzeria.model.order.CustomPizza;
-import edu.pwr.pizzeria.model.order.CustomerOrder;
-import edu.pwr.pizzeria.model.order.OrderedPizza;
 import edu.pwr.pizzeria.model.user.AddressDto;
 
 import java.util.List;
-import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.toList;
 
 public class CustomerOrderDto {
 
@@ -19,7 +13,7 @@ public class CustomerOrderDto {
     private final AddressDto address;
 
     @JsonCreator
-    public CustomerOrderDto(@JsonProperty("standard") List<StandardPizzaDto> standards,
+    public CustomerOrderDto(@JsonProperty("standards") List<StandardPizzaDto> standards,
                             @JsonProperty("customs") List<CustomPizzaDto> customs,
                             @JsonProperty("address") AddressDto address) {
         this.standards = standards;
@@ -35,16 +29,7 @@ public class CustomerOrderDto {
         return customs;
     }
 
-    public AddressDto getAddressDto() {
+    public AddressDto getAddress() {
         return address;
-    }
-
-    @Override
-    public String toString() {
-        return "CustomerOrderDto{" +
-                "pizzas=" + standards +
-                ", customs=" + customs +
-                ", addressDto=" + address +
-                '}';
     }
 }

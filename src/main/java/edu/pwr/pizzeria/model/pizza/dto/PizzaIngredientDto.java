@@ -22,6 +22,7 @@ public class PizzaIngredientDto {
                               @JsonProperty("price") BigDecimal price,
                               @JsonProperty("allergen") boolean ifAllergen,
                               @JsonProperty("quantity") int quantity) {
+        this.id = id;
         this.name = name;
         this.price = price;
         this.ifAllergen = ifAllergen;

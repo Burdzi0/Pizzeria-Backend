@@ -12,6 +12,8 @@ public class Pizza {
 
     public static final double THICK_CRUST_PRICE = 10.0;
     public static final double THIN_CRUST_PRICE = 7.0;
+    public static final int BIG_DIAMETER = 30;
+    public static final int SMALL_DIAMETER = 20;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

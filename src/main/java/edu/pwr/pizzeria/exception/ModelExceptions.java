@@ -1,6 +1,7 @@
 package edu.pwr.pizzeria.exception;
 
 import edu.pwr.pizzeria.service.ingredient.IngredientNotFoundException;
+import edu.pwr.pizzeria.service.order.WrongOrderStatusException;
 import edu.pwr.pizzeria.service.pizza.PizzaNotFoundException;
 import edu.pwr.pizzeria.service.pizzaingredient.PizzaIngredientNotFoundException;
 import org.springframework.http.HttpHeaders;
@@ -69,6 +70,12 @@ public class ModelExceptions {
     @ExceptionHandler(value = VerificationTokenNotFound.class)
     public ResponseEntity<StandardException> verificationTokenNotFound(HttpServletRequest req, VerificationTokenNotFound ex) {
         return exception(req, ex, HttpStatus.NOT_FOUND);
+    }
+
+    @ResponseBody
+    @ExceptionHandler(value = WrongOrderStatusException.class)
+    public ResponseEntity<StandardException> wrongOrderStatus(HttpServletRequest req, VerificationTokenNotFound ex) {
+        return exception(req, ex, HttpStatus.BAD_REQUEST);
     }
 
     private ResponseEntity<StandardException> exception(HttpServletRequest req, RuntimeException ex, HttpStatus status) {

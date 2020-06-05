@@ -50,9 +50,12 @@ public class CustomerOrderService {
         final CustomerOrder customerOrder = customerOrderRepository.findById(id)
                 .orElseThrow(() -> new CustomerOrderNotFoundException("CustomerOrder with id:" + id + " not found"));
 
-        if (ifCorrectOrder(customerOrder.getStatus(), newStatus)) {
-            customerOrder.setStatus(newStatus);
-        } // TODO what to do if the status is wrong?
+        try {
+            if(ifCorrectOrder(customerOrder.getStatus(), newStatus))
+                customerOrder.setStatus(newStatus);
+        } catch (WrongOrderStatusException exc) {
+
+        }
 
         customerOrderRepository.save(customerOrder);
     }

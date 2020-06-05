@@ -32,7 +32,6 @@ public class CustomerOrder {
     private Instant date;
     private CustomerOrderStatus status;
 
-
     public CustomerOrder() {
         status = CustomerOrderStatus.COOK_AWAITING;
     }
@@ -99,6 +98,21 @@ public class CustomerOrder {
 
     public void setCustomerUser(CustomerUser customerUser) {
         this.customerUser = customerUser;
+    }
+
+    public void computeTotal() {
+
+        double sum = 0.0;
+
+        for (OrderedPizza pizza : pizzas) {
+            sum += pizza.getPrice().doubleValue();
+        }
+
+        for (CustomPizza customPizza : customs) {
+            sum += customPizza.getPrice().doubleValue();
+        }
+
+        total = BigDecimal.valueOf(sum);
     }
 
     @Override

@@ -11,13 +11,16 @@ public class StandardPriceCalculator implements PriceCalculator {
 
     @Override
     public BigDecimal calculate(CustomerOrder customerOrder) {
-        // TODO
-        return null;
+
+        customerOrder.computeTotal();
+
+        return customerOrder.getTotal();
     }
 
     @Override
     public BigDecimal calculatePizza(CustomPizza customPizza) {
-        // TODO
-        return null;
+
+        customPizza.computePrice();
+        return customPizza.getPrice20();
     }
 }

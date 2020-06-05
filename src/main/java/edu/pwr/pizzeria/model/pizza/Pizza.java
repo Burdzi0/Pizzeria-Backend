@@ -10,10 +10,8 @@ import java.util.stream.Collectors;
 @Entity
 public class Pizza {
 
-    private static final double THICK_CRUST_PRICE = 10.0;
-    private static final double THIN_CRUST_PRICE = 7.0;
-    public static final int SMALL_DIAMETER = 20;
-    public static final int BIG_DIAMETER = 30;
+    public static final double THICK_CRUST_PRICE = 10.0;
+    public static final double THIN_CRUST_PRICE = 7.0;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Entity
 public class CustomPizza {
@@ -85,5 +86,12 @@ public class CustomPizza {
     @Override
     public int hashCode() {
         return Objects.hash(id, diameter, crust, price, pizzaIngredients);
+    }
+
+    @Override
+    public String toString() {
+
+        String ingredients = pizzaIngredients.stream().map(i -> i.toString()).collect(Collectors.toList()).toString();
+        return "Twoja pizza: " + crust + " ciasto, średnica: " + diameter + " cm, składniki: " + ingredients;
     }
 }

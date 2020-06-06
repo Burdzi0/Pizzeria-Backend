@@ -8,6 +8,7 @@ import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MailContentFactory {
@@ -44,8 +45,8 @@ public class MailContentFactory {
     public String orderMail(Long id, List<OrderedPizza> pizzas, List<CustomPizza> customs) {
         final Context context = new Context();
         context.setVariable("id", id);
-        context.setVariable("pizzas", pizzas.toString());
-        context.setVariable("customs", customs.toString());
+        context.setVariable("pizzas", toFormattedString(pizzas));
+        context.setVariable("customs", toFormattedStringCustoms(customs));
         addImages(context);
         return templateEngine.process("confirm_order", context);
     }
@@ -54,5 +55,17 @@ public class MailContentFactory {
         context.setVariable("titleImg", titleImage);
         context.setVariable("pizza_right", pizzaRight);
         context.setVariable("pizza_left", pizzaLeft);
+    }
+
+    private String toFormattedString(List<OrderedPizza> pizzas){
+
+        if(pizzas.isEmpty()) return "";
+        else return pizzas.stream().map(p -> p.toString()).collect(Collectors.toList()).toString();
+    }
+
+    private String toFormattedStringCustoms(List<CustomPizza> pizzas){
+
+        if(pizzas.isEmpty()) return "";
+        return pizzas.stream().map(p -> p.toString()).collect(Collectors.toList()).toString();
     }
 }

@@ -87,12 +87,6 @@ public class OrderedIngredient {
 
     @Override
     public String toString() {
-        return "OrderedIngredient{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                ", ifAllergen=" + ifAllergen +
-                ", quantity=" + quantity +
-                '}';
+        return name + " x " + quantity;
     }
 }

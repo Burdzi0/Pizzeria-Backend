@@ -45,12 +45,6 @@ public class MailApplicationService {
                 mail,
                 "Pizzeria ZPI - Potwierdzenie zamówienia",
                 mailContentFactory.orderMail(customerOrder.getId(), customerOrder.getPizzas(), customerOrder.getCustoms()));
-
-        // TODO
-        // Uzupełnić maila opowiednimi danymi z dto
-        // Zobacz sobie na podstawie rejestracji jak w templatkach są tworzone zmienne
-        // i jak się je wypełnia
-
         mailService.sendMail(basicMail);
     }
 }

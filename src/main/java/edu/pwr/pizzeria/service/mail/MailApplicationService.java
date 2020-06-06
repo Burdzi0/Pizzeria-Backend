@@ -3,6 +3,7 @@ package edu.pwr.pizzeria.service.mail;
 import edu.pwr.pizzeria.mail.BasicMail;
 import edu.pwr.pizzeria.mail.MailContentFactory;
 import edu.pwr.pizzeria.mail.MailService;
+import edu.pwr.pizzeria.model.order.CustomerOrder;
 import edu.pwr.pizzeria.model.order.dto.CustomerOrderDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -39,11 +40,11 @@ public class MailApplicationService {
         mailService.sendMail(basicMail);
     }
 
-    public void sendConfirmOrderMail(String mail, CustomerOrderDto customerOrderDto) {
+    public void sendConfirmOrderMail(String mail, CustomerOrder customerOrder) {
         final BasicMail basicMail = new BasicMail(from,
                 mail,
                 "Pizzeria ZPI - Potwierdzenie zamówienia",
-                mailContentFactory.orderMail());
+                mailContentFactory.orderMail(customerOrder.getId(), customerOrder.getPizzas(), customerOrder.getCustoms()));
 
         // TODO
         // Uzupełnić maila opowiednimi danymi z dto

@@ -1,9 +1,13 @@
 package edu.pwr.pizzeria.mail;
 
+import edu.pwr.pizzeria.model.order.CustomPizza;
+import edu.pwr.pizzeria.model.order.OrderedPizza;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
+
+import java.util.List;
 
 @Service
 public class MailContentFactory {
@@ -37,8 +41,11 @@ public class MailContentFactory {
         return templateEngine.process("reset_email", context);
     }
 
-    public String orderMail() {
+    public String orderMail(Long id, List<OrderedPizza> pizzas, List<CustomPizza> customs) {
         final Context context = new Context();
+        context.setVariable("id", id);
+        context.setVariable("pizzas", pizzas.toString());
+        context.setVariable("customs", customs.toString());
         addImages(context);
         return templateEngine.process("confirm_order", context);
     }

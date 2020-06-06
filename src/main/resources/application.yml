@@ -9,7 +9,7 @@ app:
   security:
     secret: LUKASZHEHEHEHE
   mail:
-    apikey:
+    apikey: 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
     from: wroclavbestpizza@gmail.com
     images:
       pizzaLeft: https://burdzi0.github.io/images/pizza_left.jpg
@@ -24,13 +24,5 @@ logging:
       springframework:
         security: DEBUG
 
-spring:
-  jpa:
-    database: postgresql
-    hibernate:
-      ddl-auto: update
-  datasource:
-    url: ${JDBC_DATABASE_URL}
-    username: ${JDBC_DATABASE_USERNAME}
-    password: ${JDBC_DATABASE_PASSWORD}
+
 

@@ -33,6 +33,13 @@ public class CustomerUserService {
         customerUserRepository.save(customerUser);
     }
 
+    @Transactional
+    public Address getAddress(String mail){
+        final var customerUser = customerUserRepository.getCustomerUserByMail(mail)
+                .orElseThrow(() -> new CustomerOrderNotFoundException("Customer does not exist!"));
+        return customerUser.getAddress();
+    }
+
     @Transactional(readOnly = true)
     public List<CustomerOrderFullDto> getCustomerOrders(String name) {
         final var customerUser = customerUserRepository.getCustomerUserByMail(name)

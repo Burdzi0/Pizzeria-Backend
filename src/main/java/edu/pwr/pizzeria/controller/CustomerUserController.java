@@ -34,7 +34,7 @@ public class CustomerUserController {
     }
 
     @GetMapping("/userAddress")
-    public Address getAddress(@Valid @RequestBody Principal principal){
-        return ((CustomerUser) principal).getAddress();
+    public Address getAddress(Principal principal){
+        return customerUserService.getAddress(principal.getName());
     }
 }

@@ -60,12 +60,12 @@ public class MailContentFactory {
     private String toFormattedString(List<OrderedPizza> pizzas){
 
         if(pizzas.isEmpty()) return "";
-        else return pizzas.stream().map(p -> p.toString()).collect(Collectors.toList()).toString();
+        else return pizzas.stream().map(p -> p.toString()).collect(Collectors.joining("")) + "\n\n";
     }
 
     private String toFormattedStringCustoms(List<CustomPizza> pizzas){
 
         if(pizzas.isEmpty()) return "";
-        return pizzas.stream().map(p -> p.toString()).collect(Collectors.toList()).toString();
+        return pizzas.stream().map(p -> p.toString()).collect(Collectors.joining("")) + "\n\n";
     }
 }

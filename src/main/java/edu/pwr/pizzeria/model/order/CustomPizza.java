@@ -91,7 +91,12 @@ public class CustomPizza {
     @Override
     public String toString() {
 
-        String ingredients = pizzaIngredients.stream().map(i -> i.toString()).collect(Collectors.toList()).toString();
+        String ingredients;
+
+        if (!pizzaIngredients.isEmpty())
+            ingredients = pizzaIngredients.stream().map(i -> i.toString()).collect(Collectors.toList()).toString();
+        else ingredients = "brak dodatkowych składników";
+
         return "Twoja pizza: " + crust + " ciasto, średnica: " + diameter + " cm, składniki: " + ingredients;
     }
 }

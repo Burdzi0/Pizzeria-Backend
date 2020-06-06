@@ -122,13 +122,6 @@ public class OrderedPizza {
 
     @Override
     public String toString() {
-        return "OrderedPizza{" +
-                "id=" + id +
-                ", typeName='" + typeName + '\'' +
-                ", ingredients=" + ingredients +
-                ", price=" + price +
-                ", diameter=" + diameter +
-                ", crust=" + crust +
-                '}';
+        return typeName + "(" + crust + " ciasto, " + diameter + " cm";
     }
 }

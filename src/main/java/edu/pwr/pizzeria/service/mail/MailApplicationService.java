@@ -4,7 +4,6 @@ import edu.pwr.pizzeria.mail.BasicMail;
 import edu.pwr.pizzeria.mail.MailContentFactory;
 import edu.pwr.pizzeria.mail.MailService;
 import edu.pwr.pizzeria.model.order.CustomerOrder;
-import edu.pwr.pizzeria.model.order.dto.CustomerOrderDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 

@@ -6,7 +6,10 @@ import edu.pwr.pizzeria.model.pizza.Pizza;
 import edu.pwr.pizzeria.model.pizza.PizzaIngredient;
 import edu.pwr.pizzeria.repository.IngredientRepository;
 import edu.pwr.pizzeria.repository.PizzaRepository;
+import edu.pwr.pizzeria.service.order.calculator.PriceCalculator;
+import edu.pwr.pizzeria.service.order.calculator.StandardPriceCalculator;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -26,10 +29,12 @@ public class RandomPizzaBuilder {
 
     private IngredientRepository ingredientRepository;
     private PizzaRepository pizzaRepository;
+    private PriceCalculator priceCalculator;
 
-    public RandomPizzaBuilder(IngredientRepository ingredientRepository, PizzaRepository pizzaRepository) {
+    public RandomPizzaBuilder(IngredientRepository ingredientRepository, PizzaRepository pizzaRepository, PriceCalculator priceCalculator) {
         this.ingredientRepository = ingredientRepository;
         this.pizzaRepository = pizzaRepository;
+        this.priceCalculator = priceCalculator;
     }
 
     private int generateRandomInt(int upperRange) {
@@ -57,14 +62,17 @@ public class RandomPizzaBuilder {
         ingredientRepository.saveAll(testIngredients);
     }
 
+    @Transactional
     public Pizza generateRandomPizza() {
         final String typeName = generateRandomTypeName();
         final List<PizzaIngredient> ingredients = generateRandomIngredients();
         final int diameter = generateRandomDiameter();
 
         Pizza randomPizza = new Pizza(typeName, ingredients, diameter);
-        randomPizza.computePrice();
+        randomPizza.setPrice20(priceCalculator.calculate20(randomPizza));
+        randomPizza.setPrice30(priceCalculator.calculate30(randomPizza));
 
+        pizzaRepository.save(randomPizza);
         return randomPizza;
     }
 
@@ -105,8 +113,7 @@ public class RandomPizzaBuilder {
         initializeTestIngredients();
 
         for (int i = 0; i < pizzas; i++) {
-            Pizza randomPizza = generateRandomPizza();
-            pizzaRepository.save(randomPizza);
+            generateRandomPizza();
         }
     }
 }

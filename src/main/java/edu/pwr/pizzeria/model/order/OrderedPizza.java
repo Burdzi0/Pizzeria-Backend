@@ -41,6 +41,7 @@ public class OrderedPizza {
         this.typeName = pizza.getTypeName();
         this.ingredients = orderedIngredients(pizza.getIngredients());
         this.diameter = pizza.getDiameter();
+        this.price = pizza.getDiameter() == Pizza.SMALL_DIAMETER ? pizza.getPrice20() : pizza.getPrice30();
         crust = PizzaCrust.CIENKIE;
     }
 

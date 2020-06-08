@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @RestController
 @RequestMapping(value = "/v1/order")
@@ -26,8 +27,8 @@ public class CustomerOrderController {
             @ApiResponse(code = 400, message = "Suggested status doesn't follow the set order")
     })
     @PostMapping("")
-    public void acceptOrder(@RequestBody @Valid CustomerOrderDto customerOrderDto) {
-        customerOrderService.createOrder(customerOrderDto);
+    public void acceptOrder(@RequestBody @Valid CustomerOrderDto customerOrderDto, Principal principal) {
+        customerOrderService.createOrder(customerOrderDto, principal.getName());
     }
 
     @ApiResponses({

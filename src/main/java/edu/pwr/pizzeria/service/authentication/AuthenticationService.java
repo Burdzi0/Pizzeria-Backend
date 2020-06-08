@@ -61,7 +61,7 @@ public class AuthenticationService {
         final UserDetails userDetails = userDetailsService.loadUserByUsername(credentialsDto.getMail());
         final String jwt = jwtUtil.generateToken(userDetails);
 
-        return new TokenDto(jwt);
+        return new TokenDto(jwt, userDetails.getAuthorities());
     }
 
     private void authenticate(CredentialsDto credentialsDto) {

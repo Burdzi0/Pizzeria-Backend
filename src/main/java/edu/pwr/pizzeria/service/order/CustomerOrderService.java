@@ -15,7 +15,6 @@ import edu.pwr.pizzeria.service.mail.MailApplicationService;
 import edu.pwr.pizzeria.service.order.calculator.PriceCalculator;
 import edu.pwr.pizzeria.service.order.dto.CustomerOrderViewDto;
 import edu.pwr.pizzeria.service.pizza.PizzaNotFoundException;
-import edu.pwr.pizzeria.service.user.CustomerUserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -140,3 +139,4 @@ public class CustomerOrderService {
         return customerOrder.getPayment();
     }
 }
+

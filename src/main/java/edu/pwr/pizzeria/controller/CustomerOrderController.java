@@ -46,8 +46,8 @@ public class CustomerOrderController {
             @ApiResponse(code = 200, message = "Payment method delivered"),
             @ApiResponse(code = 204, message = "Payment method is not specified")
     })
-    @PostMapping("/payment")
-    public void getPaymentMethod(@RequestBody @Valid CustomerOrderDto customerOrderDto, Principal principal) {
-        customerOrderService.getPayment();
+    @GetMapping("/payment")
+    public String getPaymentMethod(@RequestBody @Valid Long id) {
+        return customerOrderService.getPayment(id);
     }
 }

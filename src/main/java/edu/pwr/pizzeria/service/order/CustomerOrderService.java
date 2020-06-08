@@ -11,8 +11,8 @@ import edu.pwr.pizzeria.repository.CustomerOrderRepository;
 import edu.pwr.pizzeria.repository.IngredientRepository;
 import edu.pwr.pizzeria.repository.OrderedPizzaRepository;
 import edu.pwr.pizzeria.repository.PizzaRepository;
-import edu.pwr.pizzeria.service.mail.MailApplicationService;
 import edu.pwr.pizzeria.service.ingredient.IngredientNotFoundException;
+import edu.pwr.pizzeria.service.mail.MailApplicationService;
 import edu.pwr.pizzeria.service.order.calculator.PriceCalculator;
 import edu.pwr.pizzeria.service.order.dto.CustomerOrderViewDto;
 import edu.pwr.pizzeria.service.pizza.PizzaNotFoundException;
@@ -50,12 +50,8 @@ public class CustomerOrderService {
         final CustomerOrder customerOrder = customerOrderRepository.findById(id)
                 .orElseThrow(() -> new CustomerOrderNotFoundException("CustomerOrder with id:" + id + " not found"));
 
-        try {
-            if(ifCorrectOrder(customerOrder.getStatus(), newStatus))
-                customerOrder.setStatus(newStatus);
-        } catch (WrongOrderStatusException exc) {
-
-        }
+        if (ifCorrectOrder(customerOrder.getStatus(), newStatus))
+            customerOrder.setStatus(newStatus);
 
         customerOrderRepository.save(customerOrder);
     }

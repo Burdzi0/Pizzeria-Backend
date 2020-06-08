@@ -43,6 +43,8 @@ public class Pizza {
         this.typeName = pizza.typeName;
         this.ingredients = pizza.ingredients;
         this.diameter = pizza.diameter;
+        this.price20 = pizza.price20;
+        this.price30 = pizza.price30;
         crust = PizzaCrust.CIENKIE;
     }
 
@@ -104,7 +106,6 @@ public class Pizza {
     }
 
     public void computePrice() {
-
         double sum = 0.0;
 
         switch(crust){

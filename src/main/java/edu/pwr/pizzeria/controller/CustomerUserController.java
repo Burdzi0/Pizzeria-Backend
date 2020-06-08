@@ -1,9 +1,7 @@
 package edu.pwr.pizzeria.controller;
 
 import edu.pwr.pizzeria.model.order.dto.CustomerOrderFullDto;
-import edu.pwr.pizzeria.model.user.Address;
 import edu.pwr.pizzeria.model.user.AddressDto;
-import edu.pwr.pizzeria.model.user.CustomerUser;
 import edu.pwr.pizzeria.service.user.CustomerUserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +32,7 @@ public class CustomerUserController {
     }
 
     @GetMapping("/userAddress")
-    public Address getAddress(Principal principal){
+    public AddressDto getAddress(Principal principal) {
         return customerUserService.getAddress(principal.getName());
     }
 }

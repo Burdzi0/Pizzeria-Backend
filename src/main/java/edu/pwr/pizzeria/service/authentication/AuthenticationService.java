@@ -11,6 +11,7 @@ import edu.pwr.pizzeria.security.JwtUtil;
 import edu.pwr.pizzeria.service.mail.MailApplicationService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
@@ -25,6 +26,7 @@ import java.util.UUID;
 import static edu.pwr.pizzeria.model.user.Role.ROLE_USER;
 
 @Service
+@Primary
 public class AuthenticationService {
 
     private final Logger logger = LogManager.getLogger(this.getClass());

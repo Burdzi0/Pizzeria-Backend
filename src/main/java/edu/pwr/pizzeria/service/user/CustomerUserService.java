@@ -34,10 +34,10 @@ public class CustomerUserService {
     }
 
     @Transactional
-    public Address getAddress(String mail){
+    public AddressDto getAddress(String mail){
         final var customerUser = customerUserRepository.getCustomerUserByMail(mail)
                 .orElseThrow(() -> new CustomerOrderNotFoundException("Customer does not exist!"));
-        return customerUser.getAddress();
+        return AddressDto.toDto(customerUser.getAddress());
     }
 
     @Transactional(readOnly = true)

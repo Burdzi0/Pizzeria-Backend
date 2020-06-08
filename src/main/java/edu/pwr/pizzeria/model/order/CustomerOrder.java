@@ -29,6 +29,7 @@ public class CustomerOrder {
     private CustomerUser customerUser;
 
     private BigDecimal total;
+    private String payment;
     private Instant date;
     private CustomerOrderStatus status;
 
@@ -68,6 +69,14 @@ public class CustomerOrder {
         this.total = total;
     }
 
+    public String getPayment() {
+        return payment;
+    }
+
+    public void setPayment(String payment) {
+        this.payment = payment;
+    }
+
     public Instant getDate() {
         return date;
     }
@@ -100,21 +109,6 @@ public class CustomerOrder {
         this.customerUser = customerUser;
     }
 
-    public void computeTotal() {
-
-        double sum = 0.0;
-
-        for (OrderedPizza pizza : pizzas) {
-            sum += pizza.getPrice().doubleValue();
-        }
-
-        for (CustomPizza customPizza : customs) {
-            sum += customPizza.getPrice().doubleValue();
-        }
-
-        total = BigDecimal.valueOf(sum);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -124,14 +118,16 @@ public class CustomerOrder {
                 Objects.equals(pizzas, that.pizzas) &&
                 Objects.equals(customs, that.customs) &&
                 Objects.equals(address, that.address) &&
+                Objects.equals(customerUser, that.customerUser) &&
                 Objects.equals(total, that.total) &&
+                Objects.equals(payment, that.payment) &&
                 Objects.equals(date, that.date) &&
                 status == that.status;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, pizzas, customs, address, total, date, status);
+        return Objects.hash(id, pizzas, customs, address, customerUser, total, payment, date, status);
     }
 
     @Override
@@ -141,7 +137,9 @@ public class CustomerOrder {
                 ", pizzas=" + pizzas +
                 ", customs=" + customs +
                 ", address=" + address +
+                ", customerUser=" + customerUser +
                 ", total=" + total +
+                ", payment='" + payment + '\'' +
                 ", date=" + date +
                 ", status=" + status +
                 '}';

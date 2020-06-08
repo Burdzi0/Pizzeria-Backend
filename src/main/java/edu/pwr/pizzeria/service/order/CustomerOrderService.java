@@ -131,4 +131,12 @@ public class CustomerOrderService {
                 .map(CustomerOrderViewDto::toDto)
                 .collect(Collectors.toUnmodifiableList());
     }
+
+    @Transactional(readOnly = true)
+    public String getPayment(Long id) {
+       final CustomerOrder customerOrder = customerOrderRepository.findById(id)
+               .orElseThrow(() -> new CustomerOrderNotFoundException("CustomerOrder with id:" + id + " not found"));
+
+        return customerOrder.getPayment();
+    }
 }

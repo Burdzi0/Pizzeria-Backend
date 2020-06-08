@@ -41,4 +41,13 @@ public class CustomerOrderController {
     public void requestOrderStatusChange(@RequestBody @Valid ChangeStatusRequestDto changeStatusRequestDto) {
         customerOrderService.advanceStatus(changeStatusRequestDto.getId(), changeStatusRequestDto.getNewOrderStatus());
     }
+
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Payment method delivered"),
+            @ApiResponse(code = 204, message = "Payment method is not specified")
+    })
+    @PostMapping("/payment")
+    public void getPaymentMethod(@RequestBody @Valid CustomerOrderDto customerOrderDto, Principal principal) {
+        customerOrderService.getPayment();
+    }
 }

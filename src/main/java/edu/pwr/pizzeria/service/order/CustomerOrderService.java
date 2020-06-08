@@ -1,5 +1,6 @@
 package edu.pwr.pizzeria.service.order;
 
+import edu.pwr.pizzeria.exception.UserNotFoundException;
 import edu.pwr.pizzeria.model.order.*;
 import edu.pwr.pizzeria.model.order.dto.CustomPizzaDto;
 import edu.pwr.pizzeria.model.order.dto.CustomerOrderDto;
@@ -7,15 +8,14 @@ import edu.pwr.pizzeria.model.order.dto.StandardPizzaDto;
 import edu.pwr.pizzeria.model.pizza.Pizza;
 import edu.pwr.pizzeria.model.user.Address;
 import edu.pwr.pizzeria.model.user.AddressDto;
-import edu.pwr.pizzeria.repository.CustomerOrderRepository;
-import edu.pwr.pizzeria.repository.IngredientRepository;
-import edu.pwr.pizzeria.repository.OrderedPizzaRepository;
-import edu.pwr.pizzeria.repository.PizzaRepository;
+import edu.pwr.pizzeria.model.user.CustomerUser;
+import edu.pwr.pizzeria.repository.*;
 import edu.pwr.pizzeria.service.ingredient.IngredientNotFoundException;
 import edu.pwr.pizzeria.service.mail.MailApplicationService;
 import edu.pwr.pizzeria.service.order.calculator.PriceCalculator;
 import edu.pwr.pizzeria.service.order.dto.CustomerOrderViewDto;
 import edu.pwr.pizzeria.service.pizza.PizzaNotFoundException;
+import edu.pwr.pizzeria.service.user.CustomerUserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,14 +30,16 @@ import static java.time.Instant.now;
 public class CustomerOrderService {
 
     private CustomerOrderRepository customerOrderRepository;
+    private CustomerUserRepository customerUserRepository;
     private PizzaRepository pizzaRepository;
     private OrderedPizzaRepository orderedPizzaRepository;
     private IngredientRepository ingredientRepository;
     private PriceCalculator priceCalculator;
     private MailApplicationService mailApplicationService;
 
-    public CustomerOrderService(CustomerOrderRepository customerOrderRepository, PizzaRepository pizzaRepository, OrderedPizzaRepository orderedPizzaRepository, IngredientRepository ingredientRepository, PriceCalculator priceCalculator, MailApplicationService mailApplicationService) {
+    public CustomerOrderService(CustomerOrderRepository customerOrderRepository, CustomerUserRepository customerUserRepository, PizzaRepository pizzaRepository, OrderedPizzaRepository orderedPizzaRepository, IngredientRepository ingredientRepository, PriceCalculator priceCalculator, MailApplicationService mailApplicationService) {
         this.customerOrderRepository = customerOrderRepository;
+        this.customerUserRepository = customerUserRepository;
         this.pizzaRepository = pizzaRepository;
         this.orderedPizzaRepository = orderedPizzaRepository;
         this.ingredientRepository = ingredientRepository;
@@ -61,12 +63,16 @@ public class CustomerOrderService {
     }
 
     @Transactional
-    public void createOrder(CustomerOrderDto customerOrderDto) {
+    public void createOrder(CustomerOrderDto customerOrderDto, String mail) {
+        final CustomerUser customerUser = customerUserRepository.getCustomerUserByMail(mail)
+                .orElseThrow(() -> new UserNotFoundException("User not found!"));
+
         final var newCustomerOrder = new CustomerOrder();
         newCustomerOrder.setCustoms(createCustoms(customerOrderDto.getCustoms()));
         newCustomerOrder.setPizzas(getStandards(customerOrderDto.getStandards()));
         newCustomerOrder.setDate(now());
         newCustomerOrder.setAddress(createAddress(customerOrderDto.getAddress()));
+        newCustomerOrder.setCustomerUser(customerUser);
         newCustomerOrder.setTotal(priceCalculator.calculate(newCustomerOrder));
 
         customerOrderRepository.save(newCustomerOrder);

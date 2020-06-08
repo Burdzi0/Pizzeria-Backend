@@ -15,23 +15,23 @@ public class StandardPriceCalculator implements PriceCalculator {
 
     @Override
     public BigDecimal calculate(CustomerOrder customerOrder) {
+        final BigDecimal standardsPrice = customerOrder.getPizzas()
+                .stream()
+                .map(OrderedPizza::getPrice)
+                .reduce(BigDecimal::add)
+                .orElse(BigDecimal.ZERO);
 
-        double sum = 0.0;
+        final BigDecimal customsPrice = customerOrder.getCustoms()
+                .stream()
+                .map(this::calculatePizza)
+                .reduce(BigDecimal::add)
+                .orElse(BigDecimal.ZERO);
 
-        for (OrderedPizza pizza : customerOrder.getPizzas()) {
-            sum += pizza.getPrice().doubleValue();
-        }
-
-        for (CustomPizza customPizza : customerOrder.getCustoms()) {
-            sum += customPizza.getPrice().doubleValue();
-        }
-
-        return BigDecimal.valueOf(sum);
+        return standardsPrice.add(customsPrice);
     }
 
     @Override
     public BigDecimal calculatePizza(CustomPizza customPizza) {
-
         double sum = 0.0;
 
         switch(customPizza.getCrust()){
@@ -45,9 +45,8 @@ public class StandardPriceCalculator implements PriceCalculator {
             sum += ingredient.getPrice().doubleValue() * ingredient.getQuantity();
         }
 
-        switch (customPizza.getDiameter()){
-            case BIG_DIAMETER:
-                sum *= 1.5;
+        if (customPizza.getDiameter() == BIG_DIAMETER) {
+            sum *= 1.5;
         }
 
         return BigDecimal.valueOf(sum);

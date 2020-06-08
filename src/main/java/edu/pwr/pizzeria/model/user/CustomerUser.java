@@ -1,5 +1,6 @@
 package edu.pwr.pizzeria.model.user;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
@@ -11,7 +12,7 @@ public class CustomerUser extends User {
     @Column(nullable = false)
     private boolean active;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Address address;
 
     public CustomerUser() {

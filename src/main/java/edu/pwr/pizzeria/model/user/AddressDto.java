@@ -7,17 +7,17 @@ public class AddressDto {
 
     private String street;
     private String number;
-    private String phoneNumber;
+    private String phone;
     private String email;
 
     @JsonCreator
     public AddressDto(@JsonProperty("street") String street,
                       @JsonProperty("number") String number,
-                      @JsonProperty("phone") String phoneNumber,
+                      @JsonProperty("phone") String phone,
                       @JsonProperty("email") String email) {
         this.street = street;
         this.number = number;
-        this.phoneNumber = phoneNumber;
+        this.phone = phone;
         this.email = email;
     }
 
@@ -42,11 +42,11 @@ public class AddressDto {
     }
 
     public String getPhoneNumber() {
-        return phoneNumber;
+        return phone;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhoneNumber(String phone) {
+        this.phone = phone;
     }
 
     public String getEmail() {
@@ -62,7 +62,7 @@ public class AddressDto {
         return "AddressDto{" +
                 "street='" + street + '\'' +
                 ", number=" + number +
-                ", phoneNumber='" + phoneNumber + '\'' +
+                ", phoneNumber='" + phone + '\'' +
                 ", email='" + email + '\'' +
                 '}';
     }

@@ -39,6 +39,6 @@ public class CustomerOrderController {
     @PostMapping("/advance")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void requestOrderStatusChange(@RequestBody @Valid ChangeStatusRequestDto changeStatusRequestDto) {
-        customerOrderService.advanceStatus(changeStatusRequestDto.getId(), changeStatusRequestDto.getNewOrderStatus());
+        customerOrderService.advanceStatus(changeStatusRequestDto.getId(), changeStatusRequestDto.getNewOrderStatus().getState());
     }
 }

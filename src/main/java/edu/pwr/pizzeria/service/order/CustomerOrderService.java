@@ -47,18 +47,22 @@ public class CustomerOrderService {
     }
 
     @Transactional
-    public void advanceStatus(Long id, CustomerOrderStatus newStatus) {
+    public void advanceStatus(Long id, String newStatus) {
         final CustomerOrder customerOrder = customerOrderRepository.findById(id)
                 .orElseThrow(() -> new CustomerOrderNotFoundException("CustomerOrder with id:" + id + " not found"));
 
-        if (ifCorrectOrder(customerOrder.getStatus(), newStatus))
-            customerOrder.setStatus(newStatus);
+        switch (newStatus) {
+            case "W TRAKCIE REALIZACJI":
+                if (customerOrder.getStatus().equals(COOK_AWAITING)) customerOrder.setStatus(COOK_IN_PROGRESS);
+            case "OCZEKUJĄCE NA DOSTAWĘ":
+                if (customerOrder.getStatus().equals(COOK_IN_PROGRESS)) customerOrder.setStatus(DELIVERY_AWAITING);
+            case "W DRODZE":
+                if (customerOrder.getStatus().equals(DELIVERY_AWAITING)) customerOrder.setStatus(DELIVERY_IN_PROGRESS);
+            case "DOSTARCZONE":
+                if (customerOrder.getStatus().equals(DELIVERY_IN_PROGRESS)) customerOrder.setStatus(DELIVERY_READY);
+        }
 
         customerOrderRepository.save(customerOrder);
-    }
-
-    private boolean ifCorrectOrder(CustomerOrderStatus currentStatus, CustomerOrderStatus newStatus) {
-        return currentStatus.getOrdinalNumber() == newStatus.getOrdinalNumber() - 1;
     }
 
     @Transactional
@@ -133,8 +137,8 @@ public class CustomerOrderService {
 
     @Transactional(readOnly = true)
     public String getPayment(Long id) {
-       final CustomerOrder customerOrder = customerOrderRepository.findById(id)
-               .orElseThrow(() -> new CustomerOrderNotFoundException("CustomerOrder with id:" + id + " not found"));
+        final CustomerOrder customerOrder = customerOrderRepository.findById(id)
+                .orElseThrow(() -> new CustomerOrderNotFoundException("CustomerOrder with id:" + id + " not found"));
 
         return customerOrder.getPayment();
     }

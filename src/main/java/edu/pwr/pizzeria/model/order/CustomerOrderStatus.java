@@ -4,22 +4,16 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum CustomerOrderStatus {
 
-    COOK_AWAITING("OCZEKUJĄCE NA PRZYGOTOWANIE", 1),
-    COOK_IN_PROGRESS("W TRAKCIE REALIZACJI", 2),
-    DELIVERY_AWAITING("OCZEKUJĄCE NA DOSTAWĘ", 3),
-    DELIVERY_IN_PROGRESS("W DRODZE", 4),
-    DELIVERY_READY("DOSTARCZONE", 5);
+    COOK_AWAITING("OCZEKUJĄCE NA PRZYGOTOWANIE"),
+    COOK_IN_PROGRESS("W TRAKCIE REALIZACJI"),
+    DELIVERY_AWAITING("OCZEKUJĄCE NA DOSTAWĘ"),
+    DELIVERY_IN_PROGRESS("W DRODZE"),
+    DELIVERY_READY("DOSTARCZONE");
 
     private String state;
-    private int ordinalNumber;
 
-    CustomerOrderStatus(String state, int ordinalNumber) {
+    CustomerOrderStatus(String state) {
         this.state = state;
-        this.ordinalNumber = ordinalNumber;
-    }
-
-    public int getOrdinalNumber() {
-        return ordinalNumber;
     }
 
     @JsonValue
@@ -31,7 +25,6 @@ public enum CustomerOrderStatus {
     public String toString() {
         return "CustomerOrderStatus{" +
                 "state='" + state + '\'' +
-                ", ordinalNumber=" + ordinalNumber +
                 '}';
     }
 }

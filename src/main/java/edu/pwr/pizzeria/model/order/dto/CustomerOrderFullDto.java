@@ -14,6 +14,7 @@ import java.util.stream.Stream;
 
 public class CustomerOrderFullDto {
 
+    private Long id;
     private AddressDto address;
     private List<OrderedPizzaDto> orderedPizzas;
     private BigDecimal total;
@@ -21,11 +22,13 @@ public class CustomerOrderFullDto {
     private CustomerOrderStatus status;
 
     @JsonCreator
-    public CustomerOrderFullDto(@JsonProperty("address") AddressDto address,
+    public CustomerOrderFullDto(@JsonProperty("id") Long id,
+                                @JsonProperty("address") AddressDto address,
                                 @JsonProperty("orderedPizzas") List<OrderedPizzaDto> orderedPizzas,
                                 @JsonProperty("total") BigDecimal total,
                                 @JsonProperty("date") Instant date,
                                 @JsonProperty("status") CustomerOrderStatus status) {
+        this.id = id;
         this.address = address;
         this.orderedPizzas = orderedPizzas;
         this.total = total;
@@ -43,12 +46,15 @@ public class CustomerOrderFullDto {
                 .map(OrderedPizzaDto::toDto);
 
         final var address = AddressDto.toDto(customerOrder.getAddress());
-        return new CustomerOrderFullDto(address,
+        return new CustomerOrderFullDto(customerOrder.getId(),
+                address,
                 Stream.concat(customs, standards).collect(Collectors.toUnmodifiableList()),
                 customerOrder.getTotal(),
                 customerOrder.getDate(),
                 customerOrder.getStatus());
     }
+
+    public Long getId() { return id; }
 
     public AddressDto getAddress() {
         return address;

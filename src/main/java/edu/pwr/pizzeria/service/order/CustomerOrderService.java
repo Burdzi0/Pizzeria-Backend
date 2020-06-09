@@ -89,6 +89,21 @@ public class CustomerOrderService {
         mailApplicationService.sendConfirmOrderMail(addressDto.getEmail(), newCustomerOrder);
     }
 
+    @Transactional
+    public void createOrder(CustomerOrderDto customerOrderDto) {
+        final var newCustomerOrder = new CustomerOrder();
+        newCustomerOrder.setCustoms(createCustoms(customerOrderDto.getCustoms()));
+        newCustomerOrder.setPizzas(getStandards(customerOrderDto.getStandards()));
+        newCustomerOrder.setDate(now());
+        newCustomerOrder.setAddress(createAddress(customerOrderDto.getAddress()));
+        newCustomerOrder.setTotal(priceCalculator.calculate(newCustomerOrder));
+
+        customerOrderRepository.save(newCustomerOrder);
+
+        final AddressDto addressDto = customerOrderDto.getAddress();
+        mailApplicationService.sendConfirmOrderMail(addressDto.getEmail(), newCustomerOrder);
+    }
+
     private Address createAddress(AddressDto addressDto) {
         return new Address(addressDto.getStreet(), addressDto.getNumber(), addressDto.getPhoneNumber(), addressDto.getEmail());
     }

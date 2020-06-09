@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -27,8 +28,13 @@ public class CustomerOrderController {
             @ApiResponse(code = 400, message = "Suggested status doesn't follow the set order")
     })
     @PostMapping("")
-    public void acceptOrder(@RequestBody @Valid CustomerOrderDto customerOrderDto, Principal principal) {
-        customerOrderService.createOrder(customerOrderDto, principal.getName());
+    public void acceptOrder(@RequestBody @Valid CustomerOrderDto customerOrderDto) {
+        Principal principal = SecurityContextHolder.getContext().getAuthentication();
+        if (principal.getName().equals("anonymousUser")) {
+            customerOrderService.createOrder(customerOrderDto);
+        } else {
+            customerOrderService.createOrder(customerOrderDto, principal.getName());
+        }
     }
 
     @ApiResponses({

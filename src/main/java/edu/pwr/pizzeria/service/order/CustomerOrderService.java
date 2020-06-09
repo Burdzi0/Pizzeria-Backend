@@ -54,12 +54,16 @@ public class CustomerOrderService {
         switch (newStatus) {
             case "W TRAKCIE REALIZACJI":
                 if (customerOrder.getStatus().equals(COOK_AWAITING)) customerOrder.setStatus(COOK_IN_PROGRESS);
+                break;
             case "OCZEKUJĄCE NA DOSTAWĘ":
                 if (customerOrder.getStatus().equals(COOK_IN_PROGRESS)) customerOrder.setStatus(DELIVERY_AWAITING);
+                break;
             case "W DRODZE":
                 if (customerOrder.getStatus().equals(DELIVERY_AWAITING)) customerOrder.setStatus(DELIVERY_IN_PROGRESS);
+                break;
             case "DOSTARCZONE":
                 if (customerOrder.getStatus().equals(DELIVERY_IN_PROGRESS)) customerOrder.setStatus(DELIVERY_READY);
+                break;
         }
 
         customerOrderRepository.save(customerOrder);

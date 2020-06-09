@@ -81,6 +81,7 @@ public class CustomerOrderService {
         newCustomerOrder.setAddress(createAddress(customerOrderDto.getAddress()));
         newCustomerOrder.setCustomerUser(customerUser);
         newCustomerOrder.setTotal(priceCalculator.calculate(newCustomerOrder));
+        newCustomerOrder.setPayment(customerOrderDto.getPayment());
 
         customerOrderRepository.save(newCustomerOrder);
 

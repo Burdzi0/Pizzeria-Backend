@@ -2,6 +2,13 @@ os: linux
 dist: bionic
 language: java
 jdk: openjdk11
+stages:
+- Tests
+- Build
+- name: GitHub Release
+  if: branch = master
+- name: Deploy Heroku
+  if: branch = development
 jobs:
   include:
   - stage: Tests
@@ -21,8 +28,8 @@ jobs:
     deploy:
       provider: heroku
       api_key:
-        secure: QDejbr0HtKssTOKoLwOrX/CJsA/A62+8im9WpBrGnVj/L7fpULCv7gsIOFRSiDXvEZ+ybk55Ps6kJk3Bi+qZKxSBuQXxTC58QgneCB2lKPRQ9VtNLHfUBr2AXT/TFfyVSJvny1+5ject3RkKs1kQJQvhZ1ZOf5ZQmnRYbSbiUhyS86axuv/29PwtxbojeGGFWaxNCktN4hiJJYjtrEbJeTXlmVPC71g1EUnM0qNcu4ihunWUiW5x//RY6NDxIaPYtzIJLmVRmxncQF5+NfveU4+N7uSSb4CL3N2qloJjbg/+sbexiOR0ZzVGSuU+oTMiZlh9jNys9EBuQceesbS5r1miXSQ4x0LUFxgoKulRRj1TaV0x+t3QSvsusRXdwwel7S/Y+bcnaMMlAJ057TxZlmZZqW8p9B0ZTlN7YbTT/NEQEwD2x5ufRUzWqfEeKWB3sc2DrDWNjeBmvX7/7O5XHz/vluZociEZU78EJ4zSnmd3UZpDI3kUf7DQqUOfjtT93yax3phhQ0aPBUim93iUdDRrEiXG+XutpwhokaosL7n6/HSG9zEd59wMfADBizGfY5S3nKEqn+fJ7uU7l4faoVxYFW6Ur+lhl8GuINj5Vpuri+yB2Z0Z9i4JQ8OORXjxwpd/cvQ0YCaIJfGtcNRuNLs8DCGQgQf23+sFjzMv2HY=
+        secure: EHupeM87B14iTloShgncqK9vHaWZiAdAhwOM7YO0wKJtKpfaWDFuJ4TckLAL+k0UZ8v5sPJmY5ENUNJC5FOaxVhrurCf+CnrdGV4Q/0e/5H37RlOUgDGvoSHSbCZ0PqNSzpbLeMbqKgRnFCK3302iU+c8KRkhLr+jk7SR1uMWh6JFGnnocZqtcTy2DiM5YeioGbu1619FyDDyeMadCocrnhfvsQa+/FaV0TOZStP2riMZ6o4GuxgJ1XqeQWs3PiKDDMHCkIgk5QzV66sbkr4epuAO3ulBLW5zWWKHY08iecpzogPtZ8x0jeKq0ehd12MJcZe1R/jH/ozUfHmCwuQfYpsdV7SuqbaIbKnimmB3otWHWis69aVsiiN3Af4Mu7Q4RkrifH05NRX5v+Uq7HRLpXHdakaoJAwhps1dr5zihcW5fq9aHetzz03gH8SbTzT6UXmWtiOq9Q2NLJ+ptniybaMZbSVhZjHCW2hAIKeH/0jQhsuWeeTuAp2hYHKC8Ai1Y3hTs2ZigEmba04r7gA0pfAXKhKLCr1kJ8RyXYPAmAczKtPpB3pMjTAdn4zO/Kbr5QcSjAqmHTUv0+Xf5zIz+Gf7RQXAiJbmrEqLeJz3QeQBC6sYyGummMlSU3eOC9QGH/wBCvPmNqEp9p5Inx8edCy95BpgJuODyf6Igug72I=
       app: pizzeria-backend-zpi
       on:
-        branch: master
+        branch: development
         repo: Burdzi0/Pizzeria-Backend
